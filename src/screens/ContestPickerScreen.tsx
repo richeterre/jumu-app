@@ -5,6 +5,7 @@ import ContestRow from "../components/ContestRow";
 import { NavigationScreenProps } from "react-navigation";
 import Divider from "../components/Divider";
 import { ContestPickerComponent } from "../graphql/types/generated";
+import SafeAreaListFooter from "../components/SafeAreaListFooter";
 
 gql`
   query ContestPicker {
@@ -46,6 +47,7 @@ const ContestPickerScreen: React.FC<Props> = props => {
               )}
               keyExtractor={item => item.id}
               ItemSeparatorComponent={Divider}
+              ListFooterComponent={SafeAreaListFooter}
             />
           );
         }

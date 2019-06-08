@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, StyleSheet, View, Text } from "react-native";
+import { FlatList, Text } from "react-native";
 import { NavigationScreenProps } from "react-navigation";
 import { gql } from "apollo-boost";
 import PerformanceRow from "../components/PerformanceRow";
@@ -10,6 +10,7 @@ import {
   ContestQueryComponent,
   Stage
 } from "../graphql/types/generated";
+import SafeAreaListFooter from "../components/SafeAreaListFooter";
 
 gql`
   query ContestQuery($contestId: ID!, $filter: PerformanceFilter) {
@@ -51,65 +52,58 @@ class ContestScreen extends Component<Props> {
     const { id, dates, stages } = this.props.navigation.getParam("contest");
 
     return (
-      <View style={styles.root}>
-        <ContestQueryComponent
-          variables={{
-            contestId: id,
-            filter: {
-              stageDate: this.state.selectedDate,
-              stageId: this.state.selectedStage.id
-            }
-          }}
-        >
-          {result => {
-            if (result.error) {
-              return <Text>Error!</Text>;
-            } else if (result.loading) {
-              return <Text>Loading...</Text>;
-            } else if (result.data) {
-              return (
-                <View>
-                  <OptionPicker
-                    options={dates}
-                    formatOption={date => date}
-                    selectedOption={this.state.selectedDate}
-                    onSelectOption={date =>
-                      this.setState({ selectedDate: date })
-                    }
-                  />
-                  <OptionPicker
-                    options={stages}
-                    formatOption={stage => stage.name}
-                    selectedOption={this.state.selectedStage}
-                    onSelectOption={stage =>
-                      this.setState({ selectedStage: stage })
-                    }
-                  />
-                  <FlatList
-                    data={result.data.performances}
-                    renderItem={({ item }) => (
-                      <PerformanceRow
-                        stageTime={item.stageTime}
-                        categoryInfo={item.categoryInfo}
-                        appearances={item.appearances}
-                      />
-                    )}
-                    keyExtractor={item => item.id}
-                    ItemSeparatorComponent={Divider}
-                  />
-                </View>
-              );
-            }
-            return null;
-          }}
-        </ContestQueryComponent>
-      </View>
+      <ContestQueryComponent
+        variables={{
+          contestId: id,
+          filter: {
+            stageDate: this.state.selectedDate,
+            stageId: this.state.selectedStage.id
+          }
+        }}
+      >
+        {result => {
+          if (result.error) {
+            return <Text>Error!</Text>;
+          } else if (result.loading) {
+            return <Text>Loading...</Text>;
+          } else if (result.data) {
+            return (
+              <>
+                <OptionPicker
+                  options={dates}
+                  formatOption={date => date}
+                  selectedOption={this.state.selectedDate}
+                  onSelectOption={date => this.setState({ selectedDate: date })}
+                />
+                <OptionPicker
+                  options={stages}
+                  formatOption={stage => stage.name}
+                  selectedOption={this.state.selectedStage}
+                  onSelectOption={stage =>
+                    this.setState({ selectedStage: stage })
+                  }
+                />
+                <FlatList
+                  data={result.data.performances}
+                  renderItem={({ item }) => (
+                    <PerformanceRow
+                      stageTime={item.stageTime}
+                      categoryInfo={item.categoryInfo}
+                      appearances={item.appearances}
+                    />
+                  )}
+                  keyExtractor={item => item.id}
+                  ItemSeparatorComponent={Divider}
+                  ListFooterComponent={SafeAreaListFooter}
+                />
+              </>
+            );
+          }
+          return null;
+        }}
+      </ContestQueryComponent>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root: {}
-});
 
 export default ContestScreen;
