@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "upgrade": "npm-check --update"
   },
   "dependencies": {
     "apollo-boost": "^0.4.0",
@@ -25,6 +26,7 @@
     "babel-jest": "24.8.0",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.54.1",
+    "npm-check": "^5.9.0",
     "react-test-renderer": "16.8.3",
     "typescript": "3.5.1"
   },
