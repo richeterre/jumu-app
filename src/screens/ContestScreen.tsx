@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import { NavigationScreenProps } from "react-navigation";
 import { Query } from "react-apollo";
-import { gql } from "apollo-boost/lib/index";
+import { gql } from "apollo-boost";
 import PerformanceRow from "../components/PerformanceRow";
 import Divider from "../components/Divider";
 import OptionPicker from "../components/OptionPicker";

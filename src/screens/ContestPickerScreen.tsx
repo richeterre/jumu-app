@@ -1,5 +1,5 @@
 import React from "react";
-import { gql } from "apollo-boost/lib/index";
+import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import { FlatList, Text, StyleSheet } from "react-native";
 import ContestRow from "../components/ContestRow";
