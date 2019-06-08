@@ -1,26 +1,13 @@
 import React from "react";
 import { gql } from "apollo-boost";
-import { Query } from "react-apollo";
 import { FlatList, Text, StyleSheet } from "react-native";
 import ContestRow from "../components/ContestRow";
 import { NavigationScreenProps } from "react-navigation";
 import Divider from "../components/Divider";
+import { ContestPickerComponent } from "../graphql/types/generated";
 
-export interface Contest {
-  id: string;
-  name: string;
-  countryCode: string;
-  dates: string[];
-  stages: Stage[];
-}
-
-export interface Stage {
-  id: string;
-  name: string;
-}
-
-const CONTEST_PICKER_QUERY = gql`
-  {
+gql`
+  query ContestPicker {
     contests {
       id
       name
@@ -36,11 +23,9 @@ const CONTEST_PICKER_QUERY = gql`
 
 interface Props extends NavigationScreenProps {}
 
-class ContestPickerQuery extends Query<{ contests: Contest[] }> {}
-
 const ContestPickerScreen: React.FC<Props> = props => {
   return (
-    <ContestPickerQuery query={CONTEST_PICKER_QUERY}>
+    <ContestPickerComponent>
       {result => {
         if (result.error) {
           return <Text>Error!</Text>;
@@ -66,7 +51,7 @@ const ContestPickerScreen: React.FC<Props> = props => {
         }
         return null;
       }}
-    </ContestPickerQuery>
+    </ContestPickerComponent>
   );
 };
 

@@ -1,29 +1,17 @@
 import React, { Component } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import { NavigationScreenProps } from "react-navigation";
-import { Query } from "react-apollo";
 import { gql } from "apollo-boost";
 import PerformanceRow from "../components/PerformanceRow";
 import Divider from "../components/Divider";
 import OptionPicker from "../components/OptionPicker";
-import { Contest, Stage } from "./ContestPickerScreen";
+import {
+  Contest,
+  ContestQueryComponent,
+  Stage
+} from "../graphql/types/generated";
 
-interface Performance {
-  id: string;
-  stageTime: string;
-  categoryInfo: string;
-  appearances: string[];
-}
-
-class ContestQuery extends Query<
-  { performances: Performance[] },
-  {
-    contestId: string;
-    filter: { stageDate: string; stageId: string };
-  }
-> {}
-
-const CONTEST_QUERY = gql`
+gql`
   query ContestQuery($contestId: ID!, $filter: PerformanceFilter) {
     performances(contestId: $contestId, filter: $filter) {
       id
@@ -64,8 +52,7 @@ class ContestScreen extends Component<Props> {
 
     return (
       <View style={styles.root}>
-        <ContestQuery
-          query={CONTEST_QUERY}
+        <ContestQueryComponent
           variables={{
             contestId: id,
             filter: {
@@ -115,7 +102,7 @@ class ContestScreen extends Component<Props> {
             }
             return null;
           }}
-        </ContestQuery>
+        </ContestQueryComponent>
       </View>
     );
   }
