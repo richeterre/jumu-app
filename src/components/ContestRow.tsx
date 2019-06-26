@@ -8,15 +8,11 @@ interface Props {
   onPress: () => void;
 }
 
-const ContestRow: React.FC<Props> = props => {
-  return (
-    <TouchableOpacity style={styles.root} onPress={props.onPress}>
-      <Text>
-        {flag(props.countryCode)} {props.name}
-      </Text>
-    </TouchableOpacity>
-  );
-};
+const ContestRow: React.FC<Props> = ({ name, countryCode, onPress }) => (
+  <TouchableOpacity style={styles.root} onPress={onPress}>
+    <Text>{`${flag(countryCode)} ${name}`}</Text>
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   root: {

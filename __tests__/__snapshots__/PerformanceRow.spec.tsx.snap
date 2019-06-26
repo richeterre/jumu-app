@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PerformanceRow renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flexDirection": "row",
+      "padding": 20,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "fontWeight": "bold",
+      }
+    }
+  >
+    09:00:00
+  </Text>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "marginLeft": 15,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Violine solo, AG II
+    </Text>
+    <Text>
+      Theo Trompeter, Trompete
+Paula Pianistin, Klavier
+    </Text>
+  </View>
+</View>
+`;
