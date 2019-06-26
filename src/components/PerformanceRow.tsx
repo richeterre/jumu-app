@@ -1,10 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { ContestQueryAppearanceFragment } from "../graphql/types/generated";
 
 interface Props {
   stageTime: string;
   categoryInfo: string;
-  appearances: string[];
+  appearances: ContestQueryAppearanceFragment[];
 }
 
 const PerformanceRow: React.FC<Props> = props => {
@@ -14,7 +15,11 @@ const PerformanceRow: React.FC<Props> = props => {
 
       <View style={styles.container}>
         <Text style={styles.categoryInfo}>{props.categoryInfo}</Text>
-        <Text>{props.appearances.join("\n")}</Text>
+        <Text>
+          {props.appearances
+            .map(a => `${a.participantName}, ${a.instrumentName}`)
+            .join("\n")}
+        </Text>
       </View>
     </View>
   );

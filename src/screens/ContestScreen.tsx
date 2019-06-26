@@ -11,6 +11,7 @@ import {
   Stage
 } from "../graphql/types/generated";
 import SafeAreaListFooter from "../components/SafeAreaListFooter";
+import { ContestQueryAppearance } from "../graphql/documents/fragments";
 
 gql`
   query ContestQuery($contestId: ID!, $filter: PerformanceFilter) {
@@ -18,9 +19,12 @@ gql`
       id
       stageTime
       categoryInfo
-      appearances
+      appearances {
+        ...ContestQueryAppearance
+      }
     }
   }
+  ${ContestQueryAppearance}
 `;
 
 interface NavProps {

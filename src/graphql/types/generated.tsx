@@ -14,18 +14,33 @@ export type Scalars = {
    * response as an ISO8601 formatted string.
    */
   Date: any;
+  /** The `Time` scalar type represents a time. The Time appears in a JSON
+   * response as an ISO8601 formatted string.
+   */
+  Time: any;
+};
+
+export type Appearance = {
+  __typename?: "Appearance";
+  id: Scalars["ID"];
+  /** The name of the participant's instrument in this appearance. */
+  instrumentName: Scalars["String"];
+  /** The full name of the appearance's participant. */
+  participantName: Scalars["String"];
 };
 
 export type Contest = {
   __typename?: "Contest";
   /** The country code of the contest's host. */
   countryCode: Scalars["String"];
+  /** The dates on which the contest is happening. */
   dates: Array<Scalars["Date"]>;
   /** The last day of the contest. */
   endDate: Scalars["Date"];
   id: Scalars["ID"];
   /** The contest’s name containing the round, year and host. */
   name: Scalars["String"];
+  /** The stages used in this contest. */
   stages: Array<Stage>;
   /** The first day of the contest. */
   startDate: Scalars["Date"];
@@ -34,11 +49,12 @@ export type Contest = {
 export type Performance = {
   __typename?: "Performance";
   /** The performance's appearances. */
-  appearances: Array<Scalars["String"]>;
+  appearances: Array<Appearance>;
   /** The performance's contest category and age group. */
   categoryInfo: Scalars["String"];
   id: Scalars["ID"];
-  stageTime: Scalars["String"];
+  /** The scheduled wall time of the performance. */
+  stageTime: Scalars["Time"];
 };
 
 export type PerformanceFilter = {
@@ -51,7 +67,7 @@ export type RootQueryType = {
   /** The contests with public timetables. */
   contests: Array<Contest>;
   /** The performances of a contest. */
-  performances: Array<Performance>;
+  performances?: Maybe<Array<Performance>>;
 };
 
 export type RootQueryTypePerformancesArgs = {
@@ -62,8 +78,14 @@ export type RootQueryTypePerformancesArgs = {
 export type Stage = {
   __typename?: "Stage";
   id: Scalars["ID"];
+  /** The public name of the stage. */
   name: Scalars["String"];
 };
+
+export type ContestQueryAppearanceFragment = {
+  __typename?: "Appearance";
+} & Pick<Appearance, "participantName" | "instrumentName">;
+
 export type ContestPickerQueryVariables = {};
 
 export type ContestPickerQuery = { __typename?: "RootQueryType" } & {
@@ -81,14 +103,25 @@ export type ContestQueryQueryVariables = {
 };
 
 export type ContestQueryQuery = { __typename?: "RootQueryType" } & {
-  performances: Array<
-    { __typename?: "Performance" } & Pick<
-      Performance,
-      "id" | "stageTime" | "categoryInfo" | "appearances"
+  performances: Maybe<
+    Array<
+      { __typename?: "Performance" } & Pick<
+        Performance,
+        "id" | "stageTime" | "categoryInfo"
+      > & {
+          appearances: Array<
+            { __typename?: "Appearance" } & ContestQueryAppearanceFragment
+          >;
+        }
     >
   >;
 };
-
+export const ContestQueryAppearanceFragmentDoc = gql`
+  fragment ContestQueryAppearance on Appearance {
+    participantName
+    instrumentName
+  }
+`;
 export const ContestPickerDocument = gql`
   query ContestPicker {
     contests {
@@ -104,12 +137,9 @@ export const ContestPickerDocument = gql`
   }
 `;
 export type ContestPickerComponentProps = Omit<
-  Omit<
-    ReactApollo.QueryProps<ContestPickerQuery, ContestPickerQueryVariables>,
-    "query"
-  >,
-  "variables"
-> & { variables?: ContestPickerQueryVariables };
+  ReactApollo.QueryProps<ContestPickerQuery, ContestPickerQueryVariables>,
+  "query"
+>;
 
 export const ContestPickerComponent = (props: ContestPickerComponentProps) => (
   <ReactApollo.Query<ContestPickerQuery, ContestPickerQueryVariables>
@@ -124,17 +154,18 @@ export const ContestQueryDocument = gql`
       id
       stageTime
       categoryInfo
-      appearances
+      appearances {
+        ...ContestQueryAppearance
+      }
     }
   }
+  ${ContestQueryAppearanceFragmentDoc}
 `;
 export type ContestQueryComponentProps = Omit<
-  Omit<
-    ReactApollo.QueryProps<ContestQueryQuery, ContestQueryQueryVariables>,
-    "query"
-  >,
-  "variables"
-> & { variables: ContestQueryQueryVariables };
+  ReactApollo.QueryProps<ContestQueryQuery, ContestQueryQueryVariables>,
+  "query"
+> &
+  ({ variables: ContestQueryQueryVariables; skip?: false } | { skip: true });
 
 export const ContestQueryComponent = (props: ContestQueryComponentProps) => (
   <ReactApollo.Query<ContestQueryQuery, ContestQueryQueryVariables>
