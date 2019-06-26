@@ -16,7 +16,7 @@ exports[`PerformanceRow renders correctly 1`] = `
       }
     }
   >
-    09:00:00
+    09:45
   </Text>
   <View
     style={

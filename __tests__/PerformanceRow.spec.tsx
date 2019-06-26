@@ -7,7 +7,7 @@ describe("PerformanceRow", () => {
   test("renders correctly", () => {
     const performanceRow = renderer.create(
       <PerformanceRow
-        stageTime="09:00:00"
+        stageTime="09:45:00"
         categoryInfo="Violine solo, AG II"
         appearances={[
           { participantName: "Theo Trompeter", instrumentName: "Trompete" },

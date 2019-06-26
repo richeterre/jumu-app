@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ContestQueryAppearanceFragment } from "../graphql/types/generated";
+import { isoTimeToString } from "../helpers/dates";
 
 interface Props {
   stageTime: string;
@@ -9,14 +10,16 @@ interface Props {
 }
 
 const PerformanceRow: React.FC<Props> = props => {
+  const { stageTime, categoryInfo, appearances } = props;
+
   return (
     <View style={styles.root}>
-      <Text style={styles.stageTime}>{props.stageTime}</Text>
+      <Text style={styles.stageTime}>{isoTimeToString(stageTime)}</Text>
 
       <View style={styles.container}>
-        <Text style={styles.categoryInfo}>{props.categoryInfo}</Text>
+        <Text style={styles.categoryInfo}>{categoryInfo}</Text>
         <Text>
-          {props.appearances
+          {appearances
             .map(a => `${a.participantName}, ${a.instrumentName}`)
             .join("\n")}
         </Text>
