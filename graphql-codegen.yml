@@ -1,5 +1,5 @@
 overwrite: true
-schema: "https://jumubase-staging-pr-13.herokuapp.com/graphql"
+schema: "https://jumubase-staging.herokuapp.com/graphql"
 generates:
   src/graphql/types/generated.tsx:
     documents:
