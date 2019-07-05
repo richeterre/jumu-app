@@ -1,8 +1,8 @@
 import React from "react";
 import { gql } from "apollo-boost";
-import { FlatList, Text, StyleSheet } from "react-native";
+import { FlatList, Text } from "react-native";
 import ContestRow from "../components/ContestRow";
-import { NavigationScreenProps } from "react-navigation";
+import { NavigationScreenComponent } from "react-navigation";
 import Divider from "../components/Divider";
 import { ContestPickerComponent } from "../graphql/types/generated";
 import SafeAreaListFooter from "../components/SafeAreaListFooter";
@@ -22,9 +22,7 @@ gql`
   }
 `;
 
-interface Props extends NavigationScreenProps {}
-
-const ContestPickerScreen: React.FC<Props> = props => {
+const ContestPickerScreen: NavigationScreenComponent = props => {
   return (
     <ContestPickerComponent>
       {result => {
@@ -56,7 +54,5 @@ const ContestPickerScreen: React.FC<Props> = props => {
     </ContestPickerComponent>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default ContestPickerScreen;

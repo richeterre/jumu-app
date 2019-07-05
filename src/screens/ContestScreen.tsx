@@ -1,15 +1,11 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { FlatList, Text } from "react-native";
-import { NavigationScreenProps } from "react-navigation";
+import { NavigationScreenComponent, ScreenProps } from "react-navigation";
 import { gql } from "apollo-boost";
 import PerformanceRow from "../components/PerformanceRow";
 import Divider from "../components/Divider";
 import OptionPicker from "../components/OptionPicker";
-import {
-  Contest,
-  ContestQueryComponent,
-  Stage
-} from "../graphql/types/generated";
+import { Contest, ContestQueryComponent } from "../graphql/types/generated";
 import SafeAreaListFooter from "../components/SafeAreaListFooter";
 import { ContestQueryAppearance } from "../graphql/documents/fragments";
 
@@ -27,87 +23,70 @@ gql`
   ${ContestQueryAppearance}
 `;
 
-interface NavProps {
+interface NavParams {
   contest: Contest;
 }
 
-type ScreenProps = NavigationScreenProps<NavProps>;
+const ContestScreen: NavigationScreenComponent<NavParams> = props => {
+  const { id, dates, stages } = props.navigation.getParam("contest");
 
-interface Props extends ScreenProps {}
+  const [selectedDate, setSelectedDate] = useState(dates[0]);
+  const [selectedStage, setSelectedStage] = useState(stages[0]);
 
-interface State {
-  selectedDate: string;
-  selectedStage: Stage;
-}
+  return (
+    <ContestQueryComponent
+      variables={{
+        contestId: id,
+        filter: {
+          stageDate: selectedDate,
+          stageId: selectedStage.id
+        }
+      }}
+    >
+      {result => {
+        if (result.error) {
+          return <Text>Error!</Text>;
+        } else if (result.loading) {
+          return <Text>Loading...</Text>;
+        } else if (result.data) {
+          return (
+            <>
+              <OptionPicker
+                options={dates}
+                formatOption={date => date}
+                selectedOption={selectedDate}
+                onSelectOption={setSelectedDate}
+              />
+              <OptionPicker
+                options={stages}
+                formatOption={stage => stage.name}
+                selectedOption={selectedStage}
+                onSelectOption={setSelectedStage}
+              />
+              <FlatList
+                data={result.data.performances}
+                renderItem={({ item }) => (
+                  <PerformanceRow
+                    stageTime={item.stageTime}
+                    categoryInfo={item.categoryInfo}
+                    appearances={item.appearances}
+                  />
+                )}
+                keyExtractor={item => item.id}
+                ItemSeparatorComponent={Divider}
+                ListFooterComponent={SafeAreaListFooter}
+              />
+            </>
+          );
+        }
+        return null;
+      }}
+    </ContestQueryComponent>
+  );
+};
 
-class ContestScreen extends Component<Props> {
-  static navigationOptions = (screenProps: ScreenProps) => {
-    return {
-      title: screenProps.navigation.getParam("contest").name
-    };
-  };
-
-  state: State = {
-    selectedDate: this.props.navigation.getParam("contest").dates[0],
-    selectedStage: this.props.navigation.getParam("contest").stages[0]
-  };
-
-  render() {
-    const { id, dates, stages } = this.props.navigation.getParam("contest");
-
-    return (
-      <ContestQueryComponent
-        variables={{
-          contestId: id,
-          filter: {
-            stageDate: this.state.selectedDate,
-            stageId: this.state.selectedStage.id
-          }
-        }}
-      >
-        {result => {
-          if (result.error) {
-            return <Text>Error!</Text>;
-          } else if (result.loading) {
-            return <Text>Loading...</Text>;
-          } else if (result.data) {
-            return (
-              <>
-                <OptionPicker
-                  options={dates}
-                  formatOption={date => date}
-                  selectedOption={this.state.selectedDate}
-                  onSelectOption={date => this.setState({ selectedDate: date })}
-                />
-                <OptionPicker
-                  options={stages}
-                  formatOption={stage => stage.name}
-                  selectedOption={this.state.selectedStage}
-                  onSelectOption={stage =>
-                    this.setState({ selectedStage: stage })
-                  }
-                />
-                <FlatList
-                  data={result.data.performances}
-                  renderItem={({ item }) => (
-                    <PerformanceRow
-                      stageTime={item.stageTime}
-                      categoryInfo={item.categoryInfo}
-                      appearances={item.appearances}
-                    />
-                  )}
-                  keyExtractor={item => item.id}
-                  ItemSeparatorComponent={Divider}
-                  ListFooterComponent={SafeAreaListFooter}
-                />
-              </>
-            );
-          }
-          return null;
-        }}
-      </ContestQueryComponent>
-    );
-  }
-}
+ContestScreen.navigationOptions = (screenProps: ScreenProps) => ({
+  title: screenProps.navigation.getParam("contest").name
+});
 
 export default ContestScreen;
