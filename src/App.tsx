@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import ContestPickerScreen from "./screens/ContestPickerScreen";
@@ -27,14 +27,10 @@ const StackNavigator = createStackNavigator(
 
 const AppContainer = createAppContainer(StackNavigator);
 
-interface Props {}
+const App: React.FC = () => (
+  <ApolloProvider client={client}>
+    <AppContainer />
+  </ApolloProvider>
+);
 
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <ApolloProvider client={client}>
-        <AppContainer />
-      </ApolloProvider>
-    );
-  }
-}
+export default App;
