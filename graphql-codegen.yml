@@ -12,3 +12,6 @@ generates:
       withComponent: true
       withHooks: false
       withHOC: false
+      scalars:
+        Date: string
+        Time: string

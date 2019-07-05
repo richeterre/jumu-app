@@ -13,11 +13,11 @@ export type Scalars = {
   /** The `Date` scalar type represents a date. The Date appears in a JSON
    * response as an ISO8601 formatted string.
    */
-  Date: any;
+  Date: string;
   /** The `Time` scalar type represents a time. The Time appears in a JSON
    * response as an ISO8601 formatted string.
    */
-  Time: any;
+  Time: string;
 };
 
 export type Appearance = {
