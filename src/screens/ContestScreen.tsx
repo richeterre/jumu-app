@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, Text, StyleSheet } from "react-native";
+import { FlatList, Text, StyleSheet, View } from "react-native";
 import { NavigationScreenComponent, ScreenProps } from "react-navigation";
 import { gql } from "apollo-boost";
 import PerformanceRow from "../components/PerformanceRow";
@@ -49,40 +49,43 @@ const ContestScreen: NavigationScreenComponent<NavParams> = props => {
         selectedOption={selectedStage}
         onSelectOption={setSelectedStage}
       />
-      <ContestQueryComponent
-        variables={{
-          contestId: id,
-          filter: {
-            stageDate: selectedDate,
-            stageId: selectedStage.id
-          }
-        }}
-      >
-        {result => {
-          if (result.error) {
-            return <Text>Error!</Text>;
-          } else if (result.loading) {
-            return <Text>Loading...</Text>;
-          } else if (result.data) {
-            return (
-              <FlatList
-                data={result.data.performances}
-                renderItem={({ item }) => (
-                  <PerformanceRow
-                    stageTime={item.stageTime}
-                    categoryInfo={item.categoryInfo}
-                    appearances={item.appearances}
-                  />
-                )}
-                keyExtractor={item => item.id}
-                ItemSeparatorComponent={Divider}
-                ListFooterComponent={SafeAreaListFooter}
-              />
-            );
-          }
-          return null;
-        }}
-      </ContestQueryComponent>
+      <View style={styles.performanceListContainer}>
+        <ContestQueryComponent
+          variables={{
+            contestId: id,
+            filter: {
+              stageDate: selectedDate,
+              stageId: selectedStage.id
+            }
+          }}
+        >
+          {result => {
+            if (result.error) {
+              return <Text>Error!</Text>;
+            } else if (result.loading) {
+              return <Text>Loading...</Text>;
+            } else if (result.data) {
+              return (
+                <FlatList
+                  style={styles.performanceList}
+                  data={result.data.performances}
+                  renderItem={({ item }) => (
+                    <PerformanceRow
+                      stageTime={item.stageTime}
+                      categoryInfo={item.categoryInfo}
+                      appearances={item.appearances}
+                    />
+                  )}
+                  keyExtractor={item => item.id}
+                  ItemSeparatorComponent={Divider}
+                  ListFooterComponent={SafeAreaListFooter}
+                />
+              );
+            }
+            return null;
+          }}
+        </ContestQueryComponent>
+      </View>
     </>
   );
 };
@@ -94,6 +97,14 @@ ContestScreen.navigationOptions = (screenProps: ScreenProps) => ({
 const styles = StyleSheet.create({
   optionPicker: {
     marginTop: 15
+  },
+  performanceListContainer: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center"
+  },
+  performanceList: {
+    alignSelf: "stretch"
   }
 });
 
