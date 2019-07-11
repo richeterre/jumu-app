@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import ContestPickerScreen from "../screens/ContestPickerScreen";
 import ContestNavigator from "./ContestNavigator";
 import { ListContestFragment as Contest } from "../graphql/types/generated";
+import LandingScreen from "../screens/LandingScreen";
 
 const RootView: React.FC = () => {
   const [contest, setContest] = useState<Contest>();
@@ -10,7 +10,7 @@ const RootView: React.FC = () => {
   return contest ? (
     <ContestNavigator contest={contest} onSwitchContest={setContest} />
   ) : (
-    <ContestPickerScreen onSelectContest={setContest} />
+    <LandingScreen onSelectContest={setContest} />
   );
 };
 

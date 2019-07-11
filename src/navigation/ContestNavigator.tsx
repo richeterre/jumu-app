@@ -7,7 +7,7 @@ import {
 import React, { useState } from "react";
 import { Button, Modal } from "react-native";
 import { ListContestFragment as Contest } from "../graphql/types/generated";
-import ContestPickerScreen from "../screens/ContestPickerScreen";
+import ContestPickerModal from "../screens/ContestPickerModal";
 
 interface Props {
   contest: Contest;
@@ -66,16 +66,14 @@ const ContestNavigator: React.FC<Props> = props => {
   return (
     <>
       <AppContainer />
-      {contestPickerVisible && (
-        <Modal>
-          <ContestPickerScreen
-            onSelectContest={contest => {
-              setContestPickerVisible(false);
-              onSwitchContest(contest);
-            }}
-          />
-        </Modal>
-      )}
+      <ContestPickerModal
+        visible={contestPickerVisible}
+        onCancel={() => setContestPickerVisible(false)}
+        onSelectContest={contest => {
+          setContestPickerVisible(false);
+          onSwitchContest(contest);
+        }}
+      />
     </>
   );
 };

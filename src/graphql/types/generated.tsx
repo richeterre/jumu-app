@@ -165,6 +165,12 @@ export type ContestQueryQuery = { __typename?: "RootQueryType" } & {
     >
   >;
 };
+
+export type LandingScreenQueryQueryVariables = {};
+
+export type LandingScreenQueryQuery = { __typename?: "RootQueryType" } & {
+  contests: Array<{ __typename?: "Contest" } & ListContestFragment>;
+};
 export const ListContestFragmentDoc = gql`
   fragment ListContest on Contest {
     id
@@ -230,6 +236,31 @@ export type ContestQueryComponentProps = Omit<
 export const ContestQueryComponent = (props: ContestQueryComponentProps) => (
   <ReactApollo.Query<ContestQueryQuery, ContestQueryQueryVariables>
     query={ContestQueryDocument}
+    {...props}
+  />
+);
+
+export const LandingScreenQueryDocument = gql`
+  query LandingScreenQuery {
+    contests {
+      ...ListContest
+    }
+  }
+  ${ListContestFragmentDoc}
+`;
+export type LandingScreenQueryComponentProps = Omit<
+  ReactApollo.QueryProps<
+    LandingScreenQueryQuery,
+    LandingScreenQueryQueryVariables
+  >,
+  "query"
+>;
+
+export const LandingScreenQueryComponent = (
+  props: LandingScreenQueryComponentProps
+) => (
+  <ReactApollo.Query<LandingScreenQueryQuery, LandingScreenQueryQueryVariables>
+    query={LandingScreenQueryDocument}
     {...props}
   />
 );
