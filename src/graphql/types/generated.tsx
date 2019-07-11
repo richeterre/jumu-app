@@ -131,19 +131,19 @@ export type Stage = {
   name: Scalars["String"];
 };
 
+export type ListContestFragment = { __typename?: "Contest" } & Pick<
+  Contest,
+  "id" | "name" | "countryCode" | "dates"
+> & { stages: Array<{ __typename?: "Stage" } & Pick<Stage, "id" | "name">> };
+
 export type ContestQueryAppearanceFragment = {
   __typename?: "Appearance";
 } & Pick<Appearance, "participantName" | "instrumentName">;
 
-export type ContestPickerQueryVariables = {};
+export type ContestPickerQueryQueryVariables = {};
 
-export type ContestPickerQuery = { __typename?: "RootQueryType" } & {
-  contests: Array<
-    { __typename?: "Contest" } & Pick<
-      Contest,
-      "id" | "name" | "countryCode" | "dates"
-    > & { stages: Array<{ __typename?: "Stage" } & Pick<Stage, "id" | "name">> }
-  >;
+export type ContestPickerQueryQuery = { __typename?: "RootQueryType" } & {
+  contests: Array<{ __typename?: "Contest" } & ListContestFragment>;
 };
 
 export type ContestQueryQueryVariables = {
@@ -165,34 +165,45 @@ export type ContestQueryQuery = { __typename?: "RootQueryType" } & {
     >
   >;
 };
+export const ListContestFragmentDoc = gql`
+  fragment ListContest on Contest {
+    id
+    name
+    countryCode
+    dates
+    stages {
+      id
+      name
+    }
+  }
+`;
 export const ContestQueryAppearanceFragmentDoc = gql`
   fragment ContestQueryAppearance on Appearance {
     participantName
     instrumentName
   }
 `;
-export const ContestPickerDocument = gql`
-  query ContestPicker {
+export const ContestPickerQueryDocument = gql`
+  query ContestPickerQuery {
     contests {
-      id
-      name
-      countryCode
-      dates
-      stages {
-        id
-        name
-      }
+      ...ListContest
     }
   }
+  ${ListContestFragmentDoc}
 `;
-export type ContestPickerComponentProps = Omit<
-  ReactApollo.QueryProps<ContestPickerQuery, ContestPickerQueryVariables>,
+export type ContestPickerQueryComponentProps = Omit<
+  ReactApollo.QueryProps<
+    ContestPickerQueryQuery,
+    ContestPickerQueryQueryVariables
+  >,
   "query"
 >;
 
-export const ContestPickerComponent = (props: ContestPickerComponentProps) => (
-  <ReactApollo.Query<ContestPickerQuery, ContestPickerQueryVariables>
-    query={ContestPickerDocument}
+export const ContestPickerQueryComponent = (
+  props: ContestPickerQueryComponentProps
+) => (
+  <ReactApollo.Query<ContestPickerQueryQuery, ContestPickerQueryQueryVariables>
+    query={ContestPickerQueryDocument}
     {...props}
   />
 );
