@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, Text } from "react-native";
+import { FlatList, Text, StyleSheet } from "react-native";
 import { NavigationScreenComponent, ScreenProps } from "react-navigation";
 import { gql } from "apollo-boost";
 import PerformanceRow from "../components/PerformanceRow";
@@ -34,35 +34,37 @@ const ContestScreen: NavigationScreenComponent<NavParams> = props => {
   const [selectedStage, setSelectedStage] = useState(stages[0]);
 
   return (
-    <ContestQueryComponent
-      variables={{
-        contestId: id,
-        filter: {
-          stageDate: selectedDate,
-          stageId: selectedStage.id
-        }
-      }}
-    >
-      {result => {
-        if (result.error) {
-          return <Text>Error!</Text>;
-        } else if (result.loading) {
-          return <Text>Loading...</Text>;
-        } else if (result.data) {
-          return (
-            <>
-              <OptionPicker
-                options={dates}
-                formatOption={date => date}
-                selectedOption={selectedDate}
-                onSelectOption={setSelectedDate}
-              />
-              <OptionPicker
-                options={stages}
-                formatOption={stage => stage.name}
-                selectedOption={selectedStage}
-                onSelectOption={setSelectedStage}
-              />
+    <>
+      <OptionPicker
+        style={styles.optionPicker}
+        options={dates}
+        formatOption={date => date}
+        selectedOption={selectedDate}
+        onSelectOption={setSelectedDate}
+      />
+      <OptionPicker
+        style={styles.optionPicker}
+        options={stages}
+        formatOption={stage => stage.name}
+        selectedOption={selectedStage}
+        onSelectOption={setSelectedStage}
+      />
+      <ContestQueryComponent
+        variables={{
+          contestId: id,
+          filter: {
+            stageDate: selectedDate,
+            stageId: selectedStage.id
+          }
+        }}
+      >
+        {result => {
+          if (result.error) {
+            return <Text>Error!</Text>;
+          } else if (result.loading) {
+            return <Text>Loading...</Text>;
+          } else if (result.data) {
+            return (
               <FlatList
                 data={result.data.performances}
                 renderItem={({ item }) => (
@@ -76,17 +78,23 @@ const ContestScreen: NavigationScreenComponent<NavParams> = props => {
                 ItemSeparatorComponent={Divider}
                 ListFooterComponent={SafeAreaListFooter}
               />
-            </>
-          );
-        }
-        return null;
-      }}
-    </ContestQueryComponent>
+            );
+          }
+          return null;
+        }}
+      </ContestQueryComponent>
+    </>
   );
 };
 
 ContestScreen.navigationOptions = (screenProps: ScreenProps) => ({
   title: screenProps.navigation.getParam("contest").name
+});
+
+const styles = StyleSheet.create({
+  optionPicker: {
+    marginTop: 15
+  }
 });
 
 export default ContestScreen;
