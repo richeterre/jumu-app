@@ -14,7 +14,7 @@ interface Props {
   onSwitchContest: (contest: Contest) => void;
 }
 
-const ContestNavigator = (props: Props) => {
+const ContestNavigator: React.FC<Props> = props => {
   const [contestPickerVisible, setContestPickerVisible] = useState(false);
 
   const { contest, onSwitchContest } = props;

@@ -4,7 +4,7 @@ import ContestPickerScreen from "../screens/ContestPickerScreen";
 import ContestNavigator from "./ContestNavigator";
 import { ListContestFragment as Contest } from "../graphql/types/generated";
 
-const RootView = () => {
+const RootView: React.FC = () => {
   const [contest, setContest] = useState<Contest>();
 
   return contest ? (
