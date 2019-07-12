@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, Button } from "react-native";
 
 import {
   ListContestFragment as Contest,
@@ -8,6 +8,7 @@ import {
 } from "../graphql/types/generated";
 import { ListContest } from "../graphql/documents/fragments";
 import ContestRow from "../components/ContestRow";
+import ContestPickerModal from "./ContestPickerModal";
 
 gql`
   query LandingScreenQuery {
@@ -23,6 +24,8 @@ interface Props {
 }
 
 const LandingScreen: React.FC<Props> = props => {
+  const [contestPickerVisible, setContestPickerVisible] = useState(false);
+
   return (
     <View style={styles.root}>
       <Text>Herzlich willkommen!</Text>
@@ -47,6 +50,18 @@ const LandingScreen: React.FC<Props> = props => {
           }
         }}
       </LandingScreenQueryComponent>
+      <Button
+        title="Weitere Wettbewerbe…"
+        onPress={() => setContestPickerVisible(true)}
+      />
+      <ContestPickerModal
+        visible={contestPickerVisible}
+        onCancel={() => setContestPickerVisible(false)}
+        onSelectContest={contest => {
+          setContestPickerVisible(false);
+          props.onSelectContest(contest);
+        }}
+      />
     </View>
   );
 };

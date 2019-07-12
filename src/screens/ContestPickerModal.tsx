@@ -26,7 +26,7 @@ interface Props {
   onSelectContest: (contest: Contest) => void;
 }
 
-const ContestPickerScreen: React.FC<Props> = props => (
+const ContestPickerModal: React.FC<Props> = props => (
   <Modal
     style={styles.root}
     isVisible={props.visible}
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ContestPickerScreen;
+export default ContestPickerModal;
