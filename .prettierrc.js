@@ -1,4 +1,3 @@
 module.exports = {
-  bracketSpacing: false,
-  trailingComma: "all",
+  trailingComma: "es5",
 };
