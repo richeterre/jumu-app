@@ -1,9 +1,7 @@
 import ContestScreen from "../screens/ContestScreen";
-import {
-  createBottomTabNavigator,
-  createStackNavigator,
-  createAppContainer
-} from "react-navigation";
+import { createAppContainer } from "react-navigation";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+import { createStackNavigator } from "react-navigation-stack";
 import React, { useState } from "react";
 import { Button, Modal } from "react-native";
 import { ListContestFragment as Contest } from "../graphql/types/generated";
@@ -31,13 +29,13 @@ const ContestNavigator: React.FC<Props> = props => {
       PerformanceList: {
         screen: ContestScreen,
         params: { contest: contest },
-        navigationOptions: { headerTitle }
-      }
+        navigationOptions: { headerTitle },
+      },
     },
     {
       navigationOptions: {
-        tabBarLabel: "Zeitplan"
-      }
+        tabBarLabel: "Zeitplan",
+      },
     }
   );
 
@@ -46,19 +44,19 @@ const ContestNavigator: React.FC<Props> = props => {
       ContestCategoryList: {
         screen: ContestScreen,
         params: { contest: contest },
-        navigationOptions: { headerTitle }
-      }
+        navigationOptions: { headerTitle },
+      },
     },
     {
       navigationOptions: {
-        tabBarLabel: "Ergebnisse"
-      }
+        tabBarLabel: "Ergebnisse",
+      },
     }
   );
 
   const TabNavigator = createBottomTabNavigator({
     Timetable: TimetableTab,
-    Results: ResultsTab
+    Results: ResultsTab,
   });
 
   const AppContainer = createAppContainer(TabNavigator);
