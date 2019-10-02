@@ -9,8 +9,8 @@ generates:
       - "typescript-operations"
       - "typescript-react-apollo"
     config:
-      withComponent: true
-      withHooks: false
+      withComponent: false
+      withHooks: true
       withHOC: false
       scalars:
         Date: string

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { FlatList, Text, StyleSheet, View } from "react-native";
-import { NavigationScreenComponent, ScreenProps } from "react-navigation";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
 import { gql } from "apollo-boost";
 import PerformanceRow from "../components/PerformanceRow";
 import Divider from "../components/Divider";
 import OptionPicker from "../components/OptionPicker";
-import { Contest, ContestQueryComponent } from "../graphql/types/generated";
+import { Contest, useContestScreenQuery } from "../graphql/types/generated";
 import SafeAreaListFooter from "../components/SafeAreaListFooter";
 import { ContestQueryAppearance } from "../graphql/documents/fragments";
 
 gql`
-  query ContestQuery($contestId: ID!, $filter: PerformanceFilter) {
+  query ContestScreen($contestId: ID!, $filter: PerformanceFilter) {
     performances(contestId: $contestId, filter: $filter) {
       id
       stageTime
@@ -27,11 +27,44 @@ interface NavParams {
   contest: Contest;
 }
 
-const ContestScreen: NavigationScreenComponent<NavParams> = props => {
+const ContestScreen: NavigationStackScreenComponent<NavParams> = props => {
   const { id, dates, stages } = props.navigation.getParam("contest");
 
   const [selectedDate, setSelectedDate] = useState(dates[0]);
   const [selectedStage, setSelectedStage] = useState(stages[0]);
+
+  const { data, error, loading } = useContestScreenQuery({
+    variables: {
+      contestId: id,
+      filter: { stageDate: selectedDate, stageId: selectedStage.id },
+    },
+  });
+
+  const renderPerformanceList = () => {
+    if (error) {
+      return <Text>Error!</Text>;
+    } else if (loading) {
+      return <Text>Loading...</Text>;
+    } else if (data) {
+      return (
+        <FlatList
+          style={styles.performanceList}
+          data={data.performances}
+          renderItem={({ item }) => (
+            <PerformanceRow
+              stageTime={item.stageTime}
+              categoryInfo={item.categoryInfo}
+              appearances={item.appearances}
+            />
+          )}
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={Divider}
+          ListFooterComponent={SafeAreaListFooter}
+        />
+      );
+    }
+    return null;
+  };
 
   return (
     <>
@@ -50,62 +83,28 @@ const ContestScreen: NavigationScreenComponent<NavParams> = props => {
         onSelectOption={setSelectedStage}
       />
       <View style={styles.performanceListContainer}>
-        <ContestQueryComponent
-          variables={{
-            contestId: id,
-            filter: {
-              stageDate: selectedDate,
-              stageId: selectedStage.id
-            }
-          }}
-        >
-          {result => {
-            if (result.error) {
-              return <Text>Error!</Text>;
-            } else if (result.loading) {
-              return <Text>Loading...</Text>;
-            } else if (result.data) {
-              return (
-                <FlatList
-                  style={styles.performanceList}
-                  data={result.data.performances}
-                  renderItem={({ item }) => (
-                    <PerformanceRow
-                      stageTime={item.stageTime}
-                      categoryInfo={item.categoryInfo}
-                      appearances={item.appearances}
-                    />
-                  )}
-                  keyExtractor={item => item.id}
-                  ItemSeparatorComponent={Divider}
-                  ListFooterComponent={SafeAreaListFooter}
-                />
-              );
-            }
-            return null;
-          }}
-        </ContestQueryComponent>
+        {renderPerformanceList()}
       </View>
     </>
   );
 };
 
-ContestScreen.navigationOptions = (screenProps: ScreenProps) => ({
-  title: screenProps.navigation.getParam("contest").name
+ContestScreen.navigationOptions = ({ navigation }) => ({
+  title: navigation.getParam("contest").name,
 });
 
 const styles = StyleSheet.create({
   optionPicker: {
-    marginTop: 15
+    marginTop: 15,
   },
   performanceListContainer: {
     alignItems: "center",
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   performanceList: {
-    alignSelf: "stretch"
-  }
+    alignSelf: "stretch",
+  },
 });
 
 export default ContestScreen;

@@ -5,14 +5,14 @@ import Modal from "react-native-modal";
 import ContestRow from "../components/ContestRow";
 import Divider from "../components/Divider";
 import {
-  ContestPickerQueryComponent,
-  ListContestFragment as Contest
+  ListContestFragment as Contest,
+  useContestPickerModalQuery,
 } from "../graphql/types/generated";
 import SafeAreaListFooter from "../components/SafeAreaListFooter";
 import { ListContest } from "../graphql/documents/fragments";
 
 gql`
-  query ContestPickerQuery {
+  query ContestPickerModal {
     contests {
       ...ListContest
     }
@@ -26,48 +26,52 @@ interface Props {
   onSelectContest: (contest: Contest) => void;
 }
 
-const ContestPickerModal: React.FC<Props> = props => (
-  <Modal
-    style={styles.root}
-    isVisible={props.visible}
-    onBackdropPress={props.onCancel}
-  >
-    <ContestPickerQueryComponent>
-      {result => {
-        if (result.error) {
-          return <Text>Error!</Text>;
-        } else if (result.loading) {
-          return <Text>Loading...</Text>;
-        } else if (result.data) {
-          return (
-            <FlatList
-              data={result.data.contests}
-              renderItem={({ item }) => (
-                <ContestRow
-                  name={item.name}
-                  countryCode={item.countryCode}
-                  onPress={() => props.onSelectContest(item)}
-                />
-              )}
-              keyExtractor={item => item.id}
-              ItemSeparatorComponent={Divider}
-              ListFooterComponent={SafeAreaListFooter}
+const ContestPickerModal: React.FC<Props> = props => {
+  const { data, error, loading } = useContestPickerModalQuery();
+
+  const renderContests = () => {
+    if (error) {
+      return <Text>Error!</Text>;
+    } else if (loading) {
+      return <Text>Loading...</Text>;
+    } else if (data) {
+      return (
+        <FlatList
+          data={data.contests}
+          renderItem={({ item }) => (
+            <ContestRow
+              name={item.name}
+              countryCode={item.countryCode}
+              onPress={() => props.onSelectContest(item)}
             />
-          );
-        }
-        return null;
-      }}
-    </ContestPickerQueryComponent>
-  </Modal>
-);
+          )}
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={Divider}
+          ListFooterComponent={SafeAreaListFooter}
+        />
+      );
+    }
+    return null;
+  };
+
+  return (
+    <Modal
+      style={styles.root}
+      isVisible={props.visible}
+      onBackdropPress={props.onCancel}
+    >
+      {renderContests()}
+    </Modal>
+  );
+};
 
 const styles = StyleSheet.create({
   root: {
     backgroundColor: "white",
     borderRadius: 15,
     margin: 0,
-    marginTop: 100
-  }
+    marginTop: 100,
+  },
 });
 
 export default ContestPickerModal;
