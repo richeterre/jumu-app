@@ -68,10 +68,12 @@ export type Host = {
 
 export type Performance = {
    __typename?: 'Performance',
+  /** The performance's age group. */
+  ageGroup: Scalars['String'],
   /** The performance's appearances. */
   appearances: Array<Appearance>,
-  /** The performance's contest category and age group. */
-  categoryInfo: Scalars['String'],
+  /** The name of the performance's category. */
+  categoryName: Scalars['String'],
   id: Scalars['ID'],
   /** The performance's pieces. */
   pieces: Array<Piece>,
@@ -138,6 +140,7 @@ export type Stage = {
   name: Scalars['String'],
 };
 
+
 export type ListContestFragment = (
   { __typename?: 'Contest' }
   & Pick<Contest, 'id' | 'name' | 'countryCode' | 'dates'>
@@ -157,9 +160,10 @@ export type ContestPickerModalQueryVariables = {};
 
 export type ContestPickerModalQuery = (
   { __typename?: 'RootQueryType' }
-  & { contests: Array<{ __typename?: 'Contest' }
+  & { contests: Array<(
+    { __typename?: 'Contest' }
     & ListContestFragment
-  > }
+  )> }
 );
 
 export type ContestScreenQueryVariables = {
@@ -172,10 +176,11 @@ export type ContestScreenQuery = (
   { __typename?: 'RootQueryType' }
   & { performances: Maybe<Array<(
     { __typename?: 'Performance' }
-    & Pick<Performance, 'id' | 'stageTime' | 'categoryInfo'>
-    & { appearances: Array<{ __typename?: 'Appearance' }
+    & Pick<Performance, 'id' | 'stageTime' | 'categoryName' | 'ageGroup'>
+    & { appearances: Array<(
+      { __typename?: 'Appearance' }
       & ContestQueryAppearanceFragment
-    > }
+    )> }
   )>> }
 );
 
@@ -184,10 +189,12 @@ export type LandingScreenQueryVariables = {};
 
 export type LandingScreenQuery = (
   { __typename?: 'RootQueryType' }
-  & { contests: Array<{ __typename?: 'Contest' }
+  & { contests: Array<(
+    { __typename?: 'Contest' }
     & ListContestFragment
-  > }
+  )> }
 );
+
 export const ListContestFragmentDoc = gql`
     fragment ListContest on Contest {
   id
@@ -214,21 +221,37 @@ export const ContestPickerModalDocument = gql`
 }
     ${ListContestFragmentDoc}`;
 
-    export function useContestPickerModalQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ContestPickerModalQuery, ContestPickerModalQueryVariables>) {
-      return ApolloReactHooks.useQuery<ContestPickerModalQuery, ContestPickerModalQueryVariables>(ContestPickerModalDocument, baseOptions);
-    }
-      export function useContestPickerModalLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ContestPickerModalQuery, ContestPickerModalQueryVariables>) {
-        return ApolloReactHooks.useLazyQuery<ContestPickerModalQuery, ContestPickerModalQueryVariables>(ContestPickerModalDocument, baseOptions);
+/**
+ * __useContestPickerModalQuery__
+ *
+ * To run a query within a React component, call `useContestPickerModalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useContestPickerModalQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useContestPickerModalQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useContestPickerModalQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ContestPickerModalQuery, ContestPickerModalQueryVariables>) {
+        return ApolloReactHooks.useQuery<ContestPickerModalQuery, ContestPickerModalQueryVariables>(ContestPickerModalDocument, baseOptions);
       }
-      
+export function useContestPickerModalLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ContestPickerModalQuery, ContestPickerModalQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ContestPickerModalQuery, ContestPickerModalQueryVariables>(ContestPickerModalDocument, baseOptions);
+        }
 export type ContestPickerModalQueryHookResult = ReturnType<typeof useContestPickerModalQuery>;
+export type ContestPickerModalLazyQueryHookResult = ReturnType<typeof useContestPickerModalLazyQuery>;
 export type ContestPickerModalQueryResult = ApolloReactCommon.QueryResult<ContestPickerModalQuery, ContestPickerModalQueryVariables>;
 export const ContestScreenDocument = gql`
     query ContestScreen($contestId: ID!, $filter: PerformanceFilter) {
   performances(contestId: $contestId, filter: $filter) {
     id
     stageTime
-    categoryInfo
+    categoryName
+    ageGroup
     appearances {
       ...ContestQueryAppearance
     }
@@ -236,14 +259,31 @@ export const ContestScreenDocument = gql`
 }
     ${ContestQueryAppearanceFragmentDoc}`;
 
-    export function useContestScreenQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ContestScreenQuery, ContestScreenQueryVariables>) {
-      return ApolloReactHooks.useQuery<ContestScreenQuery, ContestScreenQueryVariables>(ContestScreenDocument, baseOptions);
-    }
-      export function useContestScreenLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ContestScreenQuery, ContestScreenQueryVariables>) {
-        return ApolloReactHooks.useLazyQuery<ContestScreenQuery, ContestScreenQueryVariables>(ContestScreenDocument, baseOptions);
+/**
+ * __useContestScreenQuery__
+ *
+ * To run a query within a React component, call `useContestScreenQuery` and pass it any options that fit your needs.
+ * When your component renders, `useContestScreenQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useContestScreenQuery({
+ *   variables: {
+ *      contestId: // value for 'contestId'
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useContestScreenQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ContestScreenQuery, ContestScreenQueryVariables>) {
+        return ApolloReactHooks.useQuery<ContestScreenQuery, ContestScreenQueryVariables>(ContestScreenDocument, baseOptions);
       }
-      
+export function useContestScreenLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ContestScreenQuery, ContestScreenQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ContestScreenQuery, ContestScreenQueryVariables>(ContestScreenDocument, baseOptions);
+        }
 export type ContestScreenQueryHookResult = ReturnType<typeof useContestScreenQuery>;
+export type ContestScreenLazyQueryHookResult = ReturnType<typeof useContestScreenLazyQuery>;
 export type ContestScreenQueryResult = ApolloReactCommon.QueryResult<ContestScreenQuery, ContestScreenQueryVariables>;
 export const LandingScreenDocument = gql`
     query LandingScreen {
@@ -253,12 +293,27 @@ export const LandingScreenDocument = gql`
 }
     ${ListContestFragmentDoc}`;
 
-    export function useLandingScreenQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<LandingScreenQuery, LandingScreenQueryVariables>) {
-      return ApolloReactHooks.useQuery<LandingScreenQuery, LandingScreenQueryVariables>(LandingScreenDocument, baseOptions);
-    }
-      export function useLandingScreenLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<LandingScreenQuery, LandingScreenQueryVariables>) {
-        return ApolloReactHooks.useLazyQuery<LandingScreenQuery, LandingScreenQueryVariables>(LandingScreenDocument, baseOptions);
+/**
+ * __useLandingScreenQuery__
+ *
+ * To run a query within a React component, call `useLandingScreenQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLandingScreenQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLandingScreenQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLandingScreenQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<LandingScreenQuery, LandingScreenQueryVariables>) {
+        return ApolloReactHooks.useQuery<LandingScreenQuery, LandingScreenQueryVariables>(LandingScreenDocument, baseOptions);
       }
-      
+export function useLandingScreenLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<LandingScreenQuery, LandingScreenQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<LandingScreenQuery, LandingScreenQueryVariables>(LandingScreenDocument, baseOptions);
+        }
 export type LandingScreenQueryHookResult = ReturnType<typeof useLandingScreenQuery>;
+export type LandingScreenLazyQueryHookResult = ReturnType<typeof useLandingScreenLazyQuery>;
 export type LandingScreenQueryResult = ApolloReactCommon.QueryResult<LandingScreenQuery, LandingScreenQueryVariables>;

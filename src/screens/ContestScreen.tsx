@@ -14,7 +14,8 @@ gql`
     performances(contestId: $contestId, filter: $filter) {
       id
       stageTime
-      categoryInfo
+      categoryName
+      ageGroup
       appearances {
         ...ContestQueryAppearance
       }
@@ -28,7 +29,8 @@ interface NavParams {
 }
 
 const ContestScreen: NavigationStackScreenComponent<NavParams> = props => {
-  const { id, dates, stages } = props.navigation.getParam("contest");
+  const { navigation } = props;
+  const { id, dates, stages } = navigation.getParam("contest");
 
   const [selectedDate, setSelectedDate] = useState(dates[0]);
   const [selectedStage, setSelectedStage] = useState(stages[0]);
@@ -53,7 +55,7 @@ const ContestScreen: NavigationStackScreenComponent<NavParams> = props => {
           renderItem={({ item }) => (
             <PerformanceRow
               stageTime={item.stageTime}
-              categoryInfo={item.categoryInfo}
+              categoryInfo={`${item.categoryName}, AG ${item.ageGroup}`}
               appearances={item.appearances}
             />
           )}
