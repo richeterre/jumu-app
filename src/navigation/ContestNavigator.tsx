@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-native";
 import { ListContestFragment as Contest } from "../graphql/types/generated";
 import ContestPickerModal from "../screens/ContestPickerModal";
+import PerformanceScreen from "../screens/PerformanceScreen";
 
 interface Props {
   contest: Contest;
@@ -28,8 +29,14 @@ const ContestNavigator: React.FC<Props> = props => {
     {
       PerformanceList: {
         screen: ContestScreen,
-        params: { contest: contest },
-        navigationOptions: { headerTitle },
+        params: { contest },
+        navigationOptions: { headerTitle, headerBackTitle: "Zeitplan" },
+      },
+      Performance: {
+        screen: PerformanceScreen,
+        navigationOptions: {
+          headerTitle: "Vorspieldetails",
+        },
       },
     },
     {

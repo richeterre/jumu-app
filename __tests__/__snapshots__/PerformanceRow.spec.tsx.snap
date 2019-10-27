@@ -2,9 +2,20 @@
 
 exports[`PerformanceRow renders correctly 1`] = `
 <View
+  accessible={true}
+  focusable={false}
+  isTVSelectable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     Object {
       "flexDirection": "row",
+      "opacity": 1,
       "padding": 20,
     }
   }

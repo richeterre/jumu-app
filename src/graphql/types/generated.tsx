@@ -79,6 +79,8 @@ export type Performance = {
   pieces: Array<Piece>,
   /** The host of the performance's predecessor contest. */
   predecessorHost?: Maybe<Host>,
+  /** The scheduled date of the performance. */
+  stageDate: Scalars['Date'],
   /** The scheduled wall time of the performance. */
   stageTime: Scalars['Time'],
 };
@@ -192,6 +194,19 @@ export type LandingScreenQuery = (
   & { contests: Array<(
     { __typename?: 'Contest' }
     & ListContestFragment
+  )> }
+);
+
+export type PerformanceScreenQueryVariables = {
+  id: Scalars['ID']
+};
+
+
+export type PerformanceScreenQuery = (
+  { __typename?: 'RootQueryType' }
+  & { performance: Maybe<(
+    { __typename?: 'Performance' }
+    & Pick<Performance, 'id' | 'stageDate' | 'stageTime' | 'categoryName' | 'ageGroup'>
   )> }
 );
 
@@ -317,3 +332,40 @@ export function useLandingScreenLazyQuery(baseOptions?: ApolloReactHooks.LazyQue
 export type LandingScreenQueryHookResult = ReturnType<typeof useLandingScreenQuery>;
 export type LandingScreenLazyQueryHookResult = ReturnType<typeof useLandingScreenLazyQuery>;
 export type LandingScreenQueryResult = ApolloReactCommon.QueryResult<LandingScreenQuery, LandingScreenQueryVariables>;
+export const PerformanceScreenDocument = gql`
+    query PerformanceScreen($id: ID!) {
+  performance(id: $id) {
+    id
+    stageDate
+    stageTime
+    categoryName
+    ageGroup
+  }
+}
+    `;
+
+/**
+ * __usePerformanceScreenQuery__
+ *
+ * To run a query within a React component, call `usePerformanceScreenQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePerformanceScreenQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePerformanceScreenQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePerformanceScreenQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PerformanceScreenQuery, PerformanceScreenQueryVariables>) {
+        return ApolloReactHooks.useQuery<PerformanceScreenQuery, PerformanceScreenQueryVariables>(PerformanceScreenDocument, baseOptions);
+      }
+export function usePerformanceScreenLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PerformanceScreenQuery, PerformanceScreenQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<PerformanceScreenQuery, PerformanceScreenQueryVariables>(PerformanceScreenDocument, baseOptions);
+        }
+export type PerformanceScreenQueryHookResult = ReturnType<typeof usePerformanceScreenQuery>;
+export type PerformanceScreenLazyQueryHookResult = ReturnType<typeof usePerformanceScreenLazyQuery>;
+export type PerformanceScreenQueryResult = ApolloReactCommon.QueryResult<PerformanceScreenQuery, PerformanceScreenQueryVariables>;

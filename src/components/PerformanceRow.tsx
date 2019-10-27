@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { ContestQueryAppearanceFragment } from "../graphql/types/generated";
 import { isoTimeToString } from "../helpers/dates";
 
@@ -7,13 +7,14 @@ interface Props {
   stageTime: string;
   categoryInfo: string;
   appearances: ContestQueryAppearanceFragment[];
+  onPress: () => void;
 }
 
 const PerformanceRow: React.FC<Props> = props => {
-  const { stageTime, categoryInfo, appearances } = props;
+  const { stageTime, categoryInfo, appearances, onPress } = props;
 
   return (
-    <View style={styles.root}>
+    <TouchableOpacity style={styles.root} onPress={onPress}>
       <Text style={styles.stageTime}>{isoTimeToString(stageTime)}</Text>
 
       <View style={styles.container}>
@@ -24,25 +25,25 @@ const PerformanceRow: React.FC<Props> = props => {
             .join("\n")}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
-    padding: 20
+    padding: 20,
   },
   stageTime: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   container: {
     flex: 1,
-    marginLeft: 15
+    marginLeft: 15,
   },
   categoryInfo: {
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });
 
 export default PerformanceRow;

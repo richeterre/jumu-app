@@ -57,6 +57,9 @@ const ContestScreen: NavigationStackScreenComponent<NavParams> = props => {
               stageTime={item.stageTime}
               categoryInfo={`${item.categoryName}, AG ${item.ageGroup}`}
               appearances={item.appearances}
+              onPress={() =>
+                navigation.navigate("Performance", { id: item.id })
+              }
             />
           )}
           keyExtractor={item => item.id}
