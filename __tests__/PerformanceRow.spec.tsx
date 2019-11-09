@@ -13,6 +13,7 @@ describe("PerformanceRow", () => {
           { participantName: "Theo Trompeter", instrumentName: "Trompete" },
           { participantName: "Paula Pianistin", instrumentName: "Klavier" }
         ]}
+        onPress={() => {}}
       />
     );
     expect(performanceRow).toMatchSnapshot();
