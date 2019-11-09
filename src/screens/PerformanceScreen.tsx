@@ -24,11 +24,11 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
   const { navigation } = props;
   const id = navigation.getParam("id");
 
-  const { data, error, loading } = usePerformanceScreenQuery({
+  const { data } = usePerformanceScreenQuery({
     variables: { id },
   });
 
-  if (!data || !data.performance) return null;
+  if (!data?.performance) return null;
 
   return (
     <>
