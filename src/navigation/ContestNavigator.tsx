@@ -3,7 +3,7 @@ import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createStackNavigator } from "react-navigation-stack";
 import React, { useState } from "react";
-import { Button, Modal } from "react-native";
+import { Button } from "react-native";
 import { ListContestFragment as Contest } from "../graphql/types/generated";
 import ContestPickerModal from "../screens/ContestPickerModal";
 import PerformanceScreen from "../screens/PerformanceScreen";
@@ -74,9 +74,9 @@ const ContestNavigator: React.FC<Props> = props => {
       <ContestPickerModal
         visible={contestPickerVisible}
         onCancel={() => setContestPickerVisible(false)}
-        onSelectContest={contest => {
+        onSelectContest={selectedContest => {
           setContestPickerVisible(false);
-          onSwitchContest(contest);
+          onSwitchContest(selectedContest);
         }}
       />
     </>

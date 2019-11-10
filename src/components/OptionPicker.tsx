@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
   StyleProp,
-  ViewStyle
+  ViewStyle,
 } from "react-native";
 
 interface Props<T> {
@@ -22,7 +22,7 @@ const OptionPicker = <T extends {}>(props: Props<T>) => {
     formatOption,
     selectedOption,
     onSelectOption,
-    style
+    style,
   } = props;
 
   return (
@@ -48,17 +48,17 @@ const OptionPicker = <T extends {}>(props: Props<T>) => {
 const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
   option: {
     borderBottomWidth: 2,
     alignItems: "center",
     flex: 1,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   selectedOption: {
-    borderBottomColor: "red"
-  }
+    borderBottomColor: "red",
+  },
 });
 
 export default OptionPicker;

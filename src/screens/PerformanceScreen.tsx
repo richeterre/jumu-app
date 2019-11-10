@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 import { gql } from "apollo-boost";
 import { usePerformanceScreenQuery } from "../graphql/types/generated";

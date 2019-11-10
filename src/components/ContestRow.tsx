@@ -16,8 +16,8 @@ const ContestRow: React.FC<Props> = ({ name, countryCode, onPress }) => (
 
 const styles = StyleSheet.create({
   root: {
-    padding: 15
-  }
+    padding: 15,
+  },
 });
 
 export default ContestRow;

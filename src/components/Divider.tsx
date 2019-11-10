@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
   root: {
     backgroundColor: "lightgray",
     height: 1,
-    marginHorizontal: 15
-  }
+    marginHorizontal: 15,
+  },
 });
 
 export default Divider;
