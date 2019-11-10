@@ -26,6 +26,8 @@ export type Appearance = {
   id: Scalars["ID"];
   /** The name of the participant's instrument in this appearance. */
   instrumentName: Scalars["String"];
+  /** Whether the appearance's participant has an accompanist role. */
+  isAccompanist: Scalars["Boolean"];
   /** The full name of the appearance's participant. */
   participantName: Scalars["String"];
   /** The appearance's result, if publicly available. */
@@ -146,7 +148,14 @@ export type ListContestFragment = { __typename?: "Contest" } & Pick<
 
 export type ContestQueryAppearanceFragment = {
   __typename?: "Appearance";
-} & Pick<Appearance, "participantName" | "instrumentName">;
+} & Pick<Appearance, "id" | "participantName" | "instrumentName">;
+
+export type PerformanceQueryAppearanceFragment = {
+  __typename?: "Appearance";
+} & Pick<
+  Appearance,
+  "id" | "participantName" | "instrumentName" | "isAccompanist"
+>;
 
 export type ContestPickerModalQueryVariables = {};
 
@@ -189,7 +198,11 @@ export type PerformanceScreenQuery = { __typename?: "RootQueryType" } & {
     { __typename?: "Performance" } & Pick<
       Performance,
       "id" | "stageDate" | "stageTime" | "categoryName" | "ageGroup"
-    >
+    > & {
+        appearances: Array<
+          { __typename?: "Appearance" } & PerformanceQueryAppearanceFragment
+        >;
+      }
   >;
 };
 
@@ -207,8 +220,17 @@ export const ListContestFragmentDoc = gql`
 `;
 export const ContestQueryAppearanceFragmentDoc = gql`
   fragment ContestQueryAppearance on Appearance {
+    id
     participantName
     instrumentName
+  }
+`;
+export const PerformanceQueryAppearanceFragmentDoc = gql`
+  fragment PerformanceQueryAppearance on Appearance {
+    id
+    participantName
+    instrumentName
+    isAccompanist
   }
 `;
 export const ContestPickerModalDocument = gql`
@@ -395,8 +417,12 @@ export const PerformanceScreenDocument = gql`
       stageTime
       categoryName
       ageGroup
+      appearances {
+        ...PerformanceQueryAppearance
+      }
     }
   }
+  ${PerformanceQueryAppearanceFragmentDoc}
 `;
 
 /**

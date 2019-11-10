@@ -1,8 +1,14 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
+import { partition } from "lodash";
 import { gql } from "apollo-boost";
-import { usePerformanceScreenQuery } from "../graphql/types/generated";
+import {
+  usePerformanceScreenQuery,
+  PerformanceQueryAppearanceFragment,
+} from "../graphql/types/generated";
+import { PerformanceQueryAppearance } from "../graphql/documents/fragments";
+import Divider from "../components/Divider";
 
 gql`
   query PerformanceScreen($id: ID!) {
@@ -12,8 +18,12 @@ gql`
       stageTime
       categoryName
       ageGroup
+      appearances {
+        ...PerformanceQueryAppearance
+      }
     }
   }
+  ${PerformanceQueryAppearance}
 `;
 
 interface NavParams {
@@ -30,14 +40,46 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
 
   if (!data?.performance) return null;
 
+  const renderAppearance = (appearance: PerformanceQueryAppearanceFragment) => {
+    const { id, participantName, instrumentName } = appearance;
+
+    return <Text key={id}>{`${participantName}, ${instrumentName}`}</Text>;
+  };
+
+  const {
+    categoryName,
+    ageGroup,
+    stageDate,
+    stageTime,
+    appearances,
+  } = data.performance;
+
+  const [acc, nonAcc] = partition(appearances, a => a.isAccompanist);
+
   return (
     <>
-      <Text>{data.performance.categoryName}</Text>
-      <Text>Altersgruppe {data.performance.ageGroup}</Text>
-      <Text>{data.performance.stageDate}</Text>
-      <Text>{data.performance.stageTime}</Text>
+      <Text>{categoryName}</Text>
+      <Text>Altersgruppe {ageGroup}</Text>
+      <Text>{stageDate}</Text>
+      <Text>{stageTime}</Text>
+
+      <Divider />
+
+      {nonAcc.map(renderAppearance)}
+
+      {!!acc.length && (
+        <Text style={styles.accompanistIntro}>begleitet von</Text>
+      )}
+      {acc.map(renderAppearance)}
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  accompanistIntro: {
+    color: "gray",
+    marginTop: 8,
+  },
+});
 
 export default PerformanceScreen;
