@@ -4,4 +4,7 @@ module.exports = {
     "@react-native-community",
     "plugin:prettier/recommended"
   ],
+  rules: {
+    "no-shadow": "off"
+  }
 };

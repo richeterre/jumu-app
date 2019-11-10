@@ -74,9 +74,9 @@ const ContestNavigator: React.FC<Props> = props => {
       <ContestPickerModal
         visible={contestPickerVisible}
         onCancel={() => setContestPickerVisible(false)}
-        onSelectContest={selectedContest => {
+        onSelectContest={contest => {
           setContestPickerVisible(false);
-          onSwitchContest(selectedContest);
+          onSwitchContest(contest);
         }}
       />
     </>
