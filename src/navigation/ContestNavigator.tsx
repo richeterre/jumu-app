@@ -1,11 +1,12 @@
-import ContestScreen from "../screens/ContestScreen";
-import { createAppContainer } from "react-navigation";
-import { createBottomTabNavigator } from "react-navigation-tabs";
-import { createStackNavigator } from "react-navigation-stack";
 import React, { useState } from "react";
 import { Button } from "react-native";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+
 import { ListContestFragment as Contest } from "../graphql/types/generated";
 import ContestPickerModal from "../screens/ContestPickerModal";
+import ContestScreen from "../screens/ContestScreen";
 import PerformanceScreen from "../screens/PerformanceScreen";
 
 interface Props {

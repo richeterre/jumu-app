@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import ContestNavigator from "./ContestNavigator";
 import { ListContestFragment as Contest } from "../graphql/types/generated";
 import LandingScreen from "../screens/LandingScreen";
+import ContestNavigator from "./ContestNavigator";
 
 const RootView: React.FC = () => {
   const [contest, setContest] = useState<Contest>();

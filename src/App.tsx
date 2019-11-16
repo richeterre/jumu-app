@@ -1,5 +1,5 @@
-import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
+import React from "react";
 import { useScreens } from "react-native-screens";
 
 import client from "./graphql/client";

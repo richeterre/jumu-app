@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
 import { ContestQueryAppearanceFragment } from "../graphql/types/generated";
 import { isoTimeToString } from "../helpers/dates";
 

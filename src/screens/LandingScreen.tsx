@@ -1,13 +1,13 @@
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 
+import ContestRow from "../components/ContestRow";
+import { ListContest } from "../graphql/documents/fragments";
 import {
   ListContestFragment as Contest,
   useLandingScreenQuery,
 } from "../graphql/types/generated";
-import { ListContest } from "../graphql/documents/fragments";
-import ContestRow from "../components/ContestRow";
 import ContestPickerModal from "./ContestPickerModal";
 
 gql`

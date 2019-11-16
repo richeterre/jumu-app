@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { FlatList, Text, StyleSheet, View } from "react-native";
-import { NavigationStackScreenComponent } from "react-navigation-stack";
 import { gql } from "apollo-boost";
-import PerformanceRow from "../components/PerformanceRow";
+import React, { useState } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
+
 import Divider from "../components/Divider";
 import OptionPicker from "../components/OptionPicker";
-import { Contest, useContestScreenQuery } from "../graphql/types/generated";
+import PerformanceRow from "../components/PerformanceRow";
 import SafeAreaListFooter from "../components/SafeAreaListFooter";
 import { ContestQueryAppearance } from "../graphql/documents/fragments";
+import { Contest, useContestScreenQuery } from "../graphql/types/generated";
 
 gql`
   query ContestScreen($contestId: ID!, $filter: PerformanceFilter) {

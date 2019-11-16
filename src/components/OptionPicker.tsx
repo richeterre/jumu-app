@@ -1,10 +1,10 @@
 import React from "react";
 import {
+  StyleProp,
   StyleSheet,
-  View,
   Text,
   TouchableOpacity,
-  StyleProp,
+  View,
   ViewStyle,
 } from "react-native";
 

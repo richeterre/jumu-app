@@ -1,18 +1,19 @@
-import React from "react";
-import { Text, StyleSheet, View, ScrollView } from "react-native";
-import { NavigationStackScreenComponent } from "react-navigation-stack";
-import { partition } from "lodash";
 import { gql } from "apollo-boost";
-import {
-  usePerformanceScreenQuery,
-  PerformanceQueryAppearanceFragment,
-  PerformanceQueryPieceFragment,
-} from "../graphql/types/generated";
+import { partition } from "lodash";
+import React from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
+
+import Divider from "../components/Divider";
 import {
   PerformanceQueryAppearance,
   PerformanceQueryPiece,
 } from "../graphql/documents/fragments";
-import Divider from "../components/Divider";
+import {
+  PerformanceQueryAppearanceFragment,
+  PerformanceQueryPieceFragment,
+  usePerformanceScreenQuery,
+} from "../graphql/types/generated";
 
 gql`
   query PerformanceScreen($id: ID!) {

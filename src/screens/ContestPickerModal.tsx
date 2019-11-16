@@ -1,15 +1,16 @@
-import React from "react";
 import { gql } from "apollo-boost";
-import { FlatList, Text, StyleSheet } from "react-native";
+import React from "react";
+import { FlatList, StyleSheet, Text } from "react-native";
 import Modal from "react-native-modal";
+
 import ContestRow from "../components/ContestRow";
 import Divider from "../components/Divider";
+import SafeAreaListFooter from "../components/SafeAreaListFooter";
+import { ListContest } from "../graphql/documents/fragments";
 import {
   ListContestFragment as Contest,
   useContestPickerModalQuery,
 } from "../graphql/types/generated";
-import SafeAreaListFooter from "../components/SafeAreaListFooter";
-import { ListContest } from "../graphql/documents/fragments";
 
 gql`
   query ContestPickerModal {
