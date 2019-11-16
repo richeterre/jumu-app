@@ -157,6 +157,11 @@ export type PerformanceQueryAppearanceFragment = {
   "id" | "participantName" | "instrumentName" | "isAccompanist"
 >;
 
+export type PerformanceQueryPieceFragment = { __typename?: "Piece" } & Pick<
+  Piece,
+  "id" | "personInfo" | "title"
+>;
+
 export type ContestPickerModalQueryVariables = {};
 
 export type ContestPickerModalQuery = { __typename?: "RootQueryType" } & {
@@ -202,6 +207,7 @@ export type PerformanceScreenQuery = { __typename?: "RootQueryType" } & {
         appearances: Array<
           { __typename?: "Appearance" } & PerformanceQueryAppearanceFragment
         >;
+        pieces: Array<{ __typename?: "Piece" } & PerformanceQueryPieceFragment>;
       }
   >;
 };
@@ -231,6 +237,13 @@ export const PerformanceQueryAppearanceFragmentDoc = gql`
     participantName
     instrumentName
     isAccompanist
+  }
+`;
+export const PerformanceQueryPieceFragmentDoc = gql`
+  fragment PerformanceQueryPiece on Piece {
+    id
+    personInfo
+    title
   }
 `;
 export const ContestPickerModalDocument = gql`
@@ -420,9 +433,13 @@ export const PerformanceScreenDocument = gql`
       appearances {
         ...PerformanceQueryAppearance
       }
+      pieces {
+        ...PerformanceQueryPiece
+      }
     }
   }
   ${PerformanceQueryAppearanceFragmentDoc}
+  ${PerformanceQueryPieceFragmentDoc}
 `;
 
 /**

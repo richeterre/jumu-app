@@ -29,3 +29,11 @@ export const PerformanceQueryAppearance = gql`
     isAccompanist
   }
 `;
+
+export const PerformanceQueryPiece = gql`
+  fragment PerformanceQueryPiece on Piece {
+    id
+    personInfo
+    title
+  }
+`;

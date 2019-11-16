@@ -1,13 +1,17 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 import { partition } from "lodash";
 import { gql } from "apollo-boost";
 import {
   usePerformanceScreenQuery,
   PerformanceQueryAppearanceFragment,
+  PerformanceQueryPieceFragment,
 } from "../graphql/types/generated";
-import { PerformanceQueryAppearance } from "../graphql/documents/fragments";
+import {
+  PerformanceQueryAppearance,
+  PerformanceQueryPiece,
+} from "../graphql/documents/fragments";
 import Divider from "../components/Divider";
 
 gql`
@@ -21,9 +25,13 @@ gql`
       appearances {
         ...PerformanceQueryAppearance
       }
+      pieces {
+        ...PerformanceQueryPiece
+      }
     }
   }
   ${PerformanceQueryAppearance}
+  ${PerformanceQueryPiece}
 `;
 
 interface NavParams {
@@ -46,12 +54,24 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
     return <Text key={id}>{`${participantName}, ${instrumentName}`}</Text>;
   };
 
+  const renderPiece = (piece: PerformanceQueryPieceFragment) => {
+    const { id, personInfo, title } = piece;
+
+    return (
+      <View key={id} style={styles.piece}>
+        <Text style={styles.piecePersonInfo}>{personInfo}</Text>
+        <Text>{title}</Text>
+      </View>
+    );
+  };
+
   const {
     categoryName,
     ageGroup,
     stageDate,
     stageTime,
     appearances,
+    pieces,
   } = data.performance;
 
   const [acc, nonAcc] = partition(appearances, a => a.isAccompanist);
@@ -71,6 +91,10 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
         <Text style={styles.accompanistIntro}>begleitet von</Text>
       )}
       {acc.map(renderAppearance)}
+
+      <Divider />
+
+      {pieces.map(renderPiece)}
     </>
   );
 };
@@ -79,6 +103,12 @@ const styles = StyleSheet.create({
   accompanistIntro: {
     color: "gray",
     marginTop: 8,
+  },
+  piece: {
+    marginBottom: 8,
+  },
+  piecePersonInfo: {
+    fontWeight: "bold",
   },
 });
 
