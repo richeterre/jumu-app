@@ -1,8 +1,12 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, StyleProp, ViewStyle } from "react-native";
 
-const Divider = () => {
-  return <View style={styles.root} />;
+interface Props {
+  style?: StyleProp<ViewStyle>;
+}
+
+const Divider: React.FC<Props> = ({ style }) => {
+  return <View style={[styles.root, style]} />;
 };
 
 const styles = StyleSheet.create({

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, ScrollView } from "react-native";
+import { Text, StyleSheet, View, ScrollView } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 import { partition } from "lodash";
 import { gql } from "apollo-boost";
@@ -77,13 +77,13 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
   const [acc, nonAcc] = partition(appearances, a => a.isAccompanist);
 
   return (
-    <>
+    <ScrollView style={styles.root}>
       <Text>{categoryName}</Text>
       <Text>Altersgruppe {ageGroup}</Text>
       <Text>{stageDate}</Text>
       <Text>{stageTime}</Text>
 
-      <Divider />
+      <Divider style={styles.divider} />
 
       {nonAcc.map(renderAppearance)}
 
@@ -92,14 +92,22 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
       )}
       {acc.map(renderAppearance)}
 
-      <Divider />
+      <Divider style={styles.divider} />
 
       {pieces.map(renderPiece)}
-    </>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  root: {
+    padding: 16,
+  },
+  divider: {
+    alignSelf: "center",
+    marginVertical: 16,
+    width: "67%",
+  },
   accompanistIntro: {
     color: "gray",
     marginTop: 8,
