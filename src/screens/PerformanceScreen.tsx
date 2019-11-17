@@ -12,6 +12,7 @@ import {
 import {
   PerformanceQueryAppearanceFragment,
   PerformanceQueryPieceFragment,
+  Stage,
   usePerformanceScreenQuery,
 } from "../graphql/types/generated";
 
@@ -37,11 +38,13 @@ gql`
 
 interface NavParams {
   id: string;
+  stage: Stage;
 }
 
 const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
   const { navigation } = props;
   const id = navigation.getParam("id");
+  const stage = navigation.getParam("stage");
 
   const { data } = usePerformanceScreenQuery({
     variables: { id },
@@ -86,6 +89,7 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
       <Text>Altersgruppe {ageGroup}</Text>
       <Text>{stageDate}</Text>
       <Text>{stageTime}</Text>
+      <Text>{stage.name}</Text>
 
       <Divider style={styles.divider} />
 
