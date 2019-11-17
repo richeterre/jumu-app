@@ -78,7 +78,10 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
   const [acc, nonAcc] = partition(appearances, a => a.isAccompanist);
 
   return (
-    <ScrollView style={styles.root}>
+    <ScrollView
+      contentContainerStyle={styles.scrollViewContainer}
+      alwaysBounceVertical={false}
+    >
       <Text>{categoryName}</Text>
       <Text>Altersgruppe {ageGroup}</Text>
       <Text>{stageDate}</Text>
@@ -101,8 +104,9 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
 };
 
 const styles = StyleSheet.create({
-  root: {
+  scrollViewContainer: {
     padding: 16,
+    paddingBottom: 8,
   },
   divider: {
     alignSelf: "center",
