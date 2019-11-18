@@ -6,7 +6,6 @@ import { NavigationStackScreenComponent } from "react-navigation-stack";
 import Divider from "../components/Divider";
 import OptionPicker from "../components/OptionPicker";
 import PerformanceRow from "../components/PerformanceRow";
-import SafeAreaListFooter from "../components/SafeAreaListFooter";
 import { ContestQueryAppearance } from "../graphql/documents/fragments";
 import { Contest, useContestScreenQuery } from "../graphql/types/generated";
 
@@ -68,7 +67,6 @@ const ContestScreen: NavigationStackScreenComponent<NavParams> = props => {
           )}
           keyExtractor={item => item.id}
           ItemSeparatorComponent={Divider}
-          ListFooterComponent={SafeAreaListFooter}
         />
       );
     }
