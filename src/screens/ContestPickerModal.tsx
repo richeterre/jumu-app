@@ -1,10 +1,12 @@
 import { gql } from "apollo-boost";
 import React from "react";
-import { FlatList, StyleSheet, Text } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 
 import ContestRow from "../components/ContestRow";
 import Divider from "../components/Divider";
+import ErrorView from "../components/ErrorView";
+import LoadingView from "../components/LoadingView";
 import SafeAreaListFooter from "../components/SafeAreaListFooter";
 import { ListContest } from "../graphql/documents/fragments";
 import {
@@ -32,9 +34,9 @@ const ContestPickerModal: React.FC<Props> = props => {
 
   const renderContests = () => {
     if (error) {
-      return <Text>Error!</Text>;
+      return <ErrorView />;
     } else if (loading) {
-      return <Text>Loading...</Text>;
+      return <LoadingView />;
     } else if (data) {
       return (
         <FlatList

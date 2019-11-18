@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 import ContestRow from "../components/ContestRow";
+import ErrorView from "../components/ErrorView";
+import LoadingView from "../components/LoadingView";
 import { ListContest } from "../graphql/documents/fragments";
 import {
   ListContestFragment as Contest,
@@ -29,9 +31,9 @@ const LandingScreen: React.FC<Props> = props => {
 
   const renderContests = () => {
     if (error) {
-      return <Text>Error!</Text>;
+      return <ErrorView />;
     } else if (loading) {
-      return <Text>Loading...</Text>;
+      return <LoadingView />;
     } else if (data) {
       const [firstContest] = data.contests;
       return firstContest ? (

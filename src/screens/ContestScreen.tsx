@@ -1,9 +1,11 @@
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import Divider from "../components/Divider";
+import ErrorView from "../components/ErrorView";
+import LoadingView from "../components/LoadingView";
 import OptionPicker from "../components/OptionPicker";
 import PerformanceRow from "../components/PerformanceRow";
 import { ContestQueryAppearance } from "../graphql/documents/fragments";
@@ -44,9 +46,9 @@ const ContestScreen: NavigationStackScreenComponent<NavParams> = props => {
 
   const renderPerformanceList = () => {
     if (error) {
-      return <Text>Error!</Text>;
+      return <ErrorView />;
     } else if (loading) {
-      return <Text>Loading...</Text>;
+      return <LoadingView />;
     } else if (data) {
       return (
         <FlatList

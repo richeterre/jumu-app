@@ -1,10 +1,12 @@
 import { gql } from "apollo-boost";
 import React from "react";
-import { FlatList, Text } from "react-native";
+import { FlatList } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import ContestCategoryRow from "../components/ContestCategoryRow";
 import Divider from "../components/Divider";
+import ErrorView from "../components/ErrorView";
+import LoadingView from "../components/LoadingView";
 import {
   Contest,
   useContestCategoryListScreenQuery,
@@ -33,9 +35,9 @@ const ContestCategoryListScreen: NavigationStackScreenComponent<NavParams> = pro
   });
 
   if (error) {
-    return <Text>Error!</Text>;
+    return <ErrorView />;
   } else if (loading) {
-    return <Text>Loading...</Text>;
+    return <LoadingView />;
   } else if (data) {
     return (
       <FlatList
