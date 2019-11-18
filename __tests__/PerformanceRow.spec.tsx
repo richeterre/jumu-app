@@ -10,8 +10,16 @@ describe("PerformanceRow", () => {
         stageTime="09:45:00"
         categoryInfo="Violine solo, AG II"
         appearances={[
-          { participantName: "Theo Trompeter", instrumentName: "Trompete" },
-          { participantName: "Paula Pianistin", instrumentName: "Klavier" }
+          {
+            id: "1",
+            participantName: "Theo Trompeter",
+            instrumentName: "Trompete",
+          },
+          {
+            id: "2",
+            participantName: "Paula Pianistin",
+            instrumentName: "Klavier",
+          },
         ]}
         onPress={() => {}}
       />
