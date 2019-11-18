@@ -98,10 +98,6 @@ const ContestScreen: NavigationStackScreenComponent<NavParams> = props => {
   );
 };
 
-ContestScreen.navigationOptions = ({ navigation }) => ({
-  title: navigation.getParam("contest").name,
-});
-
 const styles = StyleSheet.create({
   optionPicker: {
     marginTop: 15,
