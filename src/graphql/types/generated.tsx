@@ -36,8 +36,6 @@ export type Appearance = {
 
 export type Contest = {
   __typename?: "Contest";
-  /** The contest categories offered at this contest. */
-  contestCategories: Array<ContestCategory>;
   /** The country code of the contest's host. */
   countryCode: Scalars["String"];
   /** The dates on which the contest is happening. */
@@ -117,12 +115,18 @@ export type Result = {
 
 export type RootQueryType = {
   __typename?: "RootQueryType";
+  /** The contest categories of a public contest. */
+  contestCategories?: Maybe<Array<ContestCategory>>;
   /** The contests with public timetables. */
   contests: Array<Contest>;
   /** A single performance that's scheduled in a public contest. */
   performance?: Maybe<Performance>;
   /** The scheduled performances of a public contest. */
   performances?: Maybe<Array<Performance>>;
+};
+
+export type RootQueryTypeContestCategoriesArgs = {
+  contestId: Scalars["ID"];
 };
 
 export type RootQueryTypePerformanceArgs = {
@@ -161,6 +165,23 @@ export type PerformanceQueryPieceFragment = { __typename?: "Piece" } & Pick<
   Piece,
   "id" | "personInfo" | "title"
 >;
+
+export type ContestCategoryListScreenQueryVariables = {
+  contestId: Scalars["ID"];
+};
+
+export type ContestCategoryListScreenQuery = {
+  __typename?: "RootQueryType";
+} & {
+  contestCategories: Maybe<
+    Array<
+      { __typename?: "ContestCategory" } & Pick<
+        ContestCategory,
+        "id" | "name" | "publicResultCount"
+      >
+    >
+  >;
+};
 
 export type ContestPickerModalQueryVariables = {};
 
@@ -246,6 +267,64 @@ export const PerformanceQueryPieceFragmentDoc = gql`
     title
   }
 `;
+export const ContestCategoryListScreenDocument = gql`
+  query ContestCategoryListScreen($contestId: ID!) {
+    contestCategories(contestId: $contestId) {
+      id
+      name
+      publicResultCount
+    }
+  }
+`;
+
+/**
+ * __useContestCategoryListScreenQuery__
+ *
+ * To run a query within a React component, call `useContestCategoryListScreenQuery` and pass it any options that fit your needs.
+ * When your component renders, `useContestCategoryListScreenQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useContestCategoryListScreenQuery({
+ *   variables: {
+ *      contestId: // value for 'contestId'
+ *   },
+ * });
+ */
+export function useContestCategoryListScreenQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    ContestCategoryListScreenQuery,
+    ContestCategoryListScreenQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    ContestCategoryListScreenQuery,
+    ContestCategoryListScreenQueryVariables
+  >(ContestCategoryListScreenDocument, baseOptions);
+}
+export function useContestCategoryListScreenLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ContestCategoryListScreenQuery,
+    ContestCategoryListScreenQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    ContestCategoryListScreenQuery,
+    ContestCategoryListScreenQueryVariables
+  >(ContestCategoryListScreenDocument, baseOptions);
+}
+export type ContestCategoryListScreenQueryHookResult = ReturnType<
+  typeof useContestCategoryListScreenQuery
+>;
+export type ContestCategoryListScreenLazyQueryHookResult = ReturnType<
+  typeof useContestCategoryListScreenLazyQuery
+>;
+export type ContestCategoryListScreenQueryResult = ApolloReactCommon.QueryResult<
+  ContestCategoryListScreenQuery,
+  ContestCategoryListScreenQueryVariables
+>;
 export const ContestPickerModalDocument = gql`
   query ContestPickerModal {
     contests {

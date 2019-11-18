@@ -15,7 +15,7 @@ exports[`ContestRow renders correctly 1`] = `
   style={
     Object {
       "opacity": 1,
-      "padding": 15,
+      "padding": 16,
     }
   }
 >

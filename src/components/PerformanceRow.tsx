@@ -33,7 +33,7 @@ const PerformanceRow: React.FC<Props> = props => {
 const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
-    padding: 20,
+    padding: 16,
   },
   stageTime: {
     fontWeight: "bold",

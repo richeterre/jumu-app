@@ -16,7 +16,7 @@ exports[`PerformanceRow renders correctly 1`] = `
     Object {
       "flexDirection": "row",
       "opacity": 1,
-      "padding": 20,
+      "padding": 16,
     }
   }
 >

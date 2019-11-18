@@ -5,6 +5,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
 import { ListContestFragment as Contest } from "../graphql/types/generated";
+import ContestCategoryListScreen from "../screens/ContestCategoryListScreen";
 import ContestPickerModal from "../screens/ContestPickerModal";
 import ContestScreen from "../screens/ContestScreen";
 import PerformanceScreen from "../screens/PerformanceScreen";
@@ -50,7 +51,7 @@ const ContestNavigator: React.FC<Props> = props => {
   const ResultsTab = createStackNavigator(
     {
       ContestCategoryList: {
-        screen: ContestScreen,
+        screen: ContestCategoryListScreen,
         params: { contest: contest },
         navigationOptions: { headerTitle },
       },
