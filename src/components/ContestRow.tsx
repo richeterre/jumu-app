@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
+import textStyles from "../constants/textStyles";
 import { flag } from "../helpers/countries";
 
 interface Props {
@@ -11,13 +12,16 @@ interface Props {
 
 const ContestRow: React.FC<Props> = ({ name, countryCode, onPress }) => (
   <TouchableOpacity style={styles.root} onPress={onPress}>
-    <Text>{`${flag(countryCode)} ${name}`}</Text>
+    <Text style={styles.name}>{`${flag(countryCode)} ${name}`}</Text>
   </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
   root: {
     padding: 16,
+  },
+  name: {
+    ...textStyles.large,
   },
 });
 

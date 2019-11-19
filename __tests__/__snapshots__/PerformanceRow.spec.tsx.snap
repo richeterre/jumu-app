@@ -23,6 +23,8 @@ exports[`PerformanceRow renders correctly 1`] = `
   <Text
     style={
       Object {
+        "fontFamily": "Lato",
+        "fontSize": 16,
         "fontWeight": "bold",
       }
     }
@@ -40,13 +42,23 @@ exports[`PerformanceRow renders correctly 1`] = `
     <Text
       style={
         Object {
+          "fontFamily": "Lato",
+          "fontSize": 16,
           "fontWeight": "bold",
         }
       }
     >
       Violine solo, AG II
     </Text>
-    <Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "Lato",
+          "fontSize": 16,
+          "marginTop": 4,
+        }
+      }
+    >
       Theo Trompeter, Trompete
 Paula Pianistin, Klavier
     </Text>

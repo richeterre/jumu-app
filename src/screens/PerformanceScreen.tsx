@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import Divider from "../components/Divider";
+import textStyles from "../constants/textStyles";
 import {
   PerformanceAppearance,
   PerformancePiece,
@@ -62,14 +63,16 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
   } = data.performance;
 
   const renderAppearance = (appearance: PerformanceAppearanceFragment) => {
-    const { id, participantName, instrumentName } = appearance;
+    const { id, participantName, instrumentName, isAccompanist } = appearance;
 
     // Append age group info for divergent age groups
     const ageGroupInfo =
       appearance.ageGroup !== ageGroup ? ` (AG ${appearance.ageGroup})` : "";
 
+    const roleStyle = isAccompanist && styles.accompanistAppearance;
+
     return (
-      <Text key={id}>
+      <Text key={id} style={[styles.appearance, roleStyle]}>
         {`${participantName}, ${instrumentName}${ageGroupInfo}`}
       </Text>
     );
@@ -81,7 +84,7 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
     return (
       <View key={id} style={styles.piece}>
         <Text style={styles.piecePersonInfo}>{personInfo}</Text>
-        <Text>{title}</Text>
+        <Text style={styles.pieceTitle}>{title}</Text>
       </View>
     );
   };
@@ -93,11 +96,11 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
       contentContainerStyle={styles.scrollViewContainer}
       alwaysBounceVertical={false}
     >
-      <Text>{categoryName}</Text>
-      <Text>Altersgruppe {ageGroup}</Text>
-      <Text>{stageDate}</Text>
-      <Text>{stageTime}</Text>
-      <Text>{stage.name}</Text>
+      <Text style={styles.categoryName}>{categoryName}</Text>
+      <Text style={styles.ageGroup}>Altersgruppe {ageGroup}</Text>
+      <Text style={styles.stageDate}>{stageDate}</Text>
+      <Text style={styles.stageTime}>{stageTime}</Text>
+      <Text style={styles.stageName}>{stage.name}</Text>
 
       <Divider style={styles.divider} />
 
@@ -120,13 +123,38 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 8,
   },
+  categoryName: {
+    ...textStyles.large,
+    fontWeight: "bold",
+  },
+  ageGroup: {
+    ...textStyles.large,
+  },
+  stageDate: {
+    ...textStyles.medium,
+    marginTop: 16,
+  },
+  stageTime: {
+    ...textStyles.medium,
+  },
+  stageName: {
+    ...textStyles.medium,
+  },
   divider: {
     alignSelf: "center",
     marginVertical: 16,
     marginLeft: 0,
     width: "67%",
   },
+  appearance: {
+    ...textStyles.medium,
+    fontWeight: "bold",
+  },
+  accompanistAppearance: {
+    fontWeight: "normal",
+  },
   accompanistIntro: {
+    ...textStyles.small,
     color: "gray",
     marginTop: 8,
   },
@@ -134,7 +162,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   piecePersonInfo: {
+    ...textStyles.medium,
     fontWeight: "bold",
+  },
+  pieceTitle: {
+    ...textStyles.medium,
   },
 });
 

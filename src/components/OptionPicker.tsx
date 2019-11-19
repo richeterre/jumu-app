@@ -8,6 +8,8 @@ import {
   ViewStyle,
 } from "react-native";
 
+import textStyles from "../constants/textStyles";
+
 interface Props<T> {
   options: T[];
   formatOption: (option: T) => string;
@@ -37,7 +39,7 @@ const OptionPicker = <T extends {}>(props: Props<T>) => {
             style={[styles.option, selectedStyle]}
             onPress={() => onSelectOption(option)}
           >
-            <Text>{formatOption(option)}</Text>
+            <Text style={styles.optionText}>{formatOption(option)}</Text>
           </TouchableOpacity>
         );
       })}
@@ -58,6 +60,9 @@ const styles = StyleSheet.create({
   },
   selectedOption: {
     borderBottomColor: "red",
+  },
+  optionText: {
+    ...textStyles.small,
   },
 });
 

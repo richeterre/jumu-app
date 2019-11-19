@@ -19,7 +19,14 @@ exports[`ContestRow renders correctly 1`] = `
     }
   }
 >
-  <Text>
+  <Text
+    style={
+      Object {
+        "fontFamily": "Lato",
+        "fontSize": 18,
+      }
+    }
+  >
     🇫🇮 RW 2019, DS Helsinki
   </Text>
 </View>

@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import textStyles from "../constants/textStyles";
 import { ResultListAppearanceFragment as Appearance } from "../graphql/types/generated";
 import Badge from "./Badge";
 
@@ -23,7 +24,7 @@ const ResultRow: React.FC<Props> = props => {
         <Text style={styles.points}>{result?.points}</Text>
 
         <View style={styles.prizeContainer}>
-          <Text>{result?.prize}</Text>
+          <Text style={styles.prize}>{result?.prize}</Text>
           {result?.advances && (
             <Badge style={styles.advancementBadge} text="WL" />
           )}
@@ -46,9 +47,11 @@ const styles = StyleSheet.create({
     marginVertical: 2,
   },
   participantInfo: {
+    ...textStyles.medium,
     flex: 1,
   },
   points: {
+    ...textStyles.medium,
     width: 32,
     marginLeft: 8,
   },
@@ -56,6 +59,9 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flexDirection: "row",
     width: 80,
+  },
+  prize: {
+    ...textStyles.medium,
   },
   advancementBadge: {
     marginLeft: 4,

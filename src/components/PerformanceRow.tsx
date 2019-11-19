@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import textStyles from "../constants/textStyles";
 import { PerformanceListAppearanceFragment } from "../graphql/types/generated";
 import { isoTimeToString } from "../helpers/dates";
 
@@ -20,7 +21,7 @@ const PerformanceRow: React.FC<Props> = props => {
 
       <View style={styles.container}>
         <Text style={styles.categoryInfo}>{categoryInfo}</Text>
-        <Text>
+        <Text style={styles.appearances}>
           {appearances
             .map(a => `${a.participantName}, ${a.instrumentName}`)
             .join("\n")}
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   stageTime: {
+    ...textStyles.medium,
     fontWeight: "bold",
   },
   container: {
@@ -43,7 +45,12 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   categoryInfo: {
+    ...textStyles.medium,
     fontWeight: "bold",
+  },
+  appearances: {
+    ...textStyles.medium,
+    marginTop: 4,
   },
 });
 

@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
+import textStyles from "../constants/textStyles";
+
 interface Props {
   style?: StyleProp<ViewStyle>;
   text: string;
@@ -20,9 +22,11 @@ const styles = StyleSheet.create({
   root: {
     backgroundColor: "green",
     paddingHorizontal: 4,
+    paddingVertical: 2,
     borderRadius: 4,
   },
   text: {
+    ...textStyles.small,
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
