@@ -173,7 +173,11 @@ export type PerformancePieceFragment = { __typename?: "Piece" } & Pick<
 export type ResultListAppearanceFragment = { __typename?: "Appearance" } & Pick<
   Appearance,
   "id" | "participantName" | "instrumentName"
-> & { result: Maybe<{ __typename?: "Result" } & Pick<Result, "points">> };
+> & {
+    result: Maybe<
+      { __typename?: "Result" } & Pick<Result, "points" | "prize" | "advances">
+    >;
+  };
 
 export type ContestPickerModalQueryVariables = {};
 
@@ -298,6 +302,8 @@ export const ResultListAppearanceFragmentDoc = gql`
     instrumentName
     result {
       points
+      prize
+      advances
     }
   }
 `;

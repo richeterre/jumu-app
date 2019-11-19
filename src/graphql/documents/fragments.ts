@@ -45,6 +45,8 @@ export const ResultListAppearance = gql`
     instrumentName
     result {
       points
+      prize
+      advances
     }
   }
 `;

@@ -1,8 +1,9 @@
 import { gql } from "apollo-boost";
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 
+import Divider from "../components/Divider";
 import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import ResultRow from "../components/ResultRow";
@@ -46,12 +47,21 @@ const ResultListScreen: NavigationStackScreenComponent<NavParams> = ({
   } else if (data) {
     return (
       <FlatList
+        contentContainerStyle={styles.resultListContainer}
         data={data.performances}
         renderItem={({ item }) => <ResultRow appearances={item.appearances} />}
+        keyExtractor={item => item.id}
+        ItemSeparatorComponent={Divider}
       />
     );
   }
   return null;
 };
+
+const styles = StyleSheet.create({
+  resultListContainer: {
+    paddingVertical: 8,
+  },
+});
 
 export default ResultListScreen;
