@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { Button } from "react-native";
 import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
+import {
+  createStackNavigator,
+  NavigationStackOptions,
+} from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
+import HeaderButton from "../components/HeaderButton";
+import colors from "../constants/colors";
+import textStyles from "../constants/textStyles";
 import { ListContestFragment as Contest } from "../graphql/types/generated";
 import ContestPickerModal from "../screens/ContestPickerModal";
 import PerformanceListScreen from "../screens/PerformanceListScreen";
@@ -17,23 +22,38 @@ interface Props {
 }
 
 const ContestNavigator: React.FC<Props> = props => {
-  const [contestPickerVisible, setContestPickerVisible] = useState(false);
-
   const { contest, onSwitchContest } = props;
 
-  const headerTitle = (
-    <Button
+  const [contestPickerVisible, setContestPickerVisible] = useState(false);
+
+  const contestPickerButton = (
+    <HeaderButton
       title={contest.name}
       onPress={() => setContestPickerVisible(true)}
     />
   );
+
+  const defaultNavigationOptions: NavigationStackOptions = {
+    headerStyle: {
+      backgroundColor: colors.brand,
+      borderBottomWidth: 0,
+    },
+    headerTintColor: colors.white,
+    headerTitleStyle: {
+      ...textStyles.large,
+      color: colors.white,
+    },
+    headerBackTitle: null,
+  };
 
   const TimetableTab = createStackNavigator(
     {
       PerformanceList: {
         screen: PerformanceListScreen,
         params: { contest },
-        navigationOptions: { headerTitle, headerBackTitle: "Zeitplan" },
+        navigationOptions: {
+          headerTitle: contestPickerButton,
+        },
       },
       Performance: {
         screen: PerformanceScreen,
@@ -46,6 +66,7 @@ const ContestNavigator: React.FC<Props> = props => {
       navigationOptions: {
         tabBarLabel: "Zeitplan",
       },
+      defaultNavigationOptions,
     }
   );
 
@@ -54,7 +75,9 @@ const ContestNavigator: React.FC<Props> = props => {
       ResultGroupList: {
         screen: ResultGroupListScreen,
         params: { contest },
-        navigationOptions: { headerTitle },
+        navigationOptions: {
+          headerTitle: contestPickerButton,
+        },
       },
       ResultList: {
         screen: ResultListScreen,
@@ -67,13 +90,25 @@ const ContestNavigator: React.FC<Props> = props => {
       navigationOptions: {
         tabBarLabel: "Ergebnisse",
       },
+      defaultNavigationOptions,
     }
   );
 
-  const TabNavigator = createBottomTabNavigator({
-    Timetable: TimetableTab,
-    Results: ResultsTab,
-  });
+  const TabNavigator = createBottomTabNavigator(
+    {
+      Timetable: TimetableTab,
+      Results: ResultsTab,
+    },
+    {
+      tabBarOptions: {
+        labelStyle: {
+          ...textStyles.extraSmall,
+        },
+        activeTintColor: colors.brand,
+        inactiveTintColor: colors.mutedText,
+      },
+    }
+  );
 
   const AppContainer = createAppContainer(TabNavigator);
 
