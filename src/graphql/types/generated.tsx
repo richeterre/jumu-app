@@ -85,6 +85,10 @@ export type Performance = {
 };
 
 export type PerformanceFilter = {
+  /** The ID of the performances' contest category. */
+  contestCategoryId?: Maybe<Scalars["ID"]>;
+  /** Whether the performances' results are public. */
+  resultsPublic?: Maybe<Scalars["Boolean"]>;
   /** The date on which the performances are scheduled. */
   stageDate?: Maybe<Scalars["Date"]>;
   /** The ID of the stage on which the performances happen. */
@@ -166,6 +170,12 @@ export type PerformanceQueryPieceFragment = { __typename?: "Piece" } & Pick<
   "id" | "personInfo" | "title"
 >;
 
+export type ResultListQueryAppearanceFragment = {
+  __typename?: "Appearance";
+} & Pick<Appearance, "id" | "participantName" | "instrumentName"> & {
+    result: Maybe<{ __typename?: "Result" } & Pick<Result, "points">>;
+  };
+
 export type ContestCategoryListScreenQueryVariables = {
   contestId: Scalars["ID"];
 };
@@ -233,6 +243,23 @@ export type PerformanceScreenQuery = { __typename?: "RootQueryType" } & {
   >;
 };
 
+export type ResultListScreenQueryVariables = {
+  contestId: Scalars["ID"];
+  contestCategoryId: Scalars["ID"];
+};
+
+export type ResultListScreenQuery = { __typename?: "RootQueryType" } & {
+  performances: Maybe<
+    Array<
+      { __typename?: "Performance" } & Pick<Performance, "id"> & {
+          appearances: Array<
+            { __typename?: "Appearance" } & ResultListQueryAppearanceFragment
+          >;
+        }
+    >
+  >;
+};
+
 export const ListContestFragmentDoc = gql`
   fragment ListContest on Contest {
     id
@@ -265,6 +292,16 @@ export const PerformanceQueryPieceFragmentDoc = gql`
     id
     personInfo
     title
+  }
+`;
+export const ResultListQueryAppearanceFragmentDoc = gql`
+  fragment ResultListQueryAppearance on Appearance {
+    id
+    participantName
+    instrumentName
+    result {
+      points
+    }
   }
 `;
 export const ContestCategoryListScreenDocument = gql`
@@ -568,4 +605,68 @@ export type PerformanceScreenLazyQueryHookResult = ReturnType<
 export type PerformanceScreenQueryResult = ApolloReactCommon.QueryResult<
   PerformanceScreenQuery,
   PerformanceScreenQueryVariables
+>;
+export const ResultListScreenDocument = gql`
+  query ResultListScreen($contestId: ID!, $contestCategoryId: ID!) {
+    performances(
+      contestId: $contestId
+      filter: { contestCategoryId: $contestCategoryId, resultsPublic: true }
+    ) {
+      id
+      appearances {
+        ...ResultListQueryAppearance
+      }
+    }
+  }
+  ${ResultListQueryAppearanceFragmentDoc}
+`;
+
+/**
+ * __useResultListScreenQuery__
+ *
+ * To run a query within a React component, call `useResultListScreenQuery` and pass it any options that fit your needs.
+ * When your component renders, `useResultListScreenQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useResultListScreenQuery({
+ *   variables: {
+ *      contestId: // value for 'contestId'
+ *      contestCategoryId: // value for 'contestCategoryId'
+ *   },
+ * });
+ */
+export function useResultListScreenQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    ResultListScreenQuery,
+    ResultListScreenQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    ResultListScreenQuery,
+    ResultListScreenQueryVariables
+  >(ResultListScreenDocument, baseOptions);
+}
+export function useResultListScreenLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    ResultListScreenQuery,
+    ResultListScreenQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    ResultListScreenQuery,
+    ResultListScreenQueryVariables
+  >(ResultListScreenDocument, baseOptions);
+}
+export type ResultListScreenQueryHookResult = ReturnType<
+  typeof useResultListScreenQuery
+>;
+export type ResultListScreenLazyQueryHookResult = ReturnType<
+  typeof useResultListScreenLazyQuery
+>;
+export type ResultListScreenQueryResult = ApolloReactCommon.QueryResult<
+  ResultListScreenQuery,
+  ResultListScreenQueryVariables
 >;

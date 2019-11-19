@@ -28,10 +28,10 @@ interface NavParams {
 
 const ContestCategoryListScreen: NavigationStackScreenComponent<NavParams> = props => {
   const { navigation } = props;
-  const { id } = navigation.getParam("contest");
+  const { id: contestId } = navigation.getParam("contest");
 
   const { data, error, loading } = useContestCategoryListScreenQuery({
-    variables: { contestId: id },
+    variables: { contestId },
   });
 
   if (error) {
@@ -46,7 +46,12 @@ const ContestCategoryListScreen: NavigationStackScreenComponent<NavParams> = pro
           <ContestCategoryRow
             name={item.name}
             publicResultCount={item.publicResultCount}
-            onPress={() => {}}
+            onPress={() =>
+              navigation.navigate("ResultList", {
+                contestId,
+                contestCategoryId: item.id,
+              })
+            }
           />
         )}
         keyExtractor={item => item.id}

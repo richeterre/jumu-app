@@ -37,3 +37,14 @@ export const PerformanceQueryPiece = gql`
     title
   }
 `;
+
+export const ResultListQueryAppearance = gql`
+  fragment ResultListQueryAppearance on Appearance {
+    id
+    participantName
+    instrumentName
+    result {
+      points
+    }
+  }
+`;

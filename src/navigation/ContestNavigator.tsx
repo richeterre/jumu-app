@@ -9,6 +9,7 @@ import ContestCategoryListScreen from "../screens/ContestCategoryListScreen";
 import ContestPickerModal from "../screens/ContestPickerModal";
 import ContestScreen from "../screens/ContestScreen";
 import PerformanceScreen from "../screens/PerformanceScreen";
+import ResultListScreen from "../screens/ResultListScreen";
 
 interface Props {
   contest: Contest;
@@ -52,9 +53,15 @@ const ContestNavigator: React.FC<Props> = props => {
     {
       ContestCategoryList: {
         screen: ContestCategoryListScreen,
-        params: { contest: contest },
+        params: { contest },
         navigationOptions: { headerTitle },
       },
+      ResultList: {
+        screen: ResultListScreen,
+        navigationOptions: {
+          headerTitle: "Ergebnisse",
+        },
+      }
     },
     {
       navigationOptions: {
