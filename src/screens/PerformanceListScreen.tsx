@@ -1,9 +1,10 @@
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import Divider from "../components/Divider";
+import EmptyView from "../components/EmptyView";
 import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import OptionPicker from "../components/OptionPicker";
@@ -53,6 +54,7 @@ const PerformanceList: NavigationStackScreenComponent<NavParams> = props => {
       return (
         <FlatList
           style={styles.performanceList}
+          contentContainerStyle={styles.performanceListContainer}
           data={data.performances}
           renderItem={({ item }) => (
             <PerformanceRow
@@ -69,6 +71,9 @@ const PerformanceList: NavigationStackScreenComponent<NavParams> = props => {
           )}
           keyExtractor={item => item.id}
           ItemSeparatorComponent={Divider}
+          ListEmptyComponent={
+            <EmptyView text="An diesem Tag finden am ausgewählten Ort keine Vorspiele statt." />
+          }
         />
       );
     }
@@ -91,9 +96,7 @@ const PerformanceList: NavigationStackScreenComponent<NavParams> = props => {
         selectedOption={selectedStage}
         onSelectOption={setSelectedStage}
       />
-      <View style={styles.performanceListContainer}>
-        {renderPerformanceList()}
-      </View>
+      {renderPerformanceList()}
     </>
   );
 };
@@ -102,13 +105,11 @@ const styles = StyleSheet.create({
   optionPicker: {
     marginTop: 15,
   },
-  performanceListContainer: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
-  },
   performanceList: {
     alignSelf: "stretch",
+  },
+  performanceListContainer: {
+    flexGrow: 1,
   },
 });
 

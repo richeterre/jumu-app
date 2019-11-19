@@ -4,6 +4,7 @@ import { FlatList, StyleSheet } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import Divider from "../components/Divider";
+import EmptyView from "../components/EmptyView";
 import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import ResultRow from "../components/ResultRow";
@@ -52,6 +53,9 @@ const ResultListScreen: NavigationStackScreenComponent<NavParams> = ({
         renderItem={({ item }) => <ResultRow appearances={item.appearances} />}
         keyExtractor={item => item.id}
         ItemSeparatorComponent={Divider}
+        ListEmptyComponent={
+          <EmptyView text="In dieser Kategorie wurden noch keine Ergebnisse veröffentlicht." />
+        }
       />
     );
   }
@@ -60,6 +64,7 @@ const ResultListScreen: NavigationStackScreenComponent<NavParams> = ({
 
 const styles = StyleSheet.create({
   resultListContainer: {
+    flexGrow: 1,
     paddingVertical: 8,
   },
 });
