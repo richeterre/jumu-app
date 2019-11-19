@@ -27,6 +27,7 @@ export const PerformanceAppearance = gql`
     participantName
     instrumentName
     isAccompanist
+    ageGroup
   }
 `;
 

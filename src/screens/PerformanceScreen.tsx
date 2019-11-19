@@ -52,10 +52,27 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
 
   if (!data?.performance) return null;
 
+  const {
+    categoryName,
+    ageGroup,
+    stageDate,
+    stageTime,
+    appearances,
+    pieces,
+  } = data.performance;
+
   const renderAppearance = (appearance: PerformanceAppearanceFragment) => {
     const { id, participantName, instrumentName } = appearance;
 
-    return <Text key={id}>{`${participantName}, ${instrumentName}`}</Text>;
+    // Append age group info for divergent age groups
+    const ageGroupInfo =
+      appearance.ageGroup !== ageGroup ? ` (AG ${appearance.ageGroup})` : "";
+
+    return (
+      <Text key={id}>
+        {`${participantName}, ${instrumentName}${ageGroupInfo}`}
+      </Text>
+    );
   };
 
   const renderPiece = (piece: PerformancePieceFragment) => {
@@ -68,15 +85,6 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
       </View>
     );
   };
-
-  const {
-    categoryName,
-    ageGroup,
-    stageDate,
-    stageTime,
-    appearances,
-    pieces,
-  } = data.performance;
 
   const [acc, nonAcc] = partition(appearances, a => a.isAccompanist);
 

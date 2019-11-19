@@ -23,6 +23,8 @@ export type Scalars = {
 
 export type Appearance = {
   __typename?: "Appearance";
+  /** The appearance's age group (which may differ from the perfomance's). */
+  ageGroup: Scalars["String"];
   id: Scalars["ID"];
   /** The name of the participant's instrument in this appearance. */
   instrumentName: Scalars["String"];
@@ -162,7 +164,7 @@ export type PerformanceAppearanceFragment = {
   __typename?: "Appearance";
 } & Pick<
   Appearance,
-  "id" | "participantName" | "instrumentName" | "isAccompanist"
+  "id" | "participantName" | "instrumentName" | "isAccompanist" | "ageGroup"
 >;
 
 export type PerformancePieceFragment = { __typename?: "Piece" } & Pick<
@@ -286,6 +288,7 @@ export const PerformanceAppearanceFragmentDoc = gql`
     participantName
     instrumentName
     isAccompanist
+    ageGroup
   }
 `;
 export const PerformancePieceFragmentDoc = gql`
