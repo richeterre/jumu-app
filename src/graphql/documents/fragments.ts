@@ -13,16 +13,16 @@ export const ListContest = gql`
   }
 `;
 
-export const ContestQueryAppearance = gql`
-  fragment ContestQueryAppearance on Appearance {
+export const PerformanceListAppearance = gql`
+  fragment PerformanceListAppearance on Appearance {
     id
     participantName
     instrumentName
   }
 `;
 
-export const PerformanceQueryAppearance = gql`
-  fragment PerformanceQueryAppearance on Appearance {
+export const PerformanceAppearance = gql`
+  fragment PerformanceAppearance on Appearance {
     id
     participantName
     instrumentName
@@ -30,16 +30,16 @@ export const PerformanceQueryAppearance = gql`
   }
 `;
 
-export const PerformanceQueryPiece = gql`
-  fragment PerformanceQueryPiece on Piece {
+export const PerformancePiece = gql`
+  fragment PerformancePiece on Piece {
     id
     personInfo
     title
   }
 `;
 
-export const ResultListQueryAppearance = gql`
-  fragment ResultListQueryAppearance on Appearance {
+export const ResultListAppearance = gql`
+  fragment ResultListAppearance on Appearance {
     id
     participantName
     instrumentName

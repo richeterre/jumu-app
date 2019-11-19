@@ -8,36 +8,36 @@ import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import OptionPicker from "../components/OptionPicker";
 import PerformanceRow from "../components/PerformanceRow";
-import { ContestQueryAppearance } from "../graphql/documents/fragments";
-import { Contest, useContestScreenQuery } from "../graphql/types/generated";
+import { PerformanceListAppearance } from "../graphql/documents/fragments";
+import { Contest, usePerformanceListQuery } from "../graphql/types/generated";
 
 gql`
-  query ContestScreen($contestId: ID!, $filter: PerformanceFilter) {
+  query PerformanceList($contestId: ID!, $filter: PerformanceFilter) {
     performances(contestId: $contestId, filter: $filter) {
       id
       stageTime
       categoryName
       ageGroup
       appearances {
-        ...ContestQueryAppearance
+        ...PerformanceListAppearance
       }
     }
   }
-  ${ContestQueryAppearance}
+  ${PerformanceListAppearance}
 `;
 
 interface NavParams {
   contest: Contest;
 }
 
-const ContestScreen: NavigationStackScreenComponent<NavParams> = props => {
+const PerformanceList: NavigationStackScreenComponent<NavParams> = props => {
   const { navigation } = props;
   const { id, dates, stages } = navigation.getParam("contest");
 
   const [selectedDate, setSelectedDate] = useState(dates[0]);
   const [selectedStage, setSelectedStage] = useState(stages[0]);
 
-  const { data, error, loading } = useContestScreenQuery({
+  const { data, error, loading } = usePerformanceListQuery({
     variables: {
       contestId: id,
       filter: { stageDate: selectedDate, stageId: selectedStage.id },
@@ -112,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContestScreen;
+export default PerformanceList;

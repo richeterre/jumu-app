@@ -6,18 +6,18 @@ import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import Divider from "../components/Divider";
 import {
-  PerformanceQueryAppearance,
-  PerformanceQueryPiece,
+  PerformanceAppearance,
+  PerformancePiece,
 } from "../graphql/documents/fragments";
 import {
-  PerformanceQueryAppearanceFragment,
-  PerformanceQueryPieceFragment,
+  PerformanceAppearanceFragment,
+  PerformancePieceFragment,
   Stage,
-  usePerformanceScreenQuery,
+  usePerformanceQuery,
 } from "../graphql/types/generated";
 
 gql`
-  query PerformanceScreen($id: ID!) {
+  query Performance($id: ID!) {
     performance(id: $id) {
       id
       stageDate
@@ -25,15 +25,15 @@ gql`
       categoryName
       ageGroup
       appearances {
-        ...PerformanceQueryAppearance
+        ...PerformanceAppearance
       }
       pieces {
-        ...PerformanceQueryPiece
+        ...PerformancePiece
       }
     }
   }
-  ${PerformanceQueryAppearance}
-  ${PerformanceQueryPiece}
+  ${PerformanceAppearance}
+  ${PerformancePiece}
 `;
 
 interface NavParams {
@@ -46,19 +46,19 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
   const id = navigation.getParam("id");
   const stage = navigation.getParam("stage");
 
-  const { data } = usePerformanceScreenQuery({
+  const { data } = usePerformanceQuery({
     variables: { id },
   });
 
   if (!data?.performance) return null;
 
-  const renderAppearance = (appearance: PerformanceQueryAppearanceFragment) => {
+  const renderAppearance = (appearance: PerformanceAppearanceFragment) => {
     const { id, participantName, instrumentName } = appearance;
 
     return <Text key={id}>{`${participantName}, ${instrumentName}`}</Text>;
   };
 
-  const renderPiece = (piece: PerformanceQueryPieceFragment) => {
+  const renderPiece = (piece: PerformancePieceFragment) => {
     const { id, personInfo, title } = piece;
 
     return (

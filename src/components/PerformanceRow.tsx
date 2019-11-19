@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { ContestQueryAppearanceFragment } from "../graphql/types/generated";
+import { PerformanceListAppearanceFragment } from "../graphql/types/generated";
 import { isoTimeToString } from "../helpers/dates";
 
 interface Props {
   stageTime: string;
   categoryInfo: string;
-  appearances: ContestQueryAppearanceFragment[];
+  appearances: PerformanceListAppearanceFragment[];
   onPress: () => void;
 }
 

@@ -6,22 +6,22 @@ import { NavigationStackScreenComponent } from "react-navigation-stack";
 import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import ResultRow from "../components/ResultRow";
-import { ResultListQueryAppearance } from "../graphql/documents/fragments";
-import { useResultListScreenQuery } from "../graphql/types/generated";
+import { ResultListAppearance } from "../graphql/documents/fragments";
+import { useResultListQuery } from "../graphql/types/generated";
 
 gql`
-  query ResultListScreen($contestId: ID!, $contestCategoryId: ID!) {
+  query ResultList($contestId: ID!, $contestCategoryId: ID!) {
     performances(
       contestId: $contestId
       filter: { contestCategoryId: $contestCategoryId, resultsPublic: true }
     ) {
       id
       appearances {
-        ...ResultListQueryAppearance
+        ...ResultListAppearance
       }
     }
   }
-  ${ResultListQueryAppearance}
+  ${ResultListAppearance}
 `;
 
 interface NavParams {
@@ -35,7 +35,7 @@ const ResultListScreen: NavigationStackScreenComponent<NavParams> = ({
   const contestId = navigation.getParam("contestId");
   const contestCategoryId = navigation.getParam("contestCategoryId");
 
-  const { data, error, loading } = useResultListScreenQuery({
+  const { data, error, loading } = useResultListQuery({
     variables: { contestId, contestCategoryId },
   });
 

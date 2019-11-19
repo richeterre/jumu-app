@@ -6,12 +6,12 @@ import ContestRow from "../components/ContestRow";
 import { ListContest } from "../graphql/documents/fragments";
 import {
   ListContestFragment as Contest,
-  useLandingScreenQuery,
+  useLandingQuery,
 } from "../graphql/types/generated";
 import ContestPickerModal from "./ContestPickerModal";
 
 gql`
-  query LandingScreen {
+  query Landing {
     contests {
       ...ListContest
     }
@@ -25,7 +25,7 @@ interface Props {
 
 const LandingScreen: React.FC<Props> = props => {
   const [contestPickerVisible, setContestPickerVisible] = useState(false);
-  const { data, error, loading } = useLandingScreenQuery();
+  const { data, error, loading } = useLandingQuery();
 
   const renderContests = () => {
     if (error) {

@@ -7,13 +7,10 @@ import ContestCategoryRow from "../components/ContestCategoryRow";
 import Divider from "../components/Divider";
 import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
-import {
-  Contest,
-  useContestCategoryListScreenQuery,
-} from "../graphql/types/generated";
+import { Contest, useResultGroupListQuery } from "../graphql/types/generated";
 
 gql`
-  query ContestCategoryListScreen($contestId: ID!) {
+  query ResultGroupList($contestId: ID!) {
     contestCategories(contestId: $contestId) {
       id
       name
@@ -26,11 +23,11 @@ interface NavParams {
   contest: Contest;
 }
 
-const ContestCategoryListScreen: NavigationStackScreenComponent<NavParams> = props => {
+const ResultGroupListScreen: NavigationStackScreenComponent<NavParams> = props => {
   const { navigation } = props;
   const { id: contestId } = navigation.getParam("contest");
 
-  const { data, error, loading } = useContestCategoryListScreenQuery({
+  const { data, error, loading } = useResultGroupListQuery({
     variables: { contestId },
   });
 
@@ -62,4 +59,4 @@ const ContestCategoryListScreen: NavigationStackScreenComponent<NavParams> = pro
   return null;
 };
 
-export default ContestCategoryListScreen;
+export default ResultGroupListScreen;

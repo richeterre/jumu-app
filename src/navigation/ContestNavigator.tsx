@@ -5,10 +5,10 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
 import { ListContestFragment as Contest } from "../graphql/types/generated";
-import ContestCategoryListScreen from "../screens/ContestCategoryListScreen";
 import ContestPickerModal from "../screens/ContestPickerModal";
-import ContestScreen from "../screens/ContestScreen";
+import PerformanceListScreen from "../screens/PerformanceListScreen";
 import PerformanceScreen from "../screens/PerformanceScreen";
+import ResultGroupListScreen from "../screens/ResultGroupListScreen";
 import ResultListScreen from "../screens/ResultListScreen";
 
 interface Props {
@@ -31,7 +31,7 @@ const ContestNavigator: React.FC<Props> = props => {
   const TimetableTab = createStackNavigator(
     {
       PerformanceList: {
-        screen: ContestScreen,
+        screen: PerformanceListScreen,
         params: { contest },
         navigationOptions: { headerTitle, headerBackTitle: "Zeitplan" },
       },
@@ -51,8 +51,8 @@ const ContestNavigator: React.FC<Props> = props => {
 
   const ResultsTab = createStackNavigator(
     {
-      ContestCategoryList: {
-        screen: ContestCategoryListScreen,
+      ResultGroupList: {
+        screen: ResultGroupListScreen,
         params: { contest },
         navigationOptions: { headerTitle },
       },
@@ -61,7 +61,7 @@ const ContestNavigator: React.FC<Props> = props => {
         navigationOptions: {
           headerTitle: "Ergebnisse",
         },
-      }
+      },
     },
     {
       navigationOptions: {

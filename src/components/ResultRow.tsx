@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import { ResultListQueryAppearanceFragment as Appearance } from "../graphql/types/generated";
+import { ResultListAppearanceFragment as Appearance } from "../graphql/types/generated";
 
 interface Props {
   appearances: Appearance[];
