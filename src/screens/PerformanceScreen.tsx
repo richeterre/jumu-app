@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
   divider: {
     alignSelf: "center",
     marginVertical: 16,
+    marginLeft: 0,
     width: "67%",
   },
   accompanistIntro: {
