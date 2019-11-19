@@ -8,6 +8,7 @@ import Divider from "../components/Divider";
 import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import SafeAreaListFooter from "../components/SafeAreaListFooter";
+import colors from "../constants/colors";
 import { ListContest } from "../graphql/documents/fragments";
 import {
   ListContestFragment as Contest,
@@ -70,7 +71,7 @@ const ContestPickerModal: React.FC<Props> = props => {
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     borderRadius: 15,
     margin: 0,
     marginTop: 100,

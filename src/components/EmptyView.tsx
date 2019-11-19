@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import colors from "../constants/colors";
+
 interface Props {
   text: string;
 }
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    color: "gray",
+    color: colors.mutedText,
     textAlign: "center",
   },
 });

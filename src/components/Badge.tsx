@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
+import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
 
 interface Props {
@@ -20,14 +21,14 @@ const Badge: React.FC<Props> = props => {
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: "green",
+    backgroundColor: colors.success,
     paddingHorizontal: 4,
     paddingVertical: 2,
     borderRadius: 4,
   },
   text: {
     ...textStyles.small,
-    color: "white",
+    color: colors.white,
     fontWeight: "bold",
     textAlign: "center",
   },

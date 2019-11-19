@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
+import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
 
 interface Props {
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
   },
   publicResultCount: {
     ...textStyles.medium,
-    color: "gray",
+    color: colors.mutedText,
   },
 });
 

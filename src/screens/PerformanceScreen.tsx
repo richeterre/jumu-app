@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import Divider from "../components/Divider";
+import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
 import {
   PerformanceAppearance,
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
   },
   accompanistIntro: {
     ...textStyles.small,
-    color: "gray",
+    color: colors.mutedText,
     marginTop: 8,
   },
   piece: {

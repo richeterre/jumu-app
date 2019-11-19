@@ -1,6 +1,12 @@
+import { StyleSheet } from "react-native";
+
 const fontFamily = "Lato";
 
-export default {
+export default StyleSheet.create({
+  extraSmall: {
+    fontFamily,
+    fontSize: 12,
+  },
   small: {
     fontFamily,
     fontSize: 14,
@@ -13,4 +19,4 @@ export default {
     fontFamily,
     fontSize: 18,
   },
-};
+});

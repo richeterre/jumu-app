@@ -8,6 +8,7 @@ import {
   ViewStyle,
 } from "react-native";
 
+import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
 
 interface Props<T> {
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   selectedOption: {
-    borderBottomColor: "red",
+    borderBottomColor: colors.brand,
   },
   optionText: {
     ...textStyles.small,
