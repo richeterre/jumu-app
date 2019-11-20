@@ -19,4 +19,8 @@ export default StyleSheet.create({
     fontFamily,
     fontSize: 18,
   },
+  extraLarge: {
+    fontFamily,
+    fontSize: 24,
+  },
 });

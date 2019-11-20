@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { createAppContainer } from "react-navigation";
-import {
-  createStackNavigator,
-  NavigationStackOptions,
-} from "react-navigation-stack";
+import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
 import HeaderButton from "../components/HeaderButton";
 import colors from "../constants/colors";
+import { defaultNavigationOptions } from "../constants/defaults";
 import textStyles from "../constants/textStyles";
 import { ListContestFragment as Contest } from "../graphql/types/generated";
 import ContestPickerModal from "../screens/ContestPickerModal";
@@ -32,19 +30,6 @@ const ContestNavigator: React.FC<Props> = props => {
       onPress={() => setContestPickerVisible(true)}
     />
   );
-
-  const defaultNavigationOptions: NavigationStackOptions = {
-    headerStyle: {
-      backgroundColor: colors.brand,
-      borderBottomWidth: 0,
-    },
-    headerTintColor: colors.white,
-    headerTitleStyle: {
-      ...textStyles.large,
-      color: colors.white,
-    },
-    headerBackTitle: null,
-  };
 
   const TimetableTab = createStackNavigator(
     {

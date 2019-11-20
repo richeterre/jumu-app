@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* JumuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* JumuTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -16,13 +17,13 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* JumuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* JumuTests.m */; };
+		3FE6D1A59DB348E69BCFF54B /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E316275F8F334524AB483EE7 /* Lato-Bold.ttf */; };
 		40DCF9344BAC47F64C5E42EE /* libPods-Jumu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D4DCAAAF829E2BE8C0B4F2A /* libPods-Jumu.a */; };
 		622FB152161EC038840AB445 /* libPods-JumuTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F65D159D5A304D8472E86B83 /* libPods-JumuTests.a */; };
-		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
-		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
-		3FE6D1A59DB348E69BCFF54B /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E316275F8F334524AB483EE7 /* Lato-Bold.ttf */; };
 		708696B620B5432BB773C854 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5766853F63B405FB64056A5 /* Lato-Italic.ttf */; };
 		81D2E67DDE6345008EE81D01 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 228BE77624F34773829B0F4B /* Lato-Regular.ttf */; };
+		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
+		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,19 +56,19 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Jumu/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Jumu/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Jumu/main.m; sourceTree = "<group>"; };
+		228BE77624F34773829B0F4B /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Jumu-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jumu-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Jumu-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Jumu-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		306227DAC904217660ABAB0F /* Pods-JumuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JumuTests.debug.xcconfig"; path = "Target Support Files/Pods-JumuTests/Pods-JumuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		339F500E96224349EE8906FF /* Pods-Jumu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jumu.release.xcconfig"; path = "Target Support Files/Pods-Jumu/Pods-Jumu.release.xcconfig"; sourceTree = "<group>"; };
 		6D4DCAAAF829E2BE8C0B4F2A /* libPods-Jumu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Jumu.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5766853F63B405FB64056A5 /* Lato-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Italic.ttf"; path = "../assets/fonts/Lato-Italic.ttf"; sourceTree = "<group>"; };
 		CDB38E00C5F4CBD792129056 /* Pods-Jumu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jumu.debug.xcconfig"; path = "Target Support Files/Pods-Jumu/Pods-Jumu.debug.xcconfig"; sourceTree = "<group>"; };
+		E316275F8F334524AB483EE7 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F65D159D5A304D8472E86B83 /* libPods-JumuTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JumuTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E316275F8F334524AB483EE7 /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B5766853F63B405FB64056A5 /* Lato-Italic.ttf */ = {isa = PBXFileReference; name = "Lato-Italic.ttf"; path = "../assets/fonts/Lato-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		228BE77624F34773829B0F4B /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +162,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		822B473634244C6EA7A46FEF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E316275F8F334524AB483EE7 /* Lato-Bold.ttf */,
+				B5766853F63B405FB64056A5 /* Lato-Italic.ttf */,
+				228BE77624F34773829B0F4B /* Lato-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
@@ -186,17 +197,6 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		822B473634244C6EA7A46FEF /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				E316275F8F334524AB483EE7 /* Lato-Bold.ttf */,
-				B5766853F63B405FB64056A5 /* Lato-Italic.ttf */,
-				228BE77624F34773829B0F4B /* Lato-Regular.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 

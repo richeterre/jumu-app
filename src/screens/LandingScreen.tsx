@@ -1,8 +1,11 @@
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import ContestRow from "../components/ContestRow";
+import colors from "../constants/colors";
+import textStyles from "../constants/textStyles";
 import { ListContest } from "../graphql/documents/fragments";
 import {
   ListContestFragment as Contest,
@@ -19,13 +22,17 @@ gql`
   ${ListContest}
 `;
 
-interface Props {
+interface NavParams {
   onSelectContest: (contest: Contest) => void;
 }
 
-const LandingScreen: React.FC<Props> = props => {
+const LandingScreen: NavigationStackScreenComponent<NavParams> = ({
+  navigation,
+}) => {
   const [contestPickerVisible, setContestPickerVisible] = useState(false);
   const { data, error, loading } = useLandingQuery();
+
+  const onSelectContest = navigation.getParam("onSelectContest");
 
   const renderContests = () => {
     if (error) {
@@ -38,7 +45,7 @@ const LandingScreen: React.FC<Props> = props => {
         <ContestRow
           name={firstContest.name}
           countryCode={firstContest.countryCode}
-          onPress={() => props.onSelectContest(firstContest)}
+          onPress={() => onSelectContest(firstContest)}
         />
       ) : (
         <Text>No contests found!</Text>
@@ -47,30 +54,46 @@ const LandingScreen: React.FC<Props> = props => {
   };
 
   return (
-    <View style={styles.root}>
-      <Text>Herzlich willkommen!</Text>
-      <Text>Bitte wähle einen Wettbewerb:</Text>
-      {renderContests()}
-      <Button
-        title="Weitere Wettbewerbe…"
-        onPress={() => setContestPickerVisible(true)}
-      />
-      <ContestPickerModal
-        visible={contestPickerVisible}
-        onCancel={() => setContestPickerVisible(false)}
-        onSelectContest={contest => {
-          setContestPickerVisible(false);
-          props.onSelectContest(contest);
-        }}
-      />
-    </View>
+    <SafeAreaView style={styles.root}>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Herzlich willkommen!</Text>
+        <Text style={styles.subheading}>Bitte wähle einen Wettbewerb:</Text>
+
+        {renderContests()}
+
+        <Button
+          title="Weitere Wettbewerbe…"
+          onPress={() => setContestPickerVisible(true)}
+        />
+
+        <ContestPickerModal
+          visible={contestPickerVisible}
+          onCancel={() => setContestPickerVisible(false)}
+          onSelectContest={contest => {
+            setContestPickerVisible(false);
+            onSelectContest(contest);
+          }}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    justifyContent: "center",
+  },
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  heading: {
+    ...textStyles.extraLarge,
+  },
+  subheading: {
+    ...textStyles.large,
+    color: colors.mutedText,
+    marginTop: 8,
   },
 });
 
