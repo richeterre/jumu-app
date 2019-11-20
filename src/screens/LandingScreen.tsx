@@ -1,8 +1,9 @@
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 
+import Button from "../components/Button";
 import ContestRow from "../components/ContestRow";
 import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    alignItems: "flex-start",
     padding: 16,
   },
   heading: {
