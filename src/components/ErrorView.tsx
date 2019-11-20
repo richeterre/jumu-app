@@ -1,6 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import colors from "../constants/colors";
+import textStyles from "../constants/textStyles";
+
 const ErrorView: React.FC = () => (
   <View style={styles.root}>
     <Text style={styles.heading}>Oh je!</Text>
@@ -19,9 +22,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   heading: {
+    ...textStyles.large,
+    color: colors.mutedText,
     fontWeight: "bold",
   },
   body: {
+    ...textStyles.large,
+    color: colors.mutedText,
     marginTop: 8,
     textAlign: "center",
   },

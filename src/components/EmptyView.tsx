@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import colors from "../constants/colors";
+import textStyles from "../constants/textStyles";
 
 interface Props {
   text: string;
@@ -21,6 +22,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
+    ...textStyles.large,
     color: colors.mutedText,
     textAlign: "center",
   },
