@@ -50,12 +50,12 @@ const ResultListScreen: NavigationStackScreenComponent<NavParams> = ({
       <FlatList
         contentContainerStyle={styles.resultListContainer}
         data={data.performances}
-        renderItem={({ item }) => <ResultRow appearances={item.appearances} />}
-        keyExtractor={item => item.id}
         ItemSeparatorComponent={Divider}
+        keyExtractor={item => item.id}
         ListEmptyComponent={
           <EmptyView text="In dieser Kategorie wurden noch keine Ergebnisse veröffentlicht." />
         }
+        renderItem={({ item }) => <ResultRow appearances={item.appearances} />}
       />
     );
   }

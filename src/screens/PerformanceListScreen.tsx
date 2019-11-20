@@ -53,14 +53,18 @@ const PerformanceList: NavigationStackScreenComponent<NavParams> = props => {
     } else if (data) {
       return (
         <FlatList
-          style={styles.performanceList}
           contentContainerStyle={styles.performanceListContainer}
           data={data.performances}
+          ItemSeparatorComponent={Divider}
+          keyExtractor={item => item.id}
+          ListEmptyComponent={
+            <EmptyView text="An diesem Tag finden am ausgewählten Ort keine Vorspiele statt." />
+          }
           renderItem={({ item }) => (
             <PerformanceRow
-              stageTime={item.stageTime}
-              categoryInfo={`${item.categoryName}, AG ${item.ageGroup}`}
               appearances={item.appearances}
+              categoryInfo={`${item.categoryName}, AG ${item.ageGroup}`}
+              stageTime={item.stageTime}
               onPress={() =>
                 navigation.navigate("Performance", {
                   id: item.id,
@@ -69,11 +73,7 @@ const PerformanceList: NavigationStackScreenComponent<NavParams> = props => {
               }
             />
           )}
-          keyExtractor={item => item.id}
-          ItemSeparatorComponent={Divider}
-          ListEmptyComponent={
-            <EmptyView text="An diesem Tag finden am ausgewählten Ort keine Vorspiele statt." />
-          }
+          style={styles.performanceList}
         />
       );
     }
@@ -83,17 +83,17 @@ const PerformanceList: NavigationStackScreenComponent<NavParams> = props => {
   return (
     <>
       <OptionPicker
-        style={styles.optionPicker}
-        options={dates}
         formatOption={date => date}
+        options={dates}
         selectedOption={selectedDate}
+        style={styles.optionPicker}
         onSelectOption={setSelectedDate}
       />
       <OptionPicker
-        style={styles.optionPicker}
-        options={stages}
         formatOption={stage => stage.name}
+        options={stages}
         selectedOption={selectedStage}
+        style={styles.optionPicker}
         onSelectOption={setSelectedStage}
       />
       {renderPerformanceList()}

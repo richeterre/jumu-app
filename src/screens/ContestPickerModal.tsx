@@ -42,16 +42,16 @@ const ContestPickerModal: React.FC<Props> = props => {
       return (
         <FlatList
           data={data.contests}
+          ItemSeparatorComponent={Divider}
+          keyExtractor={item => item.id}
+          ListFooterComponent={SafeAreaListFooter}
           renderItem={({ item }) => (
             <ContestRow
-              name={item.name}
               countryCode={item.countryCode}
+              name={item.name}
               onPress={() => props.onSelectContest(item)}
             />
           )}
-          keyExtractor={item => item.id}
-          ItemSeparatorComponent={Divider}
-          ListFooterComponent={SafeAreaListFooter}
         />
       );
     }
@@ -60,8 +60,8 @@ const ContestPickerModal: React.FC<Props> = props => {
 
   return (
     <Modal
-      style={styles.root}
       isVisible={props.visible}
+      style={styles.root}
       onBackdropPress={props.onCancel}
     >
       {renderContests()}

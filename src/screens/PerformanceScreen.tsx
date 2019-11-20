@@ -94,8 +94,8 @@ const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
 
   return (
     <ScrollView
-      contentContainerStyle={styles.scrollViewContainer}
       alwaysBounceVertical={false}
+      contentContainerStyle={styles.scrollViewContainer}
     >
       <Text style={styles.categoryName}>{categoryName}</Text>
       <Text style={styles.ageGroup}>Altersgruppe {ageGroup}</Text>

@@ -44,8 +44,8 @@ const LandingScreen: NavigationStackScreenComponent<NavParams> = ({
       const [firstContest] = data.contests;
       return firstContest ? (
         <ContestRow
-          name={firstContest.name}
           countryCode={firstContest.countryCode}
+          name={firstContest.name}
           onPress={() => onSelectContest(firstContest)}
         />
       ) : (

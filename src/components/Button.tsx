@@ -16,12 +16,12 @@ const Button: React.FC<Props> = props => {
 
   return (
     <TouchableHighlight
-      style={styles.root}
-      onPress={onPress}
-      underlayColor={colors.brand}
       activeOpacity={1}
-      onShowUnderlay={() => setActive(true)}
+      style={styles.root}
+      underlayColor={colors.brand}
       onHideUnderlay={() => setActive(false)}
+      onPress={onPress}
+      onShowUnderlay={() => setActive(true)}
     >
       <Text style={[styles.text, active && styles.activeText]}>{title}</Text>
     </TouchableHighlight>

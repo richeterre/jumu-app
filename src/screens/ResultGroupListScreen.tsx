@@ -39,6 +39,8 @@ const ResultGroupListScreen: NavigationStackScreenComponent<NavParams> = props =
     return (
       <FlatList
         data={data.contestCategories}
+        ItemSeparatorComponent={Divider}
+        keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <ContestCategoryRow
             name={item.name}
@@ -51,8 +53,6 @@ const ResultGroupListScreen: NavigationStackScreenComponent<NavParams> = props =
             }
           />
         )}
-        keyExtractor={item => item.id}
-        ItemSeparatorComponent={Divider}
       />
     );
   }
