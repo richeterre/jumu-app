@@ -4,6 +4,7 @@ import { gql } from "apollo-boost";
 import React, { useRef, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 
+import DatePicker from "../components/DatePicker";
 import Divider from "../components/Divider";
 import EmptyView from "../components/EmptyView";
 import ErrorView from "../components/ErrorView";
@@ -89,6 +90,12 @@ const PerformanceList: React.FC<Props> = props => {
 
   return (
     <>
+      <DatePicker
+        dates={dates}
+        selectedDate={selectedDate}
+        style={styles.optionPicker}
+        onSelectDate={setSelectedDate}
+      />
       <OptionPicker
         formatOption={date => date}
         options={dates}
