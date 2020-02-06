@@ -10,37 +10,31 @@ import {
 
 import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
+import { Stage } from "../graphql/types/generated";
 
-interface Props<T> {
-  options: T[];
-  formatOption: (option: T) => string;
-  selectedOption: T;
-  onSelectOption: (option: T) => void;
+interface Props {
+  stages: Stage[];
+  selectedStage: Stage;
+  onSelectStage: (stage: Stage) => void;
   style?: StyleProp<ViewStyle>;
 }
 
-const OptionPicker = <T extends {}>(props: Props<T>) => {
-  const {
-    options,
-    formatOption,
-    selectedOption,
-    onSelectOption,
-    style,
-  } = props;
+const StagePicker: React.FC<Props> = props => {
+  const { stages, selectedStage, onSelectStage, style } = props;
 
   return (
     <View style={[styles.root, style]}>
-      {options.map((option, index) => {
+      {stages.map((stage, index) => {
         const selectedStyle =
-          option === selectedOption ? styles.selectedOption : undefined;
+          stage === selectedStage ? styles.selectedStage : undefined;
 
         return (
           <TouchableOpacity
             key={index}
-            style={[styles.option, selectedStyle]}
-            onPress={() => onSelectOption(option)}
+            style={[styles.stage, selectedStyle]}
+            onPress={() => onSelectStage(stage)}
           >
-            <Text style={styles.optionText}>{formatOption(option)}</Text>
+            <Text style={styles.stageName}>{stage.name}</Text>
           </TouchableOpacity>
         );
       })}
@@ -53,18 +47,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 15,
   },
-  option: {
+  stage: {
     borderBottomWidth: 2,
     alignItems: "center",
     flex: 1,
     paddingBottom: 5,
   },
-  selectedOption: {
+  selectedStage: {
     borderBottomColor: colors.brand,
   },
-  optionText: {
+  stageName: {
     ...textStyles.small,
   },
 });
 
-export default OptionPicker;
+export default StagePicker;

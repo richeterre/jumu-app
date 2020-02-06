@@ -9,8 +9,8 @@ import Divider from "../components/Divider";
 import EmptyView from "../components/EmptyView";
 import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
-import OptionPicker from "../components/OptionPicker";
 import PerformanceRow from "../components/PerformanceRow";
+import StagePicker from "../components/StagePicker";
 import { PerformanceListAppearance } from "../graphql/documents/fragments";
 import { usePerformanceListQuery } from "../graphql/types/generated";
 import { TimetableStackParamList } from "../navigation/ContestNavigator";
@@ -93,22 +93,14 @@ const PerformanceList: React.FC<Props> = props => {
       <DatePicker
         dates={dates}
         selectedDate={selectedDate}
-        style={styles.optionPicker}
+        style={styles.picker}
         onSelectDate={setSelectedDate}
       />
-      <OptionPicker
-        formatOption={date => date}
-        options={dates}
-        selectedOption={selectedDate}
-        style={styles.optionPicker}
-        onSelectOption={setSelectedDate}
-      />
-      <OptionPicker
-        formatOption={stage => stage.name}
-        options={stages}
-        selectedOption={selectedStage}
-        style={styles.optionPicker}
-        onSelectOption={setSelectedStage}
+      <StagePicker
+        selectedStage={selectedStage}
+        stages={stages}
+        style={styles.picker}
+        onSelectStage={setSelectedStage}
       />
       {renderPerformanceList()}
     </>
@@ -116,7 +108,7 @@ const PerformanceList: React.FC<Props> = props => {
 };
 
 const styles = StyleSheet.create({
-  optionPicker: {
+  picker: {
     marginTop: 15,
   },
   performanceList: {
