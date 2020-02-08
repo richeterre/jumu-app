@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 
+import dropdownIcon from "../../assets/images/icon-dropdown.png";
 import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
 
@@ -12,7 +13,7 @@ interface Props {
 const HeaderButton: React.FC<Props> = ({ title, onPress }) => (
   <TouchableOpacity style={styles.root} onPress={onPress}>
     <Text style={styles.title}>{title}</Text>
-    <View style={styles.triangle} />
+    <Image source={dropdownIcon} style={styles.dropdownIcon} />
   </TouchableOpacity>
 );
 
@@ -26,15 +27,10 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: "bold",
   },
-  triangle: {
+  dropdownIcon: {
+    tintColor: colors.white,
     marginLeft: 4,
-    marginTop: 4,
-    borderLeftWidth: 5,
-    borderLeftColor: colors.transparent,
-    borderRightWidth: 5,
-    borderRightColor: colors.transparent,
-    borderTopWidth: 8,
-    borderTopColor: colors.white,
+    marginTop: 2,
   },
 });
 

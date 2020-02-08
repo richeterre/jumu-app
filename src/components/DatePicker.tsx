@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import React, { useState } from "react";
 import {
   StyleProp,
@@ -10,7 +11,7 @@ import {
 import Modal from "react-native-modal";
 
 import colors from "../constants/colors";
-import Button from "./Button";
+import TextualButton from "./TextualButton";
 
 interface Props {
   dates: string[];
@@ -31,10 +32,12 @@ const DatePicker: React.FC<Props> = props => {
 
   return (
     <View style={[styles.root, style]}>
-      <Button
-        title={selectedDate}
-        onPress={() => setModalPickerVisible(true)}
-      />
+      <View style={styles.container}>
+        <TextualButton
+          title={formatDate(selectedDate)}
+          onPress={() => setModalPickerVisible(true)}
+        />
+      </View>
 
       <Modal
         animationIn="fadeIn"
@@ -45,7 +48,7 @@ const DatePicker: React.FC<Props> = props => {
         <View style={styles.modalPicker}>
           {dates.map(date => (
             <TouchableOpacity key={date} onPress={() => pickDate(date)}>
-              <Text style={styles.modalPickerDate}>{date}</Text>
+              <Text style={styles.modalPickerDate}>{formatDate(date)}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -54,11 +57,19 @@ const DatePicker: React.FC<Props> = props => {
   );
 };
 
+const formatDate = (date: string) => DateTime.fromISO(date).toFormat("dd MMMM");
+
 const styles = StyleSheet.create({
   root: {
     alignItems: "center",
     flexDirection: "row",
     paddingHorizontal: 15,
+  },
+  container: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    flex: 1,
+    justifyContent: "center",
   },
   modalPicker: {
     backgroundColor: colors.white,
