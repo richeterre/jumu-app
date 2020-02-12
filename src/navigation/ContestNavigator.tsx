@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import { Image } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
+import scrollFilledIcon from "../../assets/images/icon-scroll-filled.png";
+import scrollIcon from "../../assets/images/icon-scroll.png";
+import timetableFilledIcon from "../../assets/images/icon-timetable-filled.png";
+import timetableIcon from "../../assets/images/icon-timetable.png";
 import HeaderButton from "../components/HeaderButton";
 import colors from "../constants/colors";
 import { defaultNavigationOptions } from "../constants/defaults";
@@ -49,7 +54,13 @@ const ContestNavigator: React.FC<Props> = props => {
     },
     {
       navigationOptions: {
-        tabBarLabel: "Zeitplan",
+        tabBarLabel: "Vorspiele",
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Image
+            source={focused ? timetableFilledIcon : timetableIcon}
+            style={{ tintColor }}
+          />
+        ),
       },
       defaultNavigationOptions,
     }
@@ -74,6 +85,12 @@ const ContestNavigator: React.FC<Props> = props => {
     {
       navigationOptions: {
         tabBarLabel: "Ergebnisse",
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Image
+            source={focused ? scrollFilledIcon : scrollIcon}
+            style={{ tintColor }}
+          />
+        ),
       },
       defaultNavigationOptions,
     }
