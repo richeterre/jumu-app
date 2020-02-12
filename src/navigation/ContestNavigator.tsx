@@ -90,7 +90,7 @@ const ContestNavigator: React.FC<Props> = props => {
           ...textStyles.extraSmall,
         },
         activeTintColor: colors.brand,
-        inactiveTintColor: colors.mutedText,
+        inactiveTintColor: colors.midGray,
       },
     }
   );

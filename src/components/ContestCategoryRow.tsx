@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   publicResultCount: {
     ...textStyles.medium,
-    color: colors.mutedText,
+    color: colors.midGray,
   },
 });
 

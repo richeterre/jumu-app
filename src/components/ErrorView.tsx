@@ -23,12 +23,12 @@ const styles = StyleSheet.create({
   },
   heading: {
     ...textStyles.large,
-    color: colors.mutedText,
+    color: colors.midGray,
     fontWeight: "bold",
   },
   body: {
     ...textStyles.large,
-    color: colors.mutedText,
+    color: colors.midGray,
     marginTop: 8,
     textAlign: "center",
   },

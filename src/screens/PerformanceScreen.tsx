@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   },
   accompanistIntro: {
     ...textStyles.small,
-    color: colors.mutedText,
+    color: colors.midGray,
     marginTop: 8,
   },
   piece: {

@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   subheading: {
     ...textStyles.large,
-    color: colors.mutedText,
+    color: colors.midGray,
     marginTop: 8,
   },
 });
