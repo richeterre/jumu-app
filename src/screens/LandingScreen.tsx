@@ -1,4 +1,5 @@
 import { gql } from "apollo-boost";
+import { take } from "lodash";
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
@@ -41,13 +42,16 @@ const LandingScreen: NavigationStackScreenComponent<NavParams> = ({
     } else if (loading) {
       return <Text>Lade Wettbewerbe…</Text>;
     } else if (data) {
-      const [firstContest] = data.contests;
-      return firstContest ? (
-        <ContestRow
-          countryCode={firstContest.countryCode}
-          name={firstContest.name}
-          onPress={() => onSelectContest(firstContest)}
-        />
+      const topContests = take(data.contests, 3);
+      return topContests.length ? (
+        topContests.map(contest => (
+          <ContestRow
+            key={contest.id}
+            countryCode={contest.countryCode}
+            name={contest.name}
+            onPress={() => onSelectContest(contest)}
+          />
+        ))
       ) : (
         <Text>No contests found!</Text>
       );
@@ -60,7 +64,7 @@ const LandingScreen: NavigationStackScreenComponent<NavParams> = ({
         <Text style={styles.heading}>Herzlich willkommen!</Text>
         <Text style={styles.subheading}>Bitte wähle einen Wettbewerb:</Text>
 
-        {renderContests()}
+        <View style={styles.contestsContainer}>{renderContests()}</View>
 
         <BorderedButton
           title="Weitere Wettbewerbe…"
@@ -96,6 +100,9 @@ const styles = StyleSheet.create({
     ...textStyles.large,
     color: colors.midGray,
     marginTop: 8,
+  },
+  contestsContainer: {
+    paddingVertical: 15,
   },
 });
 
