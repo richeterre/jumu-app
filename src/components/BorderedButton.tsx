@@ -9,7 +9,7 @@ interface Props {
   onPress: () => void;
 }
 
-const Button: React.FC<Props> = props => {
+const BorderedButton: React.FC<Props> = props => {
   const { title, onPress } = props;
 
   const [active, setActive] = useState(false);
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Button;
+export default BorderedButton;

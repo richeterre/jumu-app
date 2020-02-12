@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
 
-import Button from "../components/Button";
+import BorderedButton from "../components/BorderedButton";
 import ContestRow from "../components/ContestRow";
 import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
@@ -62,7 +62,7 @@ const LandingScreen: NavigationStackScreenComponent<NavParams> = ({
 
         {renderContests()}
 
-        <Button
+        <BorderedButton
           title="Weitere Wettbewerbe…"
           onPress={() => setContestPickerVisible(true)}
         />
