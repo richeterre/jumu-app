@@ -2,6 +2,7 @@ import { gql } from "apollo-boost";
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
+import { useSafeArea } from "react-native-safe-area-context";
 
 import cancelIcon from "../../assets/images/icon-cancel.png";
 import ContestRow from "../components/ContestRow";
@@ -9,7 +10,6 @@ import Divider from "../components/Divider";
 import ErrorView from "../components/ErrorView";
 import IconButton from "../components/IconButton";
 import LoadingView from "../components/LoadingView";
-import SafeAreaListFooter from "../components/SafeAreaListFooter";
 import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
 import { ListContest } from "../graphql/documents/fragments";
@@ -35,6 +35,8 @@ interface Props {
 
 const ContestPickerModal: React.FC<Props> = props => {
   const { visible, onCancel, onSelectContest } = props;
+
+  const insets = useSafeArea();
   const { data, error, loading } = useContestPickerModalQuery();
 
   const renderContests = () => {
@@ -45,10 +47,10 @@ const ContestPickerModal: React.FC<Props> = props => {
     } else if (data) {
       return (
         <FlatList
+          contentContainerStyle={{ paddingBottom: insets.bottom }}
           data={data.contests}
           ItemSeparatorComponent={Divider}
           keyExtractor={item => item.id}
-          ListFooterComponent={SafeAreaListFooter}
           renderItem={({ item }) => (
             <ContestRow
               countryCode={item.countryCode}

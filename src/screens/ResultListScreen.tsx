@@ -1,7 +1,7 @@
+import { RouteProp } from "@react-navigation/native";
 import { gql } from "apollo-boost";
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
-import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import Divider from "../components/Divider";
 import EmptyView from "../components/EmptyView";
@@ -10,6 +10,7 @@ import LoadingView from "../components/LoadingView";
 import ResultRow from "../components/ResultRow";
 import { ResultListAppearance } from "../graphql/documents/fragments";
 import { useResultListQuery } from "../graphql/types/generated";
+import { ResultsStackParamList } from "../navigation/ContestNavigator";
 
 gql`
   query ResultList($contestId: ID!, $contestCategoryId: ID!) {
@@ -26,16 +27,12 @@ gql`
   ${ResultListAppearance}
 `;
 
-interface NavParams {
-  contestId: string;
-  contestCategoryId: string;
+interface Props {
+  route: RouteProp<ResultsStackParamList, "ResultList">;
 }
 
-const ResultListScreen: NavigationStackScreenComponent<NavParams> = ({
-  navigation,
-}) => {
-  const contestId = navigation.getParam("contestId");
-  const contestCategoryId = navigation.getParam("contestCategoryId");
+const ResultListScreen: React.FC<Props> = ({ route }) => {
+  const { contestId, contestCategoryId } = route.params;
 
   const { data, error, loading } = useResultListQuery({
     variables: { contestId, contestCategoryId },

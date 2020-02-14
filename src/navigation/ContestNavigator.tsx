@@ -1,8 +1,7 @@
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { Image } from "react-native";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { createBottomTabNavigator } from "react-navigation-tabs";
 
 import scrollFilledIcon from "../../assets/images/icon-scroll-filled.png";
 import scrollIcon from "../../assets/images/icon-scroll.png";
@@ -10,14 +9,36 @@ import timetableFilledIcon from "../../assets/images/icon-timetable-filled.png";
 import timetableIcon from "../../assets/images/icon-timetable.png";
 import HeaderButton from "../components/HeaderButton";
 import colors from "../constants/colors";
-import { defaultNavigationOptions } from "../constants/defaults";
+import { defaultStackScreenOptions } from "../constants/defaults";
 import textStyles from "../constants/textStyles";
-import { ListContestFragment as Contest } from "../graphql/types/generated";
+import {
+  ListContestFragment as Contest,
+  Stage,
+} from "../graphql/types/generated";
 import ContestPickerModal from "../screens/ContestPickerModal";
 import PerformanceListScreen from "../screens/PerformanceListScreen";
 import PerformanceScreen from "../screens/PerformanceScreen";
 import ResultGroupListScreen from "../screens/ResultGroupListScreen";
 import ResultListScreen from "../screens/ResultListScreen";
+
+export type TimetableStackParamList = {
+  PerformanceList: { contest: Contest };
+  Performance: { id: string; stage: Stage };
+};
+
+export type ResultsStackParamList = {
+  ResultGroupList: { contest: Contest };
+  ResultList: { contestId: string; contestCategoryId: string };
+};
+
+type BottomTabParamList = {
+  Timetable: undefined;
+  Results: undefined;
+};
+
+const TimetableStack = createStackNavigator<TimetableStackParamList>();
+const ResultsStack = createStackNavigator<ResultsStackParamList>();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 interface Props {
   contest: Contest;
@@ -29,94 +50,81 @@ const ContestNavigator: React.FC<Props> = props => {
 
   const [contestPickerVisible, setContestPickerVisible] = useState(false);
 
-  const contestPickerButton = (
+  const ContestPickerButton = () => (
     <HeaderButton
       title={contest.name}
       onPress={() => setContestPickerVisible(true)}
     />
   );
 
-  const TimetableTab = createStackNavigator(
-    {
-      PerformanceList: {
-        screen: PerformanceListScreen,
-        params: { contest },
-        navigationOptions: {
-          headerTitle: contestPickerButton,
-        },
-      },
-      Performance: {
-        screen: PerformanceScreen,
-        navigationOptions: {
-          headerTitle: "Vorspieldetails",
-        },
-      },
-    },
-    {
-      navigationOptions: {
-        tabBarLabel: "Vorspiele",
-        tabBarIcon: ({ tintColor, focused }) => (
-          <Image
-            source={focused ? timetableFilledIcon : timetableIcon}
-            style={{ tintColor }}
-          />
-        ),
-      },
-      defaultNavigationOptions,
-    }
+  const Timetable = () => (
+    <TimetableStack.Navigator screenOptions={defaultStackScreenOptions}>
+      <TimetableStack.Screen
+        component={PerformanceListScreen}
+        initialParams={{ contest }}
+        name="PerformanceList"
+        options={{ headerTitle: ContestPickerButton }}
+      />
+      <TimetableStack.Screen
+        component={PerformanceScreen}
+        name="Performance"
+        options={{ headerTitle: "Vorspieldetails" }}
+      />
+    </TimetableStack.Navigator>
   );
 
-  const ResultsTab = createStackNavigator(
-    {
-      ResultGroupList: {
-        screen: ResultGroupListScreen,
-        params: { contest },
-        navigationOptions: {
-          headerTitle: contestPickerButton,
-        },
-      },
-      ResultList: {
-        screen: ResultListScreen,
-        navigationOptions: {
-          headerTitle: "Ergebnisse",
-        },
-      },
-    },
-    {
-      navigationOptions: {
-        tabBarLabel: "Ergebnisse",
-        tabBarIcon: ({ tintColor, focused }) => (
-          <Image
-            source={focused ? scrollFilledIcon : scrollIcon}
-            style={{ tintColor }}
-          />
-        ),
-      },
-      defaultNavigationOptions,
-    }
+  const Results = () => (
+    <ResultsStack.Navigator screenOptions={defaultStackScreenOptions}>
+      <ResultsStack.Screen
+        component={ResultGroupListScreen}
+        initialParams={{ contest }}
+        name="ResultGroupList"
+        options={{ headerTitle: ContestPickerButton }}
+      />
+      <ResultsStack.Screen
+        component={ResultListScreen}
+        name="ResultList"
+        options={{ headerTitle: "Ergebnisse" }}
+      />
+    </ResultsStack.Navigator>
   );
-
-  const TabNavigator = createBottomTabNavigator(
-    {
-      Timetable: TimetableTab,
-      Results: ResultsTab,
-    },
-    {
-      tabBarOptions: {
-        labelStyle: {
-          ...textStyles.extraSmall,
-        },
-        activeTintColor: colors.brand,
-        inactiveTintColor: colors.midGray,
-      },
-    }
-  );
-
-  const AppContainer = createAppContainer(TabNavigator);
 
   return (
     <>
-      <AppContainer />
+      <BottomTab.Navigator
+        tabBarOptions={{
+          labelStyle: { ...textStyles.extraSmall },
+          activeTintColor: colors.brand,
+          inactiveTintColor: colors.midGray,
+        }}
+      >
+        <BottomTab.Screen
+          component={Timetable}
+          name="Timetable"
+          options={{
+            tabBarLabel: "Vorspiele",
+            tabBarIcon: ({ focused, color }) => (
+              <Image
+                source={focused ? timetableFilledIcon : timetableIcon}
+                style={{ tintColor: color }}
+              />
+            ),
+          }}
+        />
+        <BottomTab.Screen
+          component={Results}
+          name="Results"
+          options={{
+            tabBarLabel: "Ergebnisse",
+            tabBarIcon: ({ focused, color }) => (
+              <Image
+                source={focused ? scrollFilledIcon : scrollIcon}
+                style={{ tintColor: color }}
+              />
+            ),
+          }}
+        />
+      </BottomTab.Navigator>
       <ContestPickerModal
         visible={contestPickerVisible}
         onCancel={() => setContestPickerVisible(false)}

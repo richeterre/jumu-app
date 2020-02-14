@@ -1,8 +1,8 @@
+import { RouteProp } from "@react-navigation/native";
 import { gql } from "apollo-boost";
 import { partition } from "lodash";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import Divider from "../components/Divider";
 import colors from "../constants/colors";
@@ -14,9 +14,9 @@ import {
 import {
   PerformanceAppearanceFragment,
   PerformancePieceFragment,
-  Stage,
   usePerformanceQuery,
 } from "../graphql/types/generated";
+import { TimetableStackParamList } from "../navigation/ContestNavigator";
 
 gql`
   query Performance($id: ID!) {
@@ -38,15 +38,12 @@ gql`
   ${PerformancePiece}
 `;
 
-interface NavParams {
-  id: string;
-  stage: Stage;
+interface Props {
+  route: RouteProp<TimetableStackParamList, "Performance">;
 }
 
-const PerformanceScreen: NavigationStackScreenComponent<NavParams> = props => {
-  const { navigation } = props;
-  const id = navigation.getParam("id");
-  const stage = navigation.getParam("stage");
+const PerformanceScreen: React.FC<Props> = ({ route }) => {
+  const { id, stage } = route.params;
 
   const { data } = usePerformanceQuery({
     variables: { id },

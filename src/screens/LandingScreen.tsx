@@ -1,18 +1,16 @@
+import { RouteProp } from "@react-navigation/native";
 import { gql } from "apollo-boost";
 import { take } from "lodash";
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import BorderedButton from "../components/BorderedButton";
 import ContestRow from "../components/ContestRow";
 import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
 import { ListContest } from "../graphql/documents/fragments";
-import {
-  ListContestFragment as Contest,
-  useLandingQuery,
-} from "../graphql/types/generated";
+import { useLandingQuery } from "../graphql/types/generated";
+import { LandingStackParamList } from "../navigation/LandingNavigator";
 import ContestPickerModal from "./ContestPickerModal";
 
 gql`
@@ -24,17 +22,15 @@ gql`
   ${ListContest}
 `;
 
-interface NavParams {
-  onSelectContest: (contest: Contest) => void;
+interface Props {
+  route: RouteProp<LandingStackParamList, "Landing">;
 }
 
-const LandingScreen: NavigationStackScreenComponent<NavParams> = ({
-  navigation,
-}) => {
+const LandingScreen: React.FC<Props> = ({ route }) => {
+  const { onSelectContest } = route.params;
+
   const [contestPickerVisible, setContestPickerVisible] = useState(false);
   const { data, error, loading } = useLandingQuery();
-
-  const onSelectContest = navigation.getParam("onSelectContest");
 
   const renderContests = () => {
     if (error) {

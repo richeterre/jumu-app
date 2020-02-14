@@ -1,7 +1,8 @@
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
-import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import Divider from "../components/Divider";
 import EmptyView from "../components/EmptyView";
@@ -10,7 +11,8 @@ import LoadingView from "../components/LoadingView";
 import OptionPicker from "../components/OptionPicker";
 import PerformanceRow from "../components/PerformanceRow";
 import { PerformanceListAppearance } from "../graphql/documents/fragments";
-import { Contest, usePerformanceListQuery } from "../graphql/types/generated";
+import { usePerformanceListQuery } from "../graphql/types/generated";
+import { TimetableStackParamList } from "../navigation/ContestNavigator";
 
 gql`
   query PerformanceList($contestId: ID!, $filter: PerformanceFilter) {
@@ -27,13 +29,14 @@ gql`
   ${PerformanceListAppearance}
 `;
 
-interface NavParams {
-  contest: Contest;
+interface Props {
+  navigation: StackNavigationProp<TimetableStackParamList, "PerformanceList">;
+  route: RouteProp<TimetableStackParamList, "PerformanceList">;
 }
 
-const PerformanceList: NavigationStackScreenComponent<NavParams> = props => {
-  const { navigation } = props;
-  const { id, dates, stages } = navigation.getParam("contest");
+const PerformanceList: React.FC<Props> = props => {
+  const { navigation, route } = props;
+  const { id, dates, stages } = route.params.contest;
 
   const [selectedDate, setSelectedDate] = useState(dates[0]);
   const [selectedStage, setSelectedStage] = useState(stages[0]);

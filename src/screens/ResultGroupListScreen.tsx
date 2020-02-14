@@ -1,13 +1,14 @@
+import { NavigationProp, RouteProp } from "@react-navigation/native";
 import { gql } from "apollo-boost";
 import React from "react";
 import { FlatList } from "react-native";
-import { NavigationStackScreenComponent } from "react-navigation-stack";
 
 import ContestCategoryRow from "../components/ContestCategoryRow";
 import Divider from "../components/Divider";
 import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
-import { Contest, useResultGroupListQuery } from "../graphql/types/generated";
+import { useResultGroupListQuery } from "../graphql/types/generated";
+import { ResultsStackParamList } from "../navigation/ContestNavigator";
 
 gql`
   query ResultGroupList($contestId: ID!) {
@@ -19,13 +20,14 @@ gql`
   }
 `;
 
-interface NavParams {
-  contest: Contest;
+interface Props {
+  navigation: NavigationProp<ResultsStackParamList, "ResultGroupList">;
+  route: RouteProp<ResultsStackParamList, "ResultGroupList">;
 }
 
-const ResultGroupListScreen: NavigationStackScreenComponent<NavParams> = props => {
-  const { navigation } = props;
-  const { id: contestId } = navigation.getParam("contest");
+const ResultGroupListScreen: React.FC<Props> = props => {
+  const { navigation, route } = props;
+  const { id: contestId } = route.params.contest;
 
   const { data, error, loading } = useResultGroupListQuery({
     variables: { contestId },
