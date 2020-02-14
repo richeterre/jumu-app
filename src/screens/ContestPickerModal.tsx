@@ -84,7 +84,8 @@ const ContestPickerModal: React.FC<Props> = props => {
 const styles = StyleSheet.create({
   root: {
     backgroundColor: colors.white,
-    borderRadius: 15,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
     overflow: "hidden",
     margin: 0,
     marginTop: 100,
