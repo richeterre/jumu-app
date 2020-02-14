@@ -1,6 +1,10 @@
-import { NavigationProp, RouteProp } from "@react-navigation/native";
+import {
+  NavigationProp,
+  RouteProp,
+  useScrollToTop,
+} from "@react-navigation/native";
 import { gql } from "apollo-boost";
-import React from "react";
+import React, { useRef } from "react";
 import { FlatList } from "react-native";
 
 import ContestCategoryRow from "../components/ContestCategoryRow";
@@ -29,6 +33,9 @@ const ResultGroupListScreen: React.FC<Props> = props => {
   const { navigation, route } = props;
   const { id: contestId } = route.params.contest;
 
+  const resultGroupListRef = useRef(null);
+  useScrollToTop(resultGroupListRef);
+
   const { data, error, loading } = useResultGroupListQuery({
     variables: { contestId },
   });
@@ -40,6 +47,7 @@ const ResultGroupListScreen: React.FC<Props> = props => {
   } else if (data) {
     return (
       <FlatList
+        ref={resultGroupListRef}
         data={data.contestCategories}
         ItemSeparatorComponent={Divider}
         keyExtractor={item => item.id}

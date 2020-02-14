@@ -1,7 +1,7 @@
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, useScrollToTop } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { gql } from "apollo-boost";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 
 import Divider from "../components/Divider";
@@ -38,6 +38,9 @@ const PerformanceList: React.FC<Props> = props => {
   const { navigation, route } = props;
   const { id, dates, stages } = route.params.contest;
 
+  const performanceListRef = useRef(null);
+  useScrollToTop(performanceListRef);
+
   const [selectedDate, setSelectedDate] = useState(dates[0]);
   const [selectedStage, setSelectedStage] = useState(stages[0]);
 
@@ -56,6 +59,7 @@ const PerformanceList: React.FC<Props> = props => {
     } else if (data) {
       return (
         <FlatList
+          ref={performanceListRef}
           contentContainerStyle={styles.performanceListContainer}
           data={data.performances}
           ItemSeparatorComponent={Divider}
