@@ -57,7 +57,12 @@ const DatePicker: React.FC<Props> = props => {
   );
 };
 
-const formatDate = (date: string) => DateTime.fromISO(date).toFormat("dd MMMM");
+const formatDate = (date: string) =>
+  DateTime.fromISO(date).toLocaleString({
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+  });
 
 const styles = StyleSheet.create({
   root: {
