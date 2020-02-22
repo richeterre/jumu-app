@@ -1,16 +1,10 @@
+import { indexOf } from "lodash";
 import { DateTime } from "luxon";
-import React, { useState } from "react";
-import {
-  StyleProp,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native";
-import Modal from "react-native-modal";
+import React from "react";
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
 import colors from "../constants/colors";
+import textStyles from "../constants/textStyles";
 import TextualButton from "./TextualButton";
 
 interface Props {
@@ -23,36 +17,28 @@ interface Props {
 const DatePicker: React.FC<Props> = props => {
   const { dates, selectedDate, style, onSelectDate } = props;
 
-  const [modalPickerVisible, setModalPickerVisible] = useState(false);
+  const selectedDateIndex = indexOf(dates, selectedDate);
 
-  const pickDate = (date: string) => {
-    onSelectDate(date);
-    setModalPickerVisible(false);
-  };
+  const prevDate = selectedDateIndex > 0 ? dates[selectedDateIndex - 1] : null;
+
+  const nextDate =
+    selectedDateIndex < dates.length - 1 ? dates[selectedDateIndex + 1] : null;
 
   return (
     <View style={[styles.root, style]}>
       <View style={styles.container}>
-        <TextualButton
-          title={formatDate(selectedDate)}
-          onPress={() => setModalPickerVisible(true)}
-        />
-      </View>
-
-      <Modal
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-        isVisible={modalPickerVisible}
-        onBackdropPress={() => setModalPickerVisible(false)}
-      >
-        <View style={styles.modalPicker}>
-          {dates.map(date => (
-            <TouchableOpacity key={date} onPress={() => pickDate(date)}>
-              <Text style={styles.modalPickerDate}>{formatDate(date)}</Text>
-            </TouchableOpacity>
-          ))}
+        <View style={styles.prevButtonContainer}>
+          {prevDate && (
+            <TextualButton title="←" onPress={() => onSelectDate(prevDate)} />
+          )}
         </View>
-      </Modal>
+        <Text style={styles.selectedDate}>{formatDate(selectedDate)}</Text>
+        <View style={styles.nextButtonContainer}>
+          {nextDate && (
+            <TextualButton title="→" onPress={() => onSelectDate(nextDate)} />
+          )}
+        </View>
+      </View>
     </View>
   );
 };
@@ -71,10 +57,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   container: {
-    flexDirection: "row",
     alignItems: "baseline",
     flex: 1,
-    justifyContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  prevButtonContainer: {
+    alignItems: "flex-start",
+    flex: 1,
+  },
+  selectedDate: {
+    ...textStyles.extraLarge,
+  },
+  nextButtonContainer: {
+    alignItems: "flex-end",
+    flex: 1,
   },
   modalPicker: {
     backgroundColor: colors.white,
