@@ -1,6 +1,7 @@
 import { RouteProp, useScrollToTop } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { gql } from "apollo-boost";
+import { DateTime } from "luxon";
 import React, { useRef, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 
@@ -42,7 +43,9 @@ const PerformanceList: React.FC<Props> = props => {
   const performanceListRef = useRef(null);
   useScrollToTop(performanceListRef);
 
-  const [selectedDate, setSelectedDate] = useState(dates[0]);
+  const initialDate = getInitialDate(dates);
+
+  const [selectedDate, setSelectedDate] = useState(initialDate);
   const [selectedStage, setSelectedStage] = useState(stages[0]);
 
   const { data, error, loading } = usePerformanceListQuery({
@@ -105,6 +108,11 @@ const PerformanceList: React.FC<Props> = props => {
       {renderPerformanceList()}
     </>
   );
+};
+
+const getInitialDate = (dates: string[]) => {
+  const today = DateTime.local().toISODate();
+  return dates.includes(today) ? today : dates[0];
 };
 
 const styles = StyleSheet.create({
