@@ -10,6 +10,7 @@ import Divider from "../components/Divider";
 import ErrorView from "../components/ErrorView";
 import IconButton from "../components/IconButton";
 import LoadingView from "../components/LoadingView";
+import TextualButton from "../components/TextualButton";
 import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
 import { ListContest } from "../graphql/documents/fragments";
@@ -30,7 +31,7 @@ gql`
 interface Props {
   visible: boolean;
   onCancel: () => void;
-  onSelectContest: (contest: Contest) => void;
+  onSelectContest: (contest?: Contest) => void;
 }
 
 const ContestPickerModal: React.FC<Props> = props => {
@@ -69,6 +70,14 @@ const ContestPickerModal: React.FC<Props> = props => {
       <View style={styles.header}>
         <View>
           <Text style={styles.headerTitle}>Wettbewerb wählen</Text>
+          <View style={styles.headerSubtitle}>
+            <Text style={styles.headerSubtitleText}>{"oder "}</Text>
+            <TextualButton
+              title="zur Startansicht"
+              titleStyle={styles.resetButtonTitle}
+              onPress={() => onSelectContest(undefined)}
+            />
+          </View>
         </View>
         <IconButton
           source={cancelIcon}
@@ -100,6 +109,18 @@ const styles = StyleSheet.create({
   headerTitle: {
     ...textStyles.large,
     fontWeight: "bold",
+  },
+  headerSubtitle: {
+    flexDirection: "row",
+    marginTop: 2,
+  },
+  headerSubtitleText: {
+    ...textStyles.small,
+    color: colors.midGray,
+  },
+  resetButtonTitle: {
+    ...textStyles.small,
+    color: colors.brand,
   },
 });
 
