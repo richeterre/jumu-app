@@ -16,7 +16,8 @@ exports[`PerformanceRow renders correctly 1`] = `
     Object {
       "flexDirection": "row",
       "opacity": 1,
-      "padding": 16,
+      "paddingHorizontal": 15,
+      "paddingVertical": 10,
     }
   }
 >
@@ -55,7 +56,7 @@ exports[`PerformanceRow renders correctly 1`] = `
         Object {
           "fontFamily": "Lato",
           "fontSize": 16,
-          "marginTop": 4,
+          "marginTop": 8,
         }
       }
     >

@@ -38,12 +38,12 @@ export type Appearance = {
 
 export type Contest = {
   __typename?: "Contest";
-  /** The country code of the contest's host. */
-  countryCode: Scalars["String"];
   /** The dates on which the contest is happening. */
   dates: Array<Scalars["Date"]>;
+  /** The host of the contest. */
+  host: Host;
   id: Scalars["ID"];
-  /** The contest’s name containing the round, year and host. */
+  /** The contest's name containing the round, year and host. */
   name: Scalars["String"];
   /** The stages used in this contest. */
   stages: Array<Stage>;
@@ -60,8 +60,8 @@ export type ContestCategory = {
 
 export type Host = {
   __typename?: "Host";
-  /** The country code of the host. */
-  countryCode: Scalars["String"];
+  /** The country code(s) associated with the host. */
+  countryCodes: Array<Scalars["String"]>;
   id: Scalars["ID"];
   /** The name of the host. */
   name: Scalars["String"];
@@ -153,12 +153,27 @@ export type Stage = {
 
 export type ListContestFragment = { __typename?: "Contest" } & Pick<
   Contest,
-  "id" | "name" | "countryCode" | "dates"
-> & { stages: Array<{ __typename?: "Stage" } & Pick<Stage, "id" | "name">> };
+  "id" | "name" | "dates"
+> & {
+    host: { __typename?: "Host" } & Pick<Host, "id" | "countryCodes">;
+    stages: Array<{ __typename?: "Stage" } & Pick<Stage, "id" | "name">>;
+  };
 
 export type PerformanceListAppearanceFragment = {
   __typename?: "Appearance";
 } & Pick<Appearance, "id" | "participantName" | "instrumentName">;
+
+export type ListPerformanceFragment = { __typename?: "Performance" } & Pick<
+  Performance,
+  "id" | "stageTime" | "categoryName" | "ageGroup"
+> & {
+    appearances: Array<
+      { __typename?: "Appearance" } & PerformanceListAppearanceFragment
+    >;
+    predecessorHost: Maybe<
+      { __typename?: "Host" } & Pick<Host, "id" | "name" | "countryCodes">
+    >;
+  };
 
 export type PerformanceAppearanceFragment = {
   __typename?: "Appearance";
@@ -200,16 +215,7 @@ export type PerformanceListQueryVariables = {
 
 export type PerformanceListQuery = { __typename?: "RootQueryType" } & {
   performances: Maybe<
-    Array<
-      { __typename?: "Performance" } & Pick<
-        Performance,
-        "id" | "stageTime" | "categoryName" | "ageGroup"
-      > & {
-          appearances: Array<
-            { __typename?: "Appearance" } & PerformanceListAppearanceFragment
-          >;
-        }
-    >
+    Array<{ __typename?: "Performance" } & ListPerformanceFragment>
   >;
 };
 
@@ -267,7 +273,10 @@ export const ListContestFragmentDoc = gql`
   fragment ListContest on Contest {
     id
     name
-    countryCode
+    host {
+      id
+      countryCodes
+    }
     dates
     stages {
       id
@@ -281,6 +290,23 @@ export const PerformanceListAppearanceFragmentDoc = gql`
     participantName
     instrumentName
   }
+`;
+export const ListPerformanceFragmentDoc = gql`
+  fragment ListPerformance on Performance {
+    id
+    stageTime
+    categoryName
+    ageGroup
+    appearances {
+      ...PerformanceListAppearance
+    }
+    predecessorHost {
+      id
+      name
+      countryCodes
+    }
+  }
+  ${PerformanceListAppearanceFragmentDoc}
 `;
 export const PerformanceAppearanceFragmentDoc = gql`
   fragment PerformanceAppearance on Appearance {
@@ -421,16 +447,10 @@ export type LandingQueryResult = ApolloReactCommon.QueryResult<
 export const PerformanceListDocument = gql`
   query PerformanceList($contestId: ID!, $filter: PerformanceFilter) {
     performances(contestId: $contestId, filter: $filter) {
-      id
-      stageTime
-      categoryName
-      ageGroup
-      appearances {
-        ...PerformanceListAppearance
-      }
+      ...ListPerformance
     }
   }
-  ${PerformanceListAppearanceFragmentDoc}
+  ${ListPerformanceFragmentDoc}
 `;
 
 /**

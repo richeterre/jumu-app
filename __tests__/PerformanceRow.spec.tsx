@@ -7,20 +7,25 @@ describe("PerformanceRow", () => {
   test("renders correctly", () => {
     const performanceRow = renderer.create(
       <PerformanceRow
-        stageTime="09:45:00"
-        categoryInfo="Violine solo, AG II"
-        appearances={[
-          {
-            id: "1",
-            participantName: "Theo Trompeter",
-            instrumentName: "Trompete",
-          },
-          {
-            id: "2",
-            participantName: "Paula Pianistin",
-            instrumentName: "Klavier",
-          },
-        ]}
+        performance={{
+          id: "1",
+          stageTime: "09:45:00",
+          categoryName: "Violine solo",
+          ageGroup: "II",
+          appearances: [
+            {
+              id: "1",
+              participantName: "Theo Trompeter",
+              instrumentName: "Trompete",
+            },
+            {
+              id: "2",
+              participantName: "Paula Pianistin",
+              instrumentName: "Klavier",
+            },
+          ],
+          predecessorHost: null,
+        }}
         onPress={() => {}}
       />
     );

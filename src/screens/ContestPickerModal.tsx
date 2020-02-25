@@ -53,11 +53,7 @@ const ContestPickerModal: React.FC<Props> = props => {
           ItemSeparatorComponent={Divider}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <ContestRow
-              countryCode={item.countryCode}
-              name={item.name}
-              onPress={() => onSelectContest(item)}
-            />
+            <ContestRow contest={item} onPress={() => onSelectContest(item)} />
           )}
         />
       );

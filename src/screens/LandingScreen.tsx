@@ -43,8 +43,7 @@ const LandingScreen: React.FC<Props> = ({ route }) => {
         topContests.map(contest => (
           <ContestRow
             key={contest.id}
-            countryCode={contest.countryCode}
-            name={contest.name}
+            contest={contest}
             onPress={() => onSelectContest(contest)}
           />
         ))

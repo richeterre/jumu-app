@@ -7,8 +7,13 @@ describe("ContestRow", () => {
   test("renders correctly", () => {
     const contestRow = renderer.create(
       <ContestRow
-        name="RW 2019, DS Helsinki"
-        countryCode="FI"
+        contest={{
+          id: "1",
+          name: "RW Helsinki 2019",
+          host: { id: "1", countryCodes: ["FI"] },
+          dates: ["2019-01-01"],
+          stages: [{ id: "1", name: "Aula" }],
+        }}
         onPress={() => {}}
       />
     );

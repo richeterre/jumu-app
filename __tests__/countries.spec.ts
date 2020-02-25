@@ -1,6 +1,6 @@
-import { flag } from "../src/helpers/countries";
+import { flags } from "../src/helpers/countries";
 
-test("returns the correct emoji flag for a country code", () => {
-  const emojis = ["DE", "FI", "EU"].map(flag);
-  expect(emojis).toStrictEqual(["🇩🇪", "🇫🇮", "🇪🇺"]);
+test("returns the correct emoji flags for a list of country codes", () => {
+  const result = flags(["DE", "FI", "EU"]);
+  expect(result).toStrictEqual("🇩🇪🇫🇮🇪🇺");
 });

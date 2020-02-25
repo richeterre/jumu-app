@@ -4,7 +4,10 @@ export const ListContest = gql`
   fragment ListContest on Contest {
     id
     name
-    countryCode
+    host {
+      id
+      countryCodes
+    }
     dates
     stages {
       id
@@ -19,6 +22,24 @@ export const PerformanceListAppearance = gql`
     participantName
     instrumentName
   }
+`;
+
+export const ListPerformance = gql`
+  fragment ListPerformance on Performance {
+    id
+    stageTime
+    categoryName
+    ageGroup
+    appearances {
+      ...PerformanceListAppearance
+    }
+    predecessorHost {
+      id
+      name
+      countryCodes
+    }
+  }
+  ${PerformanceListAppearance}
 `;
 
 export const PerformanceAppearance = gql`

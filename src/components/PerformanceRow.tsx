@@ -2,30 +2,45 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import textStyles from "../constants/textStyles";
-import { PerformanceListAppearanceFragment } from "../graphql/types/generated";
+import { ListPerformanceFragment } from "../graphql/types/generated";
+import { flags } from "../helpers/countries";
 import { isoTimeToString } from "../helpers/dates";
 
 interface Props {
-  stageTime: string;
-  categoryInfo: string;
-  appearances: PerformanceListAppearanceFragment[];
+  performance: ListPerformanceFragment;
   onPress: () => void;
 }
 
 const PerformanceRow: React.FC<Props> = props => {
-  const { stageTime, categoryInfo, appearances, onPress } = props;
+  const {
+    performance: {
+      stageTime,
+      categoryName,
+      ageGroup,
+      appearances,
+      predecessorHost,
+    },
+    onPress,
+  } = props;
 
   return (
     <TouchableOpacity style={styles.root} onPress={onPress}>
       <Text style={styles.stageTime}>{isoTimeToString(stageTime)}</Text>
 
       <View style={styles.container}>
-        <Text style={styles.categoryInfo}>{categoryInfo}</Text>
+        <Text style={styles.categoryInfo}>
+          {`${categoryName}, AG ${ageGroup}`}
+        </Text>
         <Text style={styles.appearances}>
           {appearances
             .map(a => `${a.participantName}, ${a.instrumentName}`)
             .join("\n")}
         </Text>
+        {predecessorHost && (
+          <Text style={styles.predecessorHostInfo}>
+            {flags(predecessorHost.countryCodes)} {predecessorHost.name}
+          </Text>
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -34,7 +49,8 @@ const PerformanceRow: React.FC<Props> = props => {
 const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
-    padding: 16,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   stageTime: {
     ...textStyles.medium,
@@ -50,7 +66,11 @@ const styles = StyleSheet.create({
   },
   appearances: {
     ...textStyles.medium,
-    marginTop: 4,
+    marginTop: 8,
+  },
+  predecessorHostInfo: {
+    ...textStyles.medium,
+    marginTop: 3,
   },
 });
 

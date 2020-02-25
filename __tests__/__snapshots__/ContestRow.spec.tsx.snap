@@ -27,7 +27,7 @@ exports[`ContestRow renders correctly 1`] = `
       }
     }
   >
-    🇫🇮 RW 2019, DS Helsinki
+    🇫🇮 RW Helsinki 2019
   </Text>
 </View>
 `;

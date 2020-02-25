@@ -12,23 +12,15 @@ import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import PerformanceRow from "../components/PerformanceRow";
 import StagePicker from "../components/StagePicker";
-import { PerformanceListAppearance } from "../graphql/documents/fragments";
 import { usePerformanceListQuery } from "../graphql/types/generated";
 import { TimetableStackParamList } from "../navigation/ContestNavigator";
 
 gql`
   query PerformanceList($contestId: ID!, $filter: PerformanceFilter) {
     performances(contestId: $contestId, filter: $filter) {
-      id
-      stageTime
-      categoryName
-      ageGroup
-      appearances {
-        ...PerformanceListAppearance
-      }
+      ...ListPerformance
     }
   }
-  ${PerformanceListAppearance}
 `;
 
 interface Props {
@@ -73,9 +65,7 @@ const PerformanceList: React.FC<Props> = props => {
           }
           renderItem={({ item }) => (
             <PerformanceRow
-              appearances={item.appearances}
-              categoryInfo={`${item.categoryName}, AG ${item.ageGroup}`}
-              stageTime={item.stageTime}
+              performance={item}
               onPress={() =>
                 navigation.navigate("Performance", {
                   id: item.id,
