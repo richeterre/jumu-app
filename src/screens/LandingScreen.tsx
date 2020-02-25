@@ -1,7 +1,13 @@
 import { RouteProp } from "@react-navigation/native";
 import { gql } from "apollo-boost";
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import BorderedButton from "../components/BorderedButton";
 import ContestRow from "../components/ContestRow";
@@ -39,7 +45,7 @@ const LandingScreen: React.FC<Props> = ({ route }) => {
         </Text>
       );
     } else if (loading) {
-      return <Text style={styles.statusText}>Lade aktuelle Wettbewerbe…</Text>;
+      return <ActivityIndicator style={styles.spinner} />;
     } else if (data) {
       return data.contests.length ? (
         data.contests.map(contest => (
@@ -61,7 +67,11 @@ const LandingScreen: React.FC<Props> = ({ route }) => {
     <SafeAreaView style={styles.root}>
       <View style={styles.container}>
         <Text style={styles.heading}>Herzlich willkommen!</Text>
-        <Text style={styles.subheading}>Bitte wähle einen Wettbewerb:</Text>
+        <Text style={styles.subheading}>
+          Bitte wähle zuerst einen Wettbewerb.
+        </Text>
+
+        <Text style={styles.contestsHeading}>Aktuelle Wettbewerbe:</Text>
 
         <View style={styles.contestsContainer}>{renderContests()}</View>
 
@@ -97,15 +107,24 @@ const styles = StyleSheet.create({
   },
   subheading: {
     ...textStyles.large,
-    marginTop: 16,
+    marginTop: 8,
+  },
+  contestsHeading: {
+    ...textStyles.large,
+    color: colors.midGray,
+    marginTop: 24,
   },
   contestsContainer: {
-    marginVertical: 16,
+    marginTop: 8,
+    marginBottom: 16,
   },
   statusText: {
     ...textStyles.medium,
     color: colors.midGray,
     paddingVertical: 16,
+  },
+  spinner: {
+    marginVertical: 12,
   },
 });
 
