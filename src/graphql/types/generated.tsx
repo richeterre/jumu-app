@@ -125,6 +125,8 @@ export type RootQueryType = {
   contestCategories: Maybe<Array<ContestCategory>>;
   /** The contests with public timetables. */
   contests: Array<Contest>;
+  /** The public contests that are currently featured. */
+  featuredContests: Array<Contest>;
   /** A single performance that's scheduled in a public contest. */
   performance: Maybe<Performance>;
   /** The scheduled performances of a public contest. */
@@ -133,10 +135,6 @@ export type RootQueryType = {
 
 export type RootQueryTypeContestCategoriesArgs = {
   contestId: Scalars["ID"];
-};
-
-export type RootQueryTypeContestsArgs = {
-  filter: Maybe<ContestFilter>;
 };
 
 export type RootQueryTypePerformanceArgs = {
@@ -413,7 +411,7 @@ export type ContestPickerModalQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const LandingDocument = gql`
   query Landing {
-    contests {
+    contests: featuredContests {
       ...ListContest
     }
   }

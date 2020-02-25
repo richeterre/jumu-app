@@ -1,6 +1,5 @@
 import { RouteProp } from "@react-navigation/native";
 import { gql } from "apollo-boost";
-import { take } from "lodash";
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
@@ -15,7 +14,7 @@ import ContestPickerModal from "./ContestPickerModal";
 
 gql`
   query Landing {
-    contests {
+    contests: featuredContests {
       ...ListContest
     }
   }
@@ -34,13 +33,16 @@ const LandingScreen: React.FC<Props> = ({ route }) => {
 
   const renderContests = () => {
     if (error) {
-      return <Text>Fehler</Text>;
+      return (
+        <Text style={styles.statusText}>
+          Die Wettbewerbe konnten leider nicht geladen werden. 😕
+        </Text>
+      );
     } else if (loading) {
-      return <Text>Lade Wettbewerbe…</Text>;
+      return <Text style={styles.statusText}>Lade aktuelle Wettbewerbe…</Text>;
     } else if (data) {
-      const topContests = take(data.contests, 3);
-      return topContests.length ? (
-        topContests.map(contest => (
+      return data.contests.length ? (
+        data.contests.map(contest => (
           <ContestRow
             key={contest.id}
             contest={contest}
@@ -48,7 +50,9 @@ const LandingScreen: React.FC<Props> = ({ route }) => {
           />
         ))
       ) : (
-        <Text>No contests found!</Text>
+        <Text style={styles.statusText}>
+          Keine aktuellen Wettbewerbe gefunden.
+        </Text>
       );
     }
   };
@@ -93,10 +97,14 @@ const styles = StyleSheet.create({
   },
   subheading: {
     ...textStyles.large,
-    color: colors.midGray,
-    marginTop: 8,
+    marginTop: 16,
   },
   contestsContainer: {
+    marginVertical: 16,
+  },
+  statusText: {
+    ...textStyles.medium,
+    color: colors.midGray,
     paddingVertical: 16,
   },
 });
