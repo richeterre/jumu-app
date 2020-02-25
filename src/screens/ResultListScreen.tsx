@@ -50,7 +50,7 @@ const ResultListScreen: React.FC<Props> = ({ route }) => {
         ItemSeparatorComponent={Divider}
         keyExtractor={item => item.id}
         ListEmptyComponent={
-          <EmptyView text="In dieser Kategorie wurden noch keine Ergebnisse veröffentlicht." />
+          <EmptyView text="In dieser Kategorie wurden bisher keine Ergebnisse veröffentlicht." />
         }
         renderItem={({ item }) => <ResultRow appearances={item.appearances} />}
       />
@@ -62,7 +62,7 @@ const ResultListScreen: React.FC<Props> = ({ route }) => {
 const styles = StyleSheet.create({
   resultListContainer: {
     flexGrow: 1,
-    paddingVertical: 8,
+    paddingVertical: 4,
   },
 });
 

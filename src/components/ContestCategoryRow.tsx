@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   name: {
     ...textStyles.medium,
