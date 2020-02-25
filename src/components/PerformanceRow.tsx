@@ -3,8 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import textStyles from "../constants/textStyles";
 import { ListPerformanceFragment } from "../graphql/types/generated";
-import { flags } from "../helpers/countries";
 import { isoTimeToString } from "../helpers/dates";
+import { formatHost } from "../helpers/hosts";
 
 interface Props {
   performance: ListPerformanceFragment;
@@ -38,7 +38,7 @@ const PerformanceRow: React.FC<Props> = props => {
         </Text>
         {predecessorHost && (
           <Text style={styles.predecessorHostInfo}>
-            {flags(predecessorHost.countryCodes)} {predecessorHost.name}
+            {formatHost(predecessorHost)}
           </Text>
         )}
       </View>

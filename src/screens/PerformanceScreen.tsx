@@ -21,7 +21,7 @@ import {
   PerformancePieceFragment,
   usePerformanceQuery,
 } from "../graphql/types/generated";
-import { flags } from "../helpers/countries";
+import { formatHost } from "../helpers/hosts";
 import { TimetableStackParamList } from "../navigation/ContestNavigator";
 
 gql`
@@ -132,7 +132,7 @@ const PerformanceScreen: React.FC<Props> = ({ route }) => {
 
       {predecessorHost && (
         <Text style={styles.predecessorHostInfo}>
-          {flags(predecessorHost.countryCodes)} {predecessorHost.name}
+          {formatHost(predecessorHost)}
         </Text>
       )}
 

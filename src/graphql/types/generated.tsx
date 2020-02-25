@@ -33,7 +33,7 @@ export type Appearance = {
   /** The full name of the appearance's participant. */
   participantName: Scalars["String"];
   /** The appearance's result, if publicly available. */
-  result?: Maybe<Result>;
+  result: Maybe<Result>;
 };
 
 export type Contest = {
@@ -79,7 +79,7 @@ export type Performance = {
   /** The performance's pieces. */
   pieces: Array<Piece>;
   /** The host of the performance's predecessor contest. */
-  predecessorHost?: Maybe<Host>;
+  predecessorHost: Maybe<Host>;
   /** The scheduled date of the performance. */
   stageDate: Scalars["Date"];
   /** The scheduled wall time of the performance. */
@@ -116,23 +116,27 @@ export type Result = {
   /** The points awarded to this appearance. */
   points: Scalars["Int"];
   /** The prize corresponding to the appearance's points. */
-  prize?: Maybe<Scalars["String"]>;
+  prize: Maybe<Scalars["String"]>;
 };
 
 export type RootQueryType = {
   __typename?: "RootQueryType";
   /** The contest categories of a public contest. */
-  contestCategories?: Maybe<Array<ContestCategory>>;
+  contestCategories: Maybe<Array<ContestCategory>>;
   /** The contests with public timetables. */
   contests: Array<Contest>;
   /** A single performance that's scheduled in a public contest. */
-  performance?: Maybe<Performance>;
+  performance: Maybe<Performance>;
   /** The scheduled performances of a public contest. */
-  performances?: Maybe<Array<Performance>>;
+  performances: Maybe<Array<Performance>>;
 };
 
 export type RootQueryTypeContestCategoriesArgs = {
   contestId: Scalars["ID"];
+};
+
+export type RootQueryTypeContestsArgs = {
+  filter: Maybe<ContestFilter>;
 };
 
 export type RootQueryTypePerformanceArgs = {
@@ -141,7 +145,7 @@ export type RootQueryTypePerformanceArgs = {
 
 export type RootQueryTypePerformancesArgs = {
   contestId: Scalars["ID"];
-  filter?: Maybe<PerformanceFilter>;
+  filter: Maybe<PerformanceFilter>;
 };
 
 export type Stage = {
@@ -269,6 +273,9 @@ export type ResultListQuery = { __typename?: "RootQueryType" } & {
       { __typename?: "Performance" } & Pick<Performance, "id"> & {
           appearances: Array<
             { __typename?: "Appearance" } & ResultListAppearanceFragment
+          >;
+          predecessorHost: Maybe<
+            { __typename?: "Host" } & PredecessorHostFragment
           >;
         }
     >
@@ -652,9 +659,13 @@ export const ResultListDocument = gql`
       appearances {
         ...ResultListAppearance
       }
+      predecessorHost {
+        ...PredecessorHost
+      }
     }
   }
   ${ResultListAppearanceFragmentDoc}
+  ${PredecessorHostFragmentDoc}
 `;
 
 /**

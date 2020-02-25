@@ -2,15 +2,20 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import textStyles from "../constants/textStyles";
-import { ResultListAppearanceFragment as Appearance } from "../graphql/types/generated";
+import {
+  PredecessorHostFragment,
+  ResultListAppearanceFragment as Appearance,
+} from "../graphql/types/generated";
+import { formatHost } from "../helpers/hosts";
 import Badge from "./Badge";
 
 interface Props {
   appearances: Appearance[];
+  predecessorHost: PredecessorHostFragment | null;
 }
 
 const ResultRow: React.FC<Props> = props => {
-  const { appearances } = props;
+  const { appearances, predecessorHost } = props;
 
   const renderAppearance = (appearance: Appearance) => {
     const { id, participantName, instrumentName, result } = appearance;
@@ -33,7 +38,16 @@ const ResultRow: React.FC<Props> = props => {
     );
   };
 
-  return <View style={styles.root}>{appearances.map(renderAppearance)}</View>;
+  return (
+    <View style={styles.root}>
+      {appearances.map(renderAppearance)}
+      {predecessorHost && (
+        <Text style={styles.predecessorHostInfo}>
+          {formatHost(predecessorHost)}
+        </Text>
+      )}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -65,6 +79,9 @@ const styles = StyleSheet.create({
   },
   advancementBadge: {
     marginLeft: 4,
+  },
+  predecessorHostInfo: {
+    ...textStyles.medium,
   },
 });
 

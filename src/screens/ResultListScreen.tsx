@@ -8,7 +8,10 @@ import EmptyView from "../components/EmptyView";
 import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import ResultRow from "../components/ResultRow";
-import { ResultListAppearance } from "../graphql/documents/fragments";
+import {
+  PredecessorHost,
+  ResultListAppearance,
+} from "../graphql/documents/fragments";
 import { useResultListQuery } from "../graphql/types/generated";
 import { ResultsStackParamList } from "../navigation/ContestNavigator";
 
@@ -22,9 +25,13 @@ gql`
       appearances {
         ...ResultListAppearance
       }
+      predecessorHost {
+        ...PredecessorHost
+      }
     }
   }
   ${ResultListAppearance}
+  ${PredecessorHost}
 `;
 
 interface Props {
@@ -52,7 +59,12 @@ const ResultListScreen: React.FC<Props> = ({ route }) => {
         ListEmptyComponent={
           <EmptyView text="In dieser Kategorie wurden bisher keine Ergebnisse veröffentlicht." />
         }
-        renderItem={({ item }) => <ResultRow appearances={item.appearances} />}
+        renderItem={({ item }) => (
+          <ResultRow
+            appearances={item.appearances}
+            predecessorHost={item.predecessorHost}
+          />
+        )}
       />
     );
   }
