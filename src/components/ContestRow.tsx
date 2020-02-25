@@ -1,7 +1,13 @@
 import { first, last } from "lodash";
 import { DateTime } from "luxon";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 
 import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
@@ -10,11 +16,12 @@ import { flags } from "../helpers/countries";
 
 interface Props {
   contest: ListContestFragment;
+  style?: StyleProp<ViewStyle>;
   onPress: () => void;
 }
 
-const ContestRow: React.FC<Props> = ({ contest, onPress }) => (
-  <TouchableOpacity style={styles.root} onPress={onPress}>
+const ContestRow: React.FC<Props> = ({ contest, style, onPress }) => (
+  <TouchableOpacity style={[styles.root, style]} onPress={onPress}>
     <Text style={styles.name}>
       {`${flags(contest.host.countryCodes)} ${contest.name}`}
     </Text>
@@ -44,7 +51,6 @@ const formatDateRange = (dates: string[]) => {
 
 const styles = StyleSheet.create({
   root: {
-    paddingHorizontal: 15,
     paddingTop: 8,
     paddingBottom: 12,
   },

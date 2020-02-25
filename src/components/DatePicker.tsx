@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   root: {
     alignItems: "center",
     flexDirection: "row",
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
   },
   container: {
     alignItems: "baseline",
@@ -84,14 +84,6 @@ const styles = StyleSheet.create({
   nextButtonContainer: {
     alignItems: "flex-end",
     flex: 1,
-  },
-  modalPicker: {
-    backgroundColor: colors.white,
-    borderRadius: 15,
-    padding: 15,
-  },
-  modalPickerDate: {
-    marginVertical: 10,
   },
 });
 

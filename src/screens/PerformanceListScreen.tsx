@@ -109,14 +109,13 @@ const getInitialDate = (dates: string[]) => {
 
 const styles = StyleSheet.create({
   picker: {
-    marginTop: 15,
+    marginTop: 16,
   },
   performanceList: {
     alignSelf: "stretch",
   },
   performanceListContainer: {
     flexGrow: 1,
-    paddingTop: 5,
   },
 });
 

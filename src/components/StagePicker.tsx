@@ -38,22 +38,6 @@ const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
   },
-  stage: {
-    borderBottomWidth: 3,
-    borderBottomColor: colors.lightGray,
-    alignItems: "center",
-    flex: 1,
-    paddingBottom: 5,
-  },
-  selectedStage: {
-    borderBottomColor: colors.brand,
-  },
-  stageName: {
-    ...textStyles.medium,
-  },
-  selectedStageName: {
-    color: colors.brand,
-  },
 });
 
 export default StagePicker;

@@ -53,7 +53,11 @@ const ContestPickerModal: React.FC<Props> = props => {
           ItemSeparatorComponent={Divider}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <ContestRow contest={item} onPress={() => onSelectContest(item)} />
+            <ContestRow
+              contest={item}
+              style={styles.contestRow}
+              onPress={() => onSelectContest(item)}
+            />
           )}
         />
       );
@@ -89,8 +93,8 @@ const ContestPickerModal: React.FC<Props> = props => {
 const styles = StyleSheet.create({
   root: {
     backgroundColor: colors.white,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
     overflow: "hidden",
     margin: 0,
     marginTop: 100,
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGray,
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 15,
+    padding: 16,
   },
   headerTitle: {
     ...textStyles.large,
@@ -117,6 +121,9 @@ const styles = StyleSheet.create({
   resetButtonTitle: {
     ...textStyles.small,
     color: colors.brand,
+  },
+  contestRow: {
+    paddingHorizontal: 16,
   },
 });
 

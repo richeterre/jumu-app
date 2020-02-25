@@ -16,7 +16,6 @@ exports[`ContestRow renders correctly 1`] = `
     Object {
       "opacity": 1,
       "paddingBottom": 12,
-      "paddingHorizontal": 15,
       "paddingTop": 8,
     }
   }

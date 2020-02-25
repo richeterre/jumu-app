@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "flex-start",
-    padding: 16,
+    padding: 24,
   },
   heading: {
     ...textStyles.extraLarge,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   contestsContainer: {
-    paddingVertical: 15,
+    paddingVertical: 16,
   },
 });
 

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.lightGray,
     alignItems: "center",
     flex: 1,
-    paddingVertical: 5,
+    paddingVertical: 6,
   },
   selectedRoot: {
     borderBottomColor: colors.brand,
