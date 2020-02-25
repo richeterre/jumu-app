@@ -14,12 +14,14 @@ import textStyles from "../constants/textStyles";
 import {
   PerformanceAppearance,
   PerformancePiece,
+  PredecessorHost,
 } from "../graphql/documents/fragments";
 import {
   PerformanceAppearanceFragment,
   PerformancePieceFragment,
   usePerformanceQuery,
 } from "../graphql/types/generated";
+import { flags } from "../helpers/countries";
 import { TimetableStackParamList } from "../navigation/ContestNavigator";
 
 gql`
@@ -33,6 +35,9 @@ gql`
       appearances {
         ...PerformanceAppearance
       }
+      predecessorHost {
+        ...PredecessorHost
+      }
       pieces {
         ...PerformancePiece
       }
@@ -40,6 +45,7 @@ gql`
   }
   ${PerformanceAppearance}
   ${PerformancePiece}
+  ${PredecessorHost}
 `;
 
 interface Props {
@@ -61,6 +67,7 @@ const PerformanceScreen: React.FC<Props> = ({ route }) => {
     stageDate,
     stageTime,
     appearances,
+    predecessorHost,
     pieces,
   } = data.performance;
 
@@ -123,6 +130,12 @@ const PerformanceScreen: React.FC<Props> = ({ route }) => {
       )}
       {acc.map(renderAppearance)}
 
+      {predecessorHost && (
+        <Text style={styles.predecessorHostInfo}>
+          {flags(predecessorHost.countryCodes)} {predecessorHost.name}
+        </Text>
+      )}
+
       <Divider style={styles.divider} />
 
       {pieces.map(renderPiece)}
@@ -155,12 +168,12 @@ const styles = StyleSheet.create({
   },
   ageGroup: {
     ...textStyles.large,
-    marginBottom: 15,
+    marginBottom: 16,
   },
   iconRow: {
     alignItems: "center",
     flexDirection: "row",
-    marginVertical: 3,
+    marginVertical: 4,
   },
   iconRowText: {
     ...textStyles.medium,
@@ -168,7 +181,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     alignSelf: "center",
-    marginVertical: 15,
+    marginVertical: 16,
     marginLeft: 0,
     width: "67%",
   },
@@ -183,6 +196,10 @@ const styles = StyleSheet.create({
     ...textStyles.small,
     color: colors.midGray,
     marginTop: 8,
+  },
+  predecessorHostInfo: {
+    ...textStyles.medium,
+    marginTop: 3,
   },
   piece: {
     marginBottom: 8,

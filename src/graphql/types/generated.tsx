@@ -163,6 +163,11 @@ export type PerformanceListAppearanceFragment = {
   __typename?: "Appearance";
 } & Pick<Appearance, "id" | "participantName" | "instrumentName">;
 
+export type PredecessorHostFragment = { __typename?: "Host" } & Pick<
+  Host,
+  "id" | "name" | "countryCodes"
+>;
+
 export type ListPerformanceFragment = { __typename?: "Performance" } & Pick<
   Performance,
   "id" | "stageTime" | "categoryName" | "ageGroup"
@@ -170,9 +175,7 @@ export type ListPerformanceFragment = { __typename?: "Performance" } & Pick<
     appearances: Array<
       { __typename?: "Appearance" } & PerformanceListAppearanceFragment
     >;
-    predecessorHost: Maybe<
-      { __typename?: "Host" } & Pick<Host, "id" | "name" | "countryCodes">
-    >;
+    predecessorHost: Maybe<{ __typename?: "Host" } & PredecessorHostFragment>;
   };
 
 export type PerformanceAppearanceFragment = {
@@ -231,6 +234,9 @@ export type PerformanceQuery = { __typename?: "RootQueryType" } & {
     > & {
         appearances: Array<
           { __typename?: "Appearance" } & PerformanceAppearanceFragment
+        >;
+        predecessorHost: Maybe<
+          { __typename?: "Host" } & PredecessorHostFragment
         >;
         pieces: Array<{ __typename?: "Piece" } & PerformancePieceFragment>;
       }
@@ -291,6 +297,13 @@ export const PerformanceListAppearanceFragmentDoc = gql`
     instrumentName
   }
 `;
+export const PredecessorHostFragmentDoc = gql`
+  fragment PredecessorHost on Host {
+    id
+    name
+    countryCodes
+  }
+`;
 export const ListPerformanceFragmentDoc = gql`
   fragment ListPerformance on Performance {
     id
@@ -301,12 +314,11 @@ export const ListPerformanceFragmentDoc = gql`
       ...PerformanceListAppearance
     }
     predecessorHost {
-      id
-      name
-      countryCodes
+      ...PredecessorHost
     }
   }
   ${PerformanceListAppearanceFragmentDoc}
+  ${PredecessorHostFragmentDoc}
 `;
 export const PerformanceAppearanceFragmentDoc = gql`
   fragment PerformanceAppearance on Appearance {
@@ -513,12 +525,16 @@ export const PerformanceDocument = gql`
       appearances {
         ...PerformanceAppearance
       }
+      predecessorHost {
+        ...PredecessorHost
+      }
       pieces {
         ...PerformancePiece
       }
     }
   }
   ${PerformanceAppearanceFragmentDoc}
+  ${PredecessorHostFragmentDoc}
   ${PerformancePieceFragmentDoc}
 `;
 

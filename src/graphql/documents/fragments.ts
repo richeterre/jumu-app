@@ -24,6 +24,14 @@ export const PerformanceListAppearance = gql`
   }
 `;
 
+export const PredecessorHost = gql`
+  fragment PredecessorHost on Host {
+    id
+    name
+    countryCodes
+  }
+`;
+
 export const ListPerformance = gql`
   fragment ListPerformance on Performance {
     id
@@ -34,12 +42,11 @@ export const ListPerformance = gql`
       ...PerformanceListAppearance
     }
     predecessorHost {
-      id
-      name
-      countryCodes
+      ...PredecessorHost
     }
   }
   ${PerformanceListAppearance}
+  ${PredecessorHost}
 `;
 
 export const PerformanceAppearance = gql`

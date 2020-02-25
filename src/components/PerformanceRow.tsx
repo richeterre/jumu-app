@@ -49,8 +49,8 @@ const PerformanceRow: React.FC<Props> = props => {
 const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   stageTime: {
     ...textStyles.medium,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginLeft: 15,
+    marginLeft: 16,
   },
   categoryInfo: {
     ...textStyles.medium,

@@ -12,6 +12,7 @@ import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import PerformanceRow from "../components/PerformanceRow";
 import StagePicker from "../components/StagePicker";
+import { ListPerformance } from "../graphql/documents/fragments";
 import { usePerformanceListQuery } from "../graphql/types/generated";
 import { TimetableStackParamList } from "../navigation/ContestNavigator";
 
@@ -21,6 +22,7 @@ gql`
       ...ListPerformance
     }
   }
+  ${ListPerformance}
 `;
 
 interface Props {
