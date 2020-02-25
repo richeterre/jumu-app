@@ -48,10 +48,11 @@ const StagePickerOption: React.FC<Props> = props => {
 
 const styles = StyleSheet.create({
   root: {
+    alignItems: "center",
     borderBottomWidth: 3,
     borderBottomColor: colors.lightGray,
-    alignItems: "center",
     flex: 1,
+    justifyContent: "center",
     paddingVertical: 6,
   },
   selectedRoot: {
