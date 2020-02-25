@@ -14,7 +14,7 @@ import ContestPickerModal from "./ContestPickerModal";
 
 gql`
   query Landing {
-    contests: featuredContests {
+    contests: featuredContests(limit: 4) {
       ...ListContest
     }
   }

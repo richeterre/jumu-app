@@ -137,6 +137,10 @@ export type RootQueryTypeContestCategoriesArgs = {
   contestId: Scalars["ID"];
 };
 
+export type RootQueryTypeFeaturedContestsArgs = {
+  limit: Scalars["Int"];
+};
+
 export type RootQueryTypePerformanceArgs = {
   id: Scalars["ID"];
 };
@@ -411,7 +415,7 @@ export type ContestPickerModalQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const LandingDocument = gql`
   query Landing {
-    contests: featuredContests {
+    contests: featuredContests(limit: 4) {
       ...ListContest
     }
   }
