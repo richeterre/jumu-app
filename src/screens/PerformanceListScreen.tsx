@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
   },
   performanceListContainer: {
     flexGrow: 1,
+    paddingTop: 5,
   },
 });
 

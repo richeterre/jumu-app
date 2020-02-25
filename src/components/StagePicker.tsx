@@ -1,16 +1,10 @@
 import React from "react";
-import {
-  StyleProp,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
 import { Stage } from "../graphql/types/generated";
+import StagePickerOption from "./StagePickerOption";
 
 interface Props {
   stages: Stage[];
@@ -24,20 +18,14 @@ const StagePicker: React.FC<Props> = props => {
 
   return (
     <View style={[styles.root, style]}>
-      {stages.map((stage, index) => {
-        const selectedStyle =
-          stage === selectedStage ? styles.selectedStage : undefined;
-
-        return (
-          <TouchableOpacity
-            key={index}
-            style={[styles.stage, selectedStyle]}
-            onPress={() => onSelectStage(stage)}
-          >
-            <Text style={styles.stageName}>{stage.name}</Text>
-          </TouchableOpacity>
-        );
-      })}
+      {stages.map(stage => (
+        <StagePickerOption
+          key={stage.id}
+          isSelected={stage === selectedStage}
+          stage={stage}
+          onPress={() => onSelectStage(stage)}
+        />
+      ))}
     </View>
   );
 };
@@ -45,10 +33,10 @@ const StagePicker: React.FC<Props> = props => {
 const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
-    paddingHorizontal: 15,
   },
   stage: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 3,
+    borderBottomColor: colors.lightGray,
     alignItems: "center",
     flex: 1,
     paddingBottom: 5,
@@ -57,7 +45,10 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.brand,
   },
   stageName: {
-    ...textStyles.small,
+    ...textStyles.medium,
+  },
+  selectedStageName: {
+    color: colors.brand,
   },
 });
 

@@ -1,5 +1,6 @@
 export default {
   brand: "#C82432",
+  lightenedBrand: "#F2B9BE",
   lightGray: "#EEEEEE",
   lighterGray: "#F7F7F7",
   midGray: "#666666",
