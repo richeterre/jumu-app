@@ -7,18 +7,23 @@ import { Stage } from "../graphql/types/generated";
 
 interface Props {
   isSelected: boolean;
+  layout: "compact" | "normal";
   stage: Stage;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 const StagePickerOption: React.FC<Props> = props => {
-  const { isSelected, stage, onPress } = props;
+  const { isSelected, layout, stage, onPress } = props;
 
   const [isPressed, setPressed] = useState(false);
+
+  const titleStyle =
+    layout === "compact" ? textStyles.medium : textStyles.large;
 
   return (
     <TouchableOpacity
       activeOpacity={1}
+      disabled={!onPress}
       style={[
         styles.root,
         isSelected && styles.selectedRoot,
@@ -30,7 +35,7 @@ const StagePickerOption: React.FC<Props> = props => {
     >
       <Text
         style={[
-          styles.title,
+          titleStyle,
           isSelected && styles.selectedTitle,
           isPressed && styles.pressedTitle,
         ]}
@@ -54,9 +59,6 @@ const styles = StyleSheet.create({
   },
   pressedRoot: {
     borderBottomColor: colors.lightenedBrand,
-  },
-  title: {
-    ...textStyles.medium,
   },
   selectedTitle: {
     color: colors.brand,

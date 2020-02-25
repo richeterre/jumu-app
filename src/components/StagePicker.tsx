@@ -16,14 +16,18 @@ interface Props {
 const StagePicker: React.FC<Props> = props => {
   const { stages, selectedStage, onSelectStage, style } = props;
 
+  const allowsPicking = stages.length > 1;
+  const needsCompactLayout = stages.length > 3;
+
   return (
     <View style={[styles.root, style]}>
       {stages.map(stage => (
         <StagePickerOption
           key={stage.id}
-          isSelected={stage === selectedStage}
+          isSelected={allowsPicking && stage === selectedStage}
+          layout={needsCompactLayout ? "compact" : "normal"}
           stage={stage}
-          onPress={() => onSelectStage(stage)}
+          onPress={allowsPicking ? () => onSelectStage(stage) : undefined}
         />
       ))}
     </View>
