@@ -42,7 +42,7 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 interface Props {
   contest: Contest;
-  onSwitchContest: (contest: Contest) => void;
+  onSwitchContest: (contest?: Contest) => void;
 }
 
 const ContestNavigator: React.FC<Props> = props => {
