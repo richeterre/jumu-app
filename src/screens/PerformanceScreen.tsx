@@ -1,9 +1,13 @@
 import { RouteProp } from "@react-navigation/native";
 import { gql } from "apollo-boost";
 import { partition } from "lodash";
+import { DateTime } from "luxon";
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
+import calendarIcon from "../../assets/images/icon-calendar.png";
+import clockIcon from "../../assets/images/icon-clock.png";
+import markerIcon from "../../assets/images/icon-marker.png";
 import Divider from "../components/Divider";
 import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
@@ -96,9 +100,19 @@ const PerformanceScreen: React.FC<Props> = ({ route }) => {
     >
       <Text style={styles.categoryName}>{categoryName}</Text>
       <Text style={styles.ageGroup}>Altersgruppe {ageGroup}</Text>
-      <Text style={styles.stageDate}>{stageDate}</Text>
-      <Text style={styles.stageTime}>{stageTime}</Text>
-      <Text style={styles.stageName}>{stage.name}</Text>
+
+      <View style={styles.iconRow}>
+        <Image source={calendarIcon} />
+        <Text style={styles.iconRowText}>{formatDate(stageDate)}</Text>
+      </View>
+      <View style={styles.iconRow}>
+        <Image source={clockIcon} />
+        <Text style={styles.iconRowText}>{formatTime(stageTime)}</Text>
+      </View>
+      <View style={styles.iconRow}>
+        <Image source={markerIcon} />
+        <Text style={styles.iconRowText}>{stage.name}</Text>
+      </View>
 
       <Divider style={styles.divider} />
 
@@ -116,6 +130,20 @@ const PerformanceScreen: React.FC<Props> = ({ route }) => {
   );
 };
 
+const formatDate = (date: string) =>
+  DateTime.fromISO(date).toLocaleString({
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+  });
+
+const formatTime = (time: string) =>
+  DateTime.fromISO(time).toLocaleString({
+    hour: "numeric",
+    minute: "numeric",
+  });
+
 const styles = StyleSheet.create({
   scrollViewContainer: {
     padding: 16,
@@ -127,20 +155,20 @@ const styles = StyleSheet.create({
   },
   ageGroup: {
     ...textStyles.large,
+    marginBottom: 15,
   },
-  stageDate: {
-    ...textStyles.medium,
-    marginTop: 16,
+  iconRow: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginVertical: 3,
   },
-  stageTime: {
+  iconRowText: {
     ...textStyles.medium,
-  },
-  stageName: {
-    ...textStyles.medium,
+    marginLeft: 6,
   },
   divider: {
     alignSelf: "center",
-    marginVertical: 16,
+    marginVertical: 15,
     marginLeft: 0,
     width: "67%",
   },
