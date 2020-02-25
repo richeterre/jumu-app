@@ -15,7 +15,9 @@ exports[`ContestRow renders correctly 1`] = `
   style={
     Object {
       "opacity": 1,
-      "padding": 16,
+      "paddingBottom": 12,
+      "paddingHorizontal": 15,
+      "paddingTop": 8,
     }
   }
 >
@@ -28,6 +30,17 @@ exports[`ContestRow renders correctly 1`] = `
     }
   >
     🇫🇮 RW Helsinki 2019
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "#666666",
+        "fontFamily": "Lato",
+        "fontSize": 16,
+      }
+    }
+  >
+    January 1
   </Text>
 </View>
 `;
