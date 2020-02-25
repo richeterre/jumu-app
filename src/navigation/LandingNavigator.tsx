@@ -6,13 +6,13 @@ import { ListContestFragment as Contest } from "../graphql/types/generated";
 import LandingScreen from "../screens/LandingScreen";
 
 export type LandingStackParamList = {
-  Landing: { onSelectContest: (contest: Contest) => void };
+  Landing: { onSelectContest: (contest?: Contest) => void };
 };
 
 const LandingStack = createStackNavigator<LandingStackParamList>();
 
 interface Props {
-  onSelectContest: (contest: Contest) => void;
+  onSelectContest: (contest?: Contest) => void;
 }
 
 const ContestNavigator: React.FC<Props> = props => {
