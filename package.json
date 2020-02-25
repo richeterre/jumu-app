@@ -42,7 +42,7 @@
     "@types/lodash": "^4.14.148",
     "@types/luxon": "^1.15.2",
     "@types/react": "^16.9.11",
-    "@types/react-native": "^0.60.22",
+    "@types/react-native": "^0.61.17",
     "@types/react-test-renderer": "^16.9.1",
     "babel-jest": "^24.9.0",
     "eslint": "^6.6.0",
