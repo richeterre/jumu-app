@@ -56,9 +56,7 @@ const LandingScreen: React.FC<Props> = ({ route }) => {
           />
         ))
       ) : (
-        <Text style={styles.statusText}>
-          Keine aktuellen Wettbewerbe gefunden.
-        </Text>
+        <Text style={styles.statusText}>Derzeit laufen keine Wettbewerbe.</Text>
       );
     }
   };
