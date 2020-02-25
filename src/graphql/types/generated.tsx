@@ -270,7 +270,7 @@ export type ResultListQueryVariables = {
 export type ResultListQuery = { __typename?: "RootQueryType" } & {
   performances: Maybe<
     Array<
-      { __typename?: "Performance" } & Pick<Performance, "id"> & {
+      { __typename?: "Performance" } & Pick<Performance, "id" | "ageGroup"> & {
           appearances: Array<
             { __typename?: "Appearance" } & ResultListAppearanceFragment
           >;
@@ -656,6 +656,7 @@ export const ResultListDocument = gql`
       filter: { contestCategoryId: $contestCategoryId, resultsPublic: true }
     ) {
       id
+      ageGroup
       appearances {
         ...ResultListAppearance
       }
