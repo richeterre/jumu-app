@@ -13,4 +13,7 @@ export const defaultStackScreenOptions: StackNavigationOptions = {
     color: colors.white,
   },
   headerBackTitleVisible: false,
+  cardStyle: {
+    backgroundColor: "white",
+  },
 };

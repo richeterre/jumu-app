@@ -96,6 +96,7 @@ const ContestNavigator: React.FC<Props> = props => {
           labelStyle: { ...textStyles.extraSmall },
           activeTintColor: colors.brand,
           inactiveTintColor: colors.midGray,
+          style: { backgroundColor: colors.lighterGray },
         }}
       >
         <BottomTab.Screen
