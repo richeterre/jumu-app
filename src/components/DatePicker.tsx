@@ -3,7 +3,6 @@ import { DateTime } from "luxon";
 import React from "react";
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
-import colors from "../constants/colors";
 import textStyles from "../constants/textStyles";
 import TextualButton from "./TextualButton";
 
