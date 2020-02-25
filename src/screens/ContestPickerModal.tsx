@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   headerSubtitle: {
     flexDirection: "row",
-    marginTop: 2,
+    marginTop: 4,
   },
   headerSubtitleText: {
     ...textStyles.small,
