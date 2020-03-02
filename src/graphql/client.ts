@@ -5,6 +5,11 @@ const client = new ApolloClient({
   link: new HttpLink({
     uri: "https://jumubase-staging.herokuapp.com/graphql",
   }),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "cache-and-network",
+    },
+  },
 });
 
 export default client;
