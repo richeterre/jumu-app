@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "checks": "npm run tsc && npm run lint && npm run test",
-    "graphql-codegen": "graphql-codegen --config graphql-codegen.yml",
+    "graphql-codegen": "graphql-codegen --config graphql-codegen.yml -r dotenv/config",
     "lint": "eslint 'src/**/*'",
     "pods": "cd ios && pod install && cd ..",
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -51,6 +51,7 @@
     "metro-react-native-babel-preset": "^0.57.0",
     "npm-check": "^5.9.0",
     "prettier": "^1.19.1",
+    "react-native-dotenv": "^0.2.0",
     "react-test-renderer": "^16.11.0",
     "typescript": "^3.7.5"
   },

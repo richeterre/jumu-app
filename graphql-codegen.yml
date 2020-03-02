@@ -1,5 +1,8 @@
 overwrite: true
-schema: "https://jumubase-staging.herokuapp.com/graphql"
+schema:
+  - ${API_URI}:
+      headers:
+        X-Api-Key: ${API_KEY}
 generates:
   src/graphql/types/generated.tsx:
     documents:
