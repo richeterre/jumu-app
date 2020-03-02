@@ -3,6 +3,7 @@ import { DateTime } from "luxon";
 import React from "react";
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
+import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
 import TextualButton from "./TextualButton";
 
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
   root: {
     alignItems: "center",
     flexDirection: "row",
-    paddingHorizontal: 16,
+    paddingHorizontal: spacings.large,
   },
   container: {
     alignItems: "baseline",

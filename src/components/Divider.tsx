@@ -2,6 +2,7 @@ import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import colors from "../constants/colors";
+import spacings from "../constants/spacings";
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
   root: {
     backgroundColor: colors.separator,
     height: 1,
-    marginLeft: 16,
+    marginLeft: spacings.large,
   },
 });
 

@@ -12,12 +12,14 @@ import IconButton from "../components/IconButton";
 import LoadingView from "../components/LoadingView";
 import TextualButton from "../components/TextualButton";
 import colors from "../constants/colors";
+import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
 import { ListContest } from "../graphql/documents/fragments";
 import {
   ListContestFragment as Contest,
   useContestPickerModalQuery,
 } from "../graphql/types/generated";
+import { adaptive } from "../helpers/layout";
 
 gql`
   query ContestPickerModal {
@@ -93,18 +95,18 @@ const ContestPickerModal: React.FC<Props> = props => {
 const styles = StyleSheet.create({
   root: {
     backgroundColor: colors.white,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    borderTopLeftRadius: spacings.large,
+    borderTopRightRadius: spacings.large,
     overflow: "hidden",
     margin: 0,
-    marginTop: 100,
+    marginTop: adaptive(100, 80),
   },
   header: {
     alignItems: "center",
     backgroundColor: colors.lightGray,
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 16,
+    padding: spacings.large,
   },
   headerTitle: {
     ...textStyles.large,
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
     color: colors.brand,
   },
   contestRow: {
-    paddingHorizontal: 16,
+    paddingHorizontal: spacings.large,
   },
 });
 

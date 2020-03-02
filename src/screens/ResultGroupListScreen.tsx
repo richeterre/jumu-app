@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/native";
 import { gql } from "apollo-boost";
 import React, { useRef } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList } from "react-native";
 
 import ContestCategoryRow from "../components/ContestCategoryRow";
 import Divider from "../components/Divider";
@@ -48,7 +48,6 @@ const ResultGroupListScreen: React.FC<Props> = props => {
     return (
       <FlatList
         ref={resultGroupListRef}
-        contentContainerStyle={styles.resultGroupListContainer}
         data={data.contestCategories}
         ItemSeparatorComponent={Divider}
         keyExtractor={item => item.id}
@@ -69,11 +68,5 @@ const ResultGroupListScreen: React.FC<Props> = props => {
   }
   return null;
 };
-
-const styles = StyleSheet.create({
-  resultGroupListContainer: {
-    paddingVertical: 4,
-  },
-});
 
 export default ResultGroupListScreen;

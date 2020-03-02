@@ -10,6 +10,7 @@ import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import ResultRow from "../components/ResultRow";
 import colors from "../constants/colors";
+import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
 import {
   PredecessorHost,
@@ -100,8 +101,8 @@ const styles = StyleSheet.create({
     ...textStyles.medium,
     backgroundColor: colors.lighterGray,
     fontWeight: "bold",
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: spacings.large,
+    paddingVertical: spacings.small,
   },
 });
 

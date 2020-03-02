@@ -12,6 +12,7 @@ import {
 import BorderedButton from "../components/BorderedButton";
 import ContestRow from "../components/ContestRow";
 import colors from "../constants/colors";
+import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
 import { ListContest } from "../graphql/documents/fragments";
 import { useLandingQuery } from "../graphql/types/generated";
@@ -98,31 +99,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "flex-start",
-    padding: 24,
+    padding: spacings.extraLarge,
   },
   heading: {
     ...textStyles.extraLarge,
   },
   subheading: {
     ...textStyles.large,
-    marginTop: 8,
+    marginTop: spacings.small,
   },
   contestsHeading: {
     ...textStyles.large,
     color: colors.midGray,
-    marginTop: 24,
+    marginTop: spacings.extraLarge,
   },
   contestsContainer: {
-    marginTop: 8,
-    marginBottom: 16,
+    marginTop: spacings.small,
+    marginBottom: spacings.large,
   },
   statusText: {
     ...textStyles.medium,
     color: colors.midGray,
-    paddingVertical: 16,
+    paddingVertical: spacings.large,
   },
   spinner: {
-    marginVertical: 12,
+    marginVertical: spacings.medium,
   },
 });
 

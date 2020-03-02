@@ -1,26 +1,28 @@
 import { StyleSheet } from "react-native";
 
+import { adaptive } from "../helpers/layout";
+
 const fontFamily = "Lato";
 
 export default StyleSheet.create({
   extraSmall: {
     fontFamily,
-    fontSize: 12,
+    fontSize: adaptive(12, 11),
   },
   small: {
     fontFamily,
-    fontSize: 14,
+    fontSize: adaptive(14, 12),
   },
   medium: {
     fontFamily,
-    fontSize: 16,
+    fontSize: adaptive(16, 14),
   },
   large: {
     fontFamily,
-    fontSize: 18,
+    fontSize: adaptive(18, 16),
   },
   extraLarge: {
     fontFamily,
-    fontSize: 24,
+    fontSize: adaptive(24, 20),
   },
 });

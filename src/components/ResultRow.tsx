@@ -1,12 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
 import {
   PredecessorHostFragment,
   ResultListAppearanceFragment as Appearance,
 } from "../graphql/types/generated";
 import { formatHost } from "../helpers/hosts";
+import { adaptive } from "../helpers/layout";
 import Badge from "./Badge";
 
 interface Props {
@@ -52,8 +54,8 @@ const ResultRow: React.FC<Props> = props => {
 
 const styles = StyleSheet.create({
   root: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: spacings.large,
+    paddingVertical: spacings.small,
   },
   appearance: {
     flexDirection: "row",
@@ -66,13 +68,13 @@ const styles = StyleSheet.create({
   },
   points: {
     ...textStyles.medium,
-    width: 32,
+    width: adaptive(32, 28),
     marginLeft: 8,
   },
   prizeContainer: {
     alignItems: "flex-start",
     flexDirection: "row",
-    width: 80,
+    width: adaptive(80, 76),
   },
   prize: {
     ...textStyles.medium,

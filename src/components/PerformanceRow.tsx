@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
 import { ListPerformanceFragment } from "../graphql/types/generated";
 import { isoTimeToString } from "../helpers/dates";
@@ -49,8 +50,8 @@ const PerformanceRow: React.FC<Props> = props => {
 const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: spacings.large,
+    paddingVertical: spacings.medium,
   },
   stageTime: {
     ...textStyles.medium,
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginLeft: 16,
+    marginLeft: spacings.large,
   },
   categoryInfo: {
     ...textStyles.medium,

@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import colors from "../constants/colors";
+import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
 import { ListContestFragment } from "../graphql/types/generated";
 import { flags } from "../helpers/countries";
@@ -51,8 +52,8 @@ const formatDateRange = (dates: string[]) => {
 
 const styles = StyleSheet.create({
   root: {
-    paddingTop: 8,
-    paddingBottom: 12,
+    paddingTop: spacings.medium - 4,
+    paddingBottom: spacings.medium,
   },
   name: {
     ...textStyles.large,

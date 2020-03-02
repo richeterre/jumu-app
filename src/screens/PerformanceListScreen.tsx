@@ -12,6 +12,7 @@ import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
 import PerformanceRow from "../components/PerformanceRow";
 import StagePicker from "../components/StagePicker";
+import spacings from "../constants/spacings";
 import { ListPerformance } from "../graphql/documents/fragments";
 import { usePerformanceListQuery } from "../graphql/types/generated";
 import { TimetableStackParamList } from "../navigation/ContestNavigator";
@@ -109,7 +110,7 @@ const getInitialDate = (dates: string[]) => {
 
 const styles = StyleSheet.create({
   picker: {
-    marginTop: 16,
+    marginTop: spacings.large,
   },
   performanceList: {
     alignSelf: "stretch",

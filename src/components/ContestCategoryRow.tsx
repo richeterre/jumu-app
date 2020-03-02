@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import colors from "../constants/colors";
+import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
 
 interface Props {
@@ -25,8 +26,7 @@ const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    padding: spacings.large,
   },
   name: {
     ...textStyles.medium,

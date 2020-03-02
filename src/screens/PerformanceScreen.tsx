@@ -10,6 +10,7 @@ import clockIcon from "../../assets/images/icon-clock.png";
 import markerIcon from "../../assets/images/icon-marker.png";
 import Divider from "../components/Divider";
 import colors from "../constants/colors";
+import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
 import {
   PerformanceAppearance,
@@ -159,8 +160,8 @@ const formatTime = (time: string) =>
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
-    padding: 16,
-    paddingBottom: 8,
+    padding: spacings.large,
+    paddingBottom: spacings.small,
   },
   categoryName: {
     ...textStyles.large,
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
   },
   ageGroup: {
     ...textStyles.large,
-    marginBottom: 16,
+    marginBottom: spacings.large,
   },
   iconRow: {
     alignItems: "center",
