@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/client";
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";

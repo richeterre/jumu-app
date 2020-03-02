@@ -12,6 +12,7 @@ generates:
       avoidOptionals:
         inputValue: false
         object: true
+      reactApolloVersion: 3
       scalars:
         Date: string
         Time: string

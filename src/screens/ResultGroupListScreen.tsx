@@ -3,7 +3,7 @@ import {
   RouteProp,
   useScrollToTop,
 } from "@react-navigation/native";
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/client";
 import React, { useRef } from "react";
 import { FlatList } from "react-native";
 

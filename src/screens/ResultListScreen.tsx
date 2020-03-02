@@ -1,5 +1,5 @@
 import { RouteProp } from "@react-navigation/native";
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/client";
 import { groupBy, keys } from "lodash";
 import React from "react";
 import { SectionList, StyleSheet, Text } from "react-native";

@@ -1,5 +1,5 @@
-import * as ApolloReactCommon from "@apollo/react-common";
-import * as ApolloReactHooks from "@apollo/react-hooks";
+import * as ApolloReactCommon from "@apollo/client";
+import * as ApolloReactHooks from "@apollo/client";
 import gql from "graphql-tag";
 export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
@@ -9,127 +9,82 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /**
-   * The `Date` scalar type represents a date. The Date appears in a JSON
-   * response as an ISO8601 formatted string.
-   **/
   Date: string;
-  /**
-   * The `Time` scalar type represents a time. The Time appears in a JSON
-   * response as an ISO8601 formatted string.
-   **/
   Time: string;
 };
 
 export type Appearance = {
   __typename?: "Appearance";
-  /** The appearance's age group (which may differ from the perfomance's). */
   ageGroup: Scalars["String"];
   id: Scalars["ID"];
-  /** The name of the participant's instrument in this appearance. */
   instrumentName: Scalars["String"];
-  /** Whether the appearance's participant has an accompanist role. */
   isAccompanist: Scalars["Boolean"];
-  /** The full name of the appearance's participant. */
   participantName: Scalars["String"];
-  /** The appearance's result, if publicly available. */
   result: Maybe<Result>;
 };
 
 export type Contest = {
   __typename?: "Contest";
-  /** The dates on which the contest is happening. */
   dates: Array<Scalars["Date"]>;
-  /** The host of the contest. */
   host: Host;
   id: Scalars["ID"];
-  /** The contest's name containing the round, year and host. */
   name: Scalars["String"];
-  /** The stages used in this contest. */
   stages: Array<Stage>;
 };
 
 export type ContestCategory = {
   __typename?: "ContestCategory";
   id: Scalars["ID"];
-  /** The contest category's name. */
   name: Scalars["String"];
-  /** The amount of performances with public results in this contest category. */
   publicResultCount: Scalars["Int"];
 };
 
 export type Host = {
   __typename?: "Host";
-  /** The country code(s) associated with the host. */
   countryCodes: Array<Scalars["String"]>;
   id: Scalars["ID"];
-  /** The name of the host. */
   name: Scalars["String"];
 };
 
 export type Performance = {
   __typename?: "Performance";
-  /** The performance's age group. */
   ageGroup: Scalars["String"];
-  /** The performance's appearances. */
   appearances: Array<Appearance>;
-  /** The name of the performance's category. */
   categoryName: Scalars["String"];
   id: Scalars["ID"];
-  /** The performance's pieces. */
   pieces: Array<Piece>;
-  /** The host of the performance's predecessor contest. */
   predecessorHost: Maybe<Host>;
-  /** The scheduled date of the performance. */
   stageDate: Scalars["Date"];
-  /** The scheduled wall time of the performance. */
   stageTime: Scalars["Time"];
 };
 
 export type PerformanceFilter = {
-  /** The ID of the performances' contest category. */
   contestCategoryId?: Maybe<Scalars["ID"]>;
-  /** Whether the performances' results are public. */
   resultsPublic?: Maybe<Scalars["Boolean"]>;
-  /** The date on which the performances are scheduled. */
   stageDate?: Maybe<Scalars["Date"]>;
-  /** The ID of the stage on which the performances happen. */
   stageId?: Maybe<Scalars["ID"]>;
 };
 
 export type Piece = {
   __typename?: "Piece";
   id: Scalars["ID"];
-  /**
-   * For classical pieces, this contains the name and biographical dates of the piece's composer.
-   * For popular pieces, the artist name is returned.
-   **/
   personInfo: Scalars["String"];
-  /** The title of the piece. */
   title: Scalars["String"];
 };
 
 export type Result = {
   __typename?: "Result";
-  /** Whether the participant will advance to the next round with this appearance. */
   advances: Scalars["Boolean"];
-  /** The points awarded to this appearance. */
   points: Scalars["Int"];
-  /** The prize corresponding to the appearance's points. */
   prize: Maybe<Scalars["String"]>;
 };
 
 export type RootQueryType = {
   __typename?: "RootQueryType";
-  /** The contest categories of a public contest. */
   contestCategories: Maybe<Array<ContestCategory>>;
-  /** The contests with public timetables. */
   contests: Array<Contest>;
-  /** The public contests that are currently featured. */
   featuredContests: Array<Contest>;
-  /** A single performance that's scheduled in a public contest. */
   performance: Maybe<Performance>;
-  /** The scheduled performances of a public contest. */
   performances: Maybe<Array<Performance>>;
 };
 
@@ -153,7 +108,6 @@ export type RootQueryTypePerformancesArgs = {
 export type Stage = {
   __typename?: "Stage";
   id: Scalars["ID"];
-  /** The public name of the stage. */
   name: Scalars["String"];
 };
 

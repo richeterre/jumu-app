@@ -1,6 +1,6 @@
+import { gql } from "@apollo/client";
 import { RouteProp, useScrollToTop } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { gql } from "apollo-boost";
 import { DateTime } from "luxon";
 import React, { useRef, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
