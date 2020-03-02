@@ -54,16 +54,14 @@ const styles = StyleSheet.create({
     paddingVertical: spacings.medium,
   },
   stageTime: {
-    ...textStyles.medium,
-    fontWeight: "bold",
+    ...textStyles.mediumBold,
   },
   container: {
     flex: 1,
     marginLeft: spacings.large,
   },
   categoryInfo: {
-    ...textStyles.medium,
-    fontWeight: "bold",
+    ...textStyles.mediumBold,
   },
   appearances: {
     ...textStyles.medium,

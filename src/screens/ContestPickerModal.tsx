@@ -113,8 +113,7 @@ const styles = StyleSheet.create({
     padding: spacings.large,
   },
   headerTitle: {
-    ...textStyles.large,
-    fontWeight: "bold",
+    ...textStyles.largeBold,
   },
   headerSubtitle: {
     flexDirection: "row",

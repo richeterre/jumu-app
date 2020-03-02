@@ -23,9 +23,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    ...textStyles.large,
+    ...textStyles.largeBold,
     color: colors.white,
-    fontWeight: "bold",
   },
   dropdownIcon: {
     tintColor: colors.white,

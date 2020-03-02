@@ -101,9 +101,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   sectionHeader: {
-    ...textStyles.medium,
+    ...textStyles.mediumBold,
     backgroundColor: colors.lighterGray,
-    fontWeight: "bold",
     paddingHorizontal: spacings.large,
     paddingVertical: spacings.small,
   },

@@ -27,9 +27,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   text: {
-    ...textStyles.small,
+    ...textStyles.smallBold,
     color: colors.white,
-    fontWeight: "bold",
     textAlign: "center",
   },
 });

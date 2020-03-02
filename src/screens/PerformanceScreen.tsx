@@ -164,8 +164,7 @@ const styles = StyleSheet.create({
     paddingBottom: spacings.small,
   },
   categoryName: {
-    ...textStyles.large,
-    fontWeight: "bold",
+    ...textStyles.largeBold,
   },
   ageGroup: {
     ...textStyles.large,
@@ -187,8 +186,7 @@ const styles = StyleSheet.create({
     width: "67%",
   },
   appearance: {
-    ...textStyles.medium,
-    fontWeight: "bold",
+    ...textStyles.mediumBold,
   },
   accompanistAppearance: {
     fontWeight: "normal",
@@ -206,8 +204,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   piecePersonInfo: {
-    ...textStyles.medium,
-    fontWeight: "bold",
+    ...textStyles.mediumBold,
   },
   pieceTitle: {
     ...textStyles.medium,

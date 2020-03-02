@@ -24,9 +24,8 @@ exports[`PerformanceRow renders correctly 1`] = `
   <Text
     style={
       Object {
-        "fontFamily": "Lato",
+        "fontFamily": "Lato-Bold",
         "fontSize": 16,
-        "fontWeight": "bold",
       }
     }
   >
@@ -43,9 +42,8 @@ exports[`PerformanceRow renders correctly 1`] = `
     <Text
       style={
         Object {
-          "fontFamily": "Lato",
+          "fontFamily": "Lato-Bold",
           "fontSize": 16,
-          "fontWeight": "bold",
         }
       }
     >
@@ -54,7 +52,7 @@ exports[`PerformanceRow renders correctly 1`] = `
     <Text
       style={
         Object {
-          "fontFamily": "Lato",
+          "fontFamily": "Lato-Regular",
           "fontSize": 16,
           "marginTop": 8,
         }

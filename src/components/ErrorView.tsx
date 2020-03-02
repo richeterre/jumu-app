@@ -23,9 +23,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   heading: {
-    ...textStyles.large,
+    ...textStyles.largeBold,
     color: colors.midGray,
-    fontWeight: "bold",
   },
   body: {
     ...textStyles.large,

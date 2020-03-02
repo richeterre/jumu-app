@@ -23,7 +23,7 @@ exports[`ContestRow renders correctly 1`] = `
   <Text
     style={
       Object {
-        "fontFamily": "Lato",
+        "fontFamily": "Lato-Regular",
         "fontSize": 18,
       }
     }
@@ -34,7 +34,7 @@ exports[`ContestRow renders correctly 1`] = `
     style={
       Object {
         "color": "#666666",
-        "fontFamily": "Lato",
+        "fontFamily": "Lato-Regular",
         "fontSize": 16,
       }
     }

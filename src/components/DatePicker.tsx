@@ -75,8 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   prevNextButtonTitle: {
-    ...textStyles.extraLarge,
-    fontWeight: "bold",
+    ...textStyles.extraLargeBold,
   },
   selectedDate: {
     ...textStyles.extraLarge,
