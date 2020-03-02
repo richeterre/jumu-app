@@ -1,4 +1,4 @@
-package com.jumu;
+package jugendmusiziert.jumunordost;
 
 import android.app.Application;
 import android.content.Context;
