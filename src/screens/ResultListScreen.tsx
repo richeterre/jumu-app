@@ -1,5 +1,5 @@
+import { gql, NetworkStatus } from "@apollo/client";
 import { RouteProp } from "@react-navigation/native";
-import { gql } from "@apollo/client";
 import { groupBy, keys } from "lodash";
 import React from "react";
 import { SectionList, StyleSheet, Text } from "react-native";
@@ -49,13 +49,14 @@ interface Props {
 const ResultListScreen: React.FC<Props> = ({ route }) => {
   const { contestId, contestCategoryId } = route.params;
 
-  const { data, error, loading } = useResultListQuery({
+  const { data, error, networkStatus, refetch } = useResultListQuery({
     variables: { contestId, contestCategoryId },
+    notifyOnNetworkStatusChange: true,
   });
 
   if (error) {
     return <ErrorView />;
-  } else if (loading) {
+  } else if (networkStatus === NetworkStatus.loading) {
     return <LoadingView />;
   } else if (data) {
     return (
@@ -66,6 +67,7 @@ const ResultListScreen: React.FC<Props> = ({ route }) => {
         ListEmptyComponent={
           <EmptyView text="In dieser Kategorie wurden bisher keine Ergebnisse veröffentlicht." />
         }
+        refreshing={networkStatus === NetworkStatus.refetch}
         renderItem={({ item }) => (
           <ResultRow
             appearances={item.appearances}
@@ -76,6 +78,7 @@ const ResultListScreen: React.FC<Props> = ({ route }) => {
           <Text style={styles.sectionHeader}>{title}</Text>
         )}
         sections={getSections(data)}
+        onRefresh={refetch}
       />
     );
   }

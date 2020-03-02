@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql, NetworkStatus } from "@apollo/client";
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
@@ -40,12 +40,14 @@ const ContestPickerModal: React.FC<Props> = props => {
   const { visible, onCancel, onSelectContest } = props;
 
   const insets = useSafeArea();
-  const { data, error, loading } = useContestPickerModalQuery();
+  const { data, error, networkStatus, refetch } = useContestPickerModalQuery({
+    notifyOnNetworkStatusChange: true,
+  });
 
   const renderContests = () => {
     if (error) {
       return <ErrorView />;
-    } else if (loading) {
+    } else if (networkStatus === NetworkStatus.loading) {
       return <LoadingView />;
     } else if (data) {
       return (
@@ -54,6 +56,7 @@ const ContestPickerModal: React.FC<Props> = props => {
           data={data.contests}
           ItemSeparatorComponent={Divider}
           keyExtractor={item => item.id}
+          refreshing={networkStatus === NetworkStatus.refetch}
           renderItem={({ item }) => (
             <ContestRow
               contest={item}
@@ -61,6 +64,7 @@ const ContestPickerModal: React.FC<Props> = props => {
               onPress={() => onSelectContest(item)}
             />
           )}
+          onRefresh={refetch}
         />
       );
     }

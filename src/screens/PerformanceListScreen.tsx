@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql, NetworkStatus } from "@apollo/client";
 import { RouteProp, useScrollToTop } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { DateTime } from "luxon";
@@ -43,17 +43,18 @@ const PerformanceList: React.FC<Props> = props => {
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [selectedStage, setSelectedStage] = useState(stages[0]);
 
-  const { data, error, loading } = usePerformanceListQuery({
+  const { data, error, networkStatus, refetch } = usePerformanceListQuery({
     variables: {
       contestId: id,
       filter: { stageDate: selectedDate, stageId: selectedStage.id },
     },
+    notifyOnNetworkStatusChange: true,
   });
 
   const renderPerformanceList = () => {
     if (error) {
       return <ErrorView />;
-    } else if (loading) {
+    } else if (networkStatus === NetworkStatus.loading) {
       return <LoadingView />;
     } else if (data) {
       return (
@@ -66,6 +67,7 @@ const PerformanceList: React.FC<Props> = props => {
           ListEmptyComponent={
             <EmptyView text="An diesem Tag finden am ausgewählten Ort keine Vorspiele statt." />
           }
+          refreshing={networkStatus === NetworkStatus.refetch}
           renderItem={({ item }) => (
             <PerformanceRow
               performance={item}
@@ -78,6 +80,7 @@ const PerformanceList: React.FC<Props> = props => {
             />
           )}
           style={styles.performanceList}
+          onRefresh={refetch}
         />
       );
     }

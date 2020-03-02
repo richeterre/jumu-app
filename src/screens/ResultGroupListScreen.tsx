@@ -1,9 +1,9 @@
+import { gql, NetworkStatus } from "@apollo/client";
 import {
   NavigationProp,
   RouteProp,
   useScrollToTop,
 } from "@react-navigation/native";
-import { gql } from "@apollo/client";
 import React, { useRef } from "react";
 import { FlatList } from "react-native";
 
@@ -36,13 +36,14 @@ const ResultGroupListScreen: React.FC<Props> = props => {
   const resultGroupListRef = useRef(null);
   useScrollToTop(resultGroupListRef);
 
-  const { data, error, loading } = useResultGroupListQuery({
+  const { data, error, networkStatus, refetch } = useResultGroupListQuery({
     variables: { contestId },
+    notifyOnNetworkStatusChange: true,
   });
 
   if (error) {
     return <ErrorView />;
-  } else if (loading) {
+  } else if (networkStatus === NetworkStatus.loading) {
     return <LoadingView />;
   } else if (data) {
     return (
@@ -51,6 +52,7 @@ const ResultGroupListScreen: React.FC<Props> = props => {
         data={data.contestCategories}
         ItemSeparatorComponent={Divider}
         keyExtractor={item => item.id}
+        refreshing={networkStatus === NetworkStatus.refetch}
         renderItem={({ item }) => (
           <ContestCategoryRow
             name={item.name}
@@ -63,6 +65,7 @@ const ResultGroupListScreen: React.FC<Props> = props => {
             }
           />
         )}
+        onRefresh={refetch}
       />
     );
   }

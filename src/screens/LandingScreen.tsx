@@ -1,5 +1,5 @@
-import { RouteProp } from "@react-navigation/native";
 import { gql } from "@apollo/client";
+import { RouteProp } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   ActivityIndicator,

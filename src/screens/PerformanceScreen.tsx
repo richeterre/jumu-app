@@ -1,5 +1,5 @@
-import { RouteProp } from "@react-navigation/native";
 import { gql } from "@apollo/client";
+import { RouteProp } from "@react-navigation/native";
 import { partition } from "lodash";
 import { DateTime } from "luxon";
 import React from "react";
