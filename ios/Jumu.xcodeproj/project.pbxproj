@@ -431,6 +431,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 12;
 				DEAD_CODE_STRIPPING = NO;
+				DISPLAY_NAME = "Jumu weltweit";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Jumu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -452,6 +453,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 12;
+				DISPLAY_NAME = "Jumu weltweit";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Jumu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
