@@ -1,8 +1,6 @@
 import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
-import colors from "../constants/colors";
-import textStyles from "../constants/textStyles";
 import { Stage } from "../graphql/types/generated";
 import StagePickerOption from "./StagePickerOption";
 
