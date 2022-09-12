@@ -456,7 +456,6 @@
 			baseConfigurationReference = 339F500E96224349EE8906FF /* Pods-Jumu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODEPUSH_DEPLOYMENT_KEY = 6Wjz9dykVJGxmRKxpF8r9ITjtLXlIY5lEPj5v;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 544BVFC682;
 				DISPLAY_NAME = "Jumu weltweit";

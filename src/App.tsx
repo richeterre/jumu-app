@@ -2,7 +2,6 @@ import { ApolloProvider } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
 import { Settings as LuxonSettings } from "luxon";
 import React from "react";
-import codePush, { CodePushOptions } from "react-native-code-push";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import client from "./graphql/client";
@@ -20,8 +19,4 @@ const App: React.FC = () => (
   </ApolloProvider>
 );
 
-const codePushOptions: CodePushOptions = {
-  checkFrequency: codePush.CheckFrequency.ON_APP_START,
-};
-
-export default codePush(codePushOptions)(App);
+export default App;
