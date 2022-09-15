@@ -30,6 +30,7 @@ const DatePicker: React.FC<Props> = props => {
         <View style={styles.prevButtonContainer}>
           {prevDate && (
             <TextualButton
+              style={styles.prevNextButton}
               title="←"
               titleStyle={styles.prevNextButtonTitle}
               onPress={() => onSelectDate(prevDate)}
@@ -40,6 +41,7 @@ const DatePicker: React.FC<Props> = props => {
         <View style={styles.nextButtonContainer}>
           {nextDate && (
             <TextualButton
+              style={styles.prevNextButton}
               title="→"
               titleStyle={styles.prevNextButtonTitle}
               onPress={() => onSelectDate(nextDate)}
@@ -74,9 +76,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flex: 1,
   },
+  prevNextButton: {
+    padding: spacings.small,
+  },
   prevNextButtonTitle: {
     ...textStyles.extraLargeBold,
-    padding: spacings.small,
   },
   selectedDate: {
     ...textStyles.extraLarge,
