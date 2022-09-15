@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
     alignItems: "center",
+    minHeight: 40, // hack to prevent visual bug on first load before vertical centering
   },
   title: {
     ...textStyles.largeBold,
