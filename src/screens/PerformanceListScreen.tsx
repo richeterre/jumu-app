@@ -120,7 +120,7 @@ const getInitialDate = (dates: string[]) => {
 
 const styles = StyleSheet.create({
   picker: {
-    marginTop: spacings.large,
+    marginTop: spacings.small,
   },
   performanceList: {
     alignSelf: "stretch",

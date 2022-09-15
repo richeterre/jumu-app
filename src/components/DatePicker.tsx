@@ -62,10 +62,10 @@ const styles = StyleSheet.create({
   root: {
     alignItems: "center",
     flexDirection: "row",
-    paddingHorizontal: spacings.large,
+    paddingHorizontal: spacings.small,
   },
   container: {
-    alignItems: "baseline",
+    alignItems: "center",
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   },
   prevNextButtonTitle: {
     ...textStyles.extraLargeBold,
+    padding: spacings.small,
   },
   selectedDate: {
     ...textStyles.extraLarge,
