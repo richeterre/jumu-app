@@ -2,7 +2,7 @@ import { gql, NetworkStatus } from "@apollo/client";
 import { RouteProp, useScrollToTop } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { DateTime } from "luxon";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 
 import DatePicker from "../components/DatePicker";
@@ -13,6 +13,7 @@ import LoadingView from "../components/LoadingView";
 import PerformanceRow from "../components/PerformanceRow";
 import StagePicker from "../components/StagePicker";
 import spacings from "../constants/spacings";
+import ContestContext from "../contexts/ContestContext";
 import { ListPerformance } from "../graphql/documents/fragments";
 import { usePerformanceListQuery } from "../graphql/types/generated";
 import { TimetableStackParamList } from "../navigation/ContestNavigator";
@@ -34,9 +35,12 @@ interface Props {
   route: RouteProp<TimetableStackParamList, "PerformanceList">;
 }
 
-const PerformanceList: React.FC<Props> = props => {
-  const { navigation, route } = props;
-  const { id, dates, stages } = route.params.contest;
+const PerformanceList: React.FC<Props> = ({ navigation }) => {
+  const { contest } = useContext(ContestContext);
+
+  if (!contest) return <></>;
+
+  const { id, dates, stages } = contest;
 
   const performanceListRef = useRef(null);
   useScrollToTop(performanceListRef);

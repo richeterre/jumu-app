@@ -4,13 +4,14 @@ import {
   RouteProp,
   useScrollToTop,
 } from "@react-navigation/native";
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { FlatList } from "react-native";
 
 import ContestCategoryRow from "../components/ContestCategoryRow";
 import Divider from "../components/Divider";
 import ErrorView from "../components/ErrorView";
 import LoadingView from "../components/LoadingView";
+import ContestContext from "../contexts/ContestContext";
 import { useResultGroupListQuery } from "../graphql/types/generated";
 import { ResultsStackParamList } from "../navigation/ContestNavigator";
 
@@ -29,9 +30,12 @@ interface Props {
   route: RouteProp<ResultsStackParamList, "ResultGroupList">;
 }
 
-const ResultGroupListScreen: React.FC<Props> = props => {
-  const { navigation, route } = props;
-  const { id: contestId } = route.params.contest;
+const ResultGroupListScreen: React.FC<Props> = ({ navigation }) => {
+  const { contest } = useContext(ContestContext);
+
+  if (!contest) return <></>;
+
+  const { id: contestId } = contest;
 
   const resultGroupListRef = useRef(null);
   useScrollToTop(resultGroupListRef);

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { RouteProp } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -14,6 +14,7 @@ import ContestRow from "../components/ContestRow";
 import colors from "../constants/colors";
 import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
+import ContestContext from "../contexts/ContestContext";
 import { ListContest } from "../graphql/documents/fragments";
 import { useLandingQuery } from "../graphql/types/generated";
 import { LandingStackParamList } from "../navigation/LandingNavigator";
@@ -32,8 +33,8 @@ interface Props {
   route: RouteProp<LandingStackParamList, "Landing">;
 }
 
-const LandingScreen: React.FC<Props> = ({ route }) => {
-  const { onSelectContest } = route.params;
+const LandingScreen: React.FC<Props> = () => {
+  const { setContest } = useContext(ContestContext);
 
   const [contestPickerVisible, setContestPickerVisible] = useState(false);
   const { data, error, loading } = useLandingQuery();
@@ -53,7 +54,7 @@ const LandingScreen: React.FC<Props> = ({ route }) => {
           <ContestRow
             key={contest.id}
             contest={contest}
-            onPress={() => onSelectContest(contest)}
+            onPress={() => setContest(contest)}
           />
         ))
       ) : (
@@ -84,7 +85,7 @@ const LandingScreen: React.FC<Props> = ({ route }) => {
           onCancel={() => setContestPickerVisible(false)}
           onSelectContest={contest => {
             setContestPickerVisible(false);
-            onSelectContest(contest);
+            setContest(contest);
           }}
         />
       </View>

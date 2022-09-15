@@ -1,16 +1,17 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React, { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React, { useContext, useState } from "react";
 import { Image } from "react-native";
 
-import scrollFilledIcon from "../../assets/images/icon-scroll-filled.png";
 import scrollIcon from "../../assets/images/icon-scroll.png";
-import timetableFilledIcon from "../../assets/images/icon-timetable-filled.png";
+import scrollFilledIcon from "../../assets/images/icon-scroll-filled.png";
 import timetableIcon from "../../assets/images/icon-timetable.png";
+import timetableFilledIcon from "../../assets/images/icon-timetable-filled.png";
 import HeaderButton from "../components/HeaderButton";
 import colors from "../constants/colors";
 import { defaultStackScreenOptions } from "../constants/defaults";
 import textStyles from "../constants/textStyles";
+import ContestContext from "../contexts/ContestContext";
 import {
   ListContestFragment as Contest,
   Stage,
@@ -40,15 +41,12 @@ const TimetableStack = createNativeStackNavigator<TimetableStackParamList>();
 const ResultsStack = createNativeStackNavigator<ResultsStackParamList>();
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-interface Props {
-  contest: Contest;
-  onSwitchContest: (contest?: Contest) => void;
-}
-
-const ContestNavigator: React.FC<Props> = props => {
-  const { contest, onSwitchContest } = props;
+const ContestNavigator: React.FC = () => {
+  const { contest, setContest } = useContext(ContestContext);
 
   const [contestPickerVisible, setContestPickerVisible] = useState(false);
+
+  if (!contest) return <></>;
 
   const ContestPickerButton = () => (
     <HeaderButton
@@ -61,7 +59,6 @@ const ContestNavigator: React.FC<Props> = props => {
     <TimetableStack.Navigator screenOptions={defaultStackScreenOptions}>
       <TimetableStack.Screen
         component={PerformanceListScreen}
-        initialParams={{ contest }}
         name="PerformanceList"
         options={{ headerTitle: ContestPickerButton }}
       />
@@ -77,7 +74,6 @@ const ContestNavigator: React.FC<Props> = props => {
     <ResultsStack.Navigator screenOptions={defaultStackScreenOptions}>
       <ResultsStack.Screen
         component={ResultGroupListScreen}
-        initialParams={{ contest }}
         name="ResultGroupList"
         options={{ headerTitle: ContestPickerButton }}
       />
@@ -133,7 +129,7 @@ const ContestNavigator: React.FC<Props> = props => {
         onCancel={() => setContestPickerVisible(false)}
         onSelectContest={contest => {
           setContestPickerVisible(false);
-          onSwitchContest(contest);
+          setContest(contest);
         }}
       />
     </>

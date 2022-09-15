@@ -6,34 +6,24 @@ import textStyles from "../constants/textStyles";
 import LandingScreen from "../screens/LandingScreen";
 
 export type LandingStackParamList = {
-  Landing: { onSelectContest: (contest?: Contest) => void };
+  Landing: Record<string, never>;
 };
 
 const LandingStack = createNativeStackNavigator<LandingStackParamList>();
 
-interface Props {
-  onSelectContest: (contest?: Contest) => void;
-}
+const LandingNavigator: React.FC = () => (
+  <LandingStack.Navigator screenOptions={defaultStackScreenOptions}>
+    <LandingStack.Screen
+      component={LandingScreen}
+      name="Landing"
+      options={{
+        headerTitle: "Jumu ♫ weltweit",
+        headerTitleStyle: {
+          ...textStyles.large,
+        },
+      }}
+    />
+  </LandingStack.Navigator>
+);
 
-const ContestNavigator: React.FC<Props> = props => {
-  const { onSelectContest } = props;
-
-  return (
-    <LandingStack.Navigator screenOptions={defaultStackScreenOptions}>
-      <LandingStack.Screen
-        component={LandingScreen}
-        initialParams={{ onSelectContest }}
-        name="Landing"
-        options={{
-          headerTitle: "Jumu ♫ weltweit",
-          headerTitleStyle: {
-            ...textStyles.large,
-            marginBottom: -7, // fix font issue with the ♫ character
-          },
-        }}
-      />
-    </LandingStack.Navigator>
-  );
-};
-
-export default ContestNavigator;
+export default LandingNavigator;
