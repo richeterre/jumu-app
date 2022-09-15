@@ -1,6 +1,6 @@
 import { gql, NetworkStatus } from "@apollo/client";
 import { RouteProp, useScrollToTop } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { DateTime } from "luxon";
 import React, { useRef, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
@@ -27,7 +27,10 @@ gql`
 `;
 
 interface Props {
-  navigation: StackNavigationProp<TimetableStackParamList, "PerformanceList">;
+  navigation: NativeStackNavigationProp<
+    TimetableStackParamList,
+    "PerformanceList"
+  >;
   route: RouteProp<TimetableStackParamList, "PerformanceList">;
 }
 

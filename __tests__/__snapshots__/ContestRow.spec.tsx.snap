@@ -3,8 +3,8 @@
 exports[`ContestRow renders correctly 1`] = `
 <View
   accessible={true}
+  collapsable={false}
   focusable={true}
-  isTVSelectable={true}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}

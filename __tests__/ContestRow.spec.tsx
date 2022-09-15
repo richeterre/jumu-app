@@ -14,7 +14,7 @@ describe("ContestRow", () => {
           dates: ["2019-01-01"],
           stages: [{ id: "1", name: "Aula" }],
         }}
-        onPress={() => {}}
+        onPress={() => undefined}
       />
     );
     expect(contestRow).toMatchSnapshot();

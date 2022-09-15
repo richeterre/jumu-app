@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
 import {
+  Maybe,
   PredecessorHostFragment,
   ResultListAppearanceFragment as Appearance,
 } from "../graphql/types/generated";
@@ -13,7 +14,7 @@ import Badge from "./Badge";
 
 interface Props {
   appearances: Appearance[];
-  predecessorHost: PredecessorHostFragment | null;
+  predecessorHost?: Maybe<PredecessorHostFragment>;
 }
 
 const ResultRow: React.FC<Props> = props => {

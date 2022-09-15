@@ -1,17 +1,18 @@
 module.exports = {
-  root: true,
+  env: {
+    es2021: true,
+    node: true,
+    jest: true,
+  },
   extends: [
-    "@react-native-community",
-    "plugin:prettier/recommended"
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
   ],
-  plugins: ["simple-import-sort"],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint", "simple-import-sort"],
   rules: {
-    "no-shadow": "off",
-    "react/jsx-sort-props": ["error", {
-      "callbacksLast": true,
-      "ignoreCase": true,
-      "reservedFirst": true
-    }],
-    "simple-import-sort/sort": "error",
-  }
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+  },
 };

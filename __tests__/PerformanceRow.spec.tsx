@@ -26,7 +26,7 @@ describe("PerformanceRow", () => {
           ],
           predecessorHost: null,
         }}
-        onPress={() => {}}
+        onPress={() => undefined}
       />
     );
     expect(performanceRow).toMatchSnapshot();

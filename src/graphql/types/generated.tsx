@@ -1,7 +1,17 @@
-import * as ApolloReactCommon from "@apollo/client";
-import * as ApolloReactHooks from "@apollo/client";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -15,77 +25,114 @@ export type Scalars = {
 
 export type Appearance = {
   __typename?: "Appearance";
+  /** The appearance's age group (which may differ from the perfomance's). */
   ageGroup: Scalars["String"];
   id: Scalars["ID"];
+  /** The name of the participant's instrument in this appearance. */
   instrumentName: Scalars["String"];
+  /** Whether the appearance's participant has an accompanist role. */
   isAccompanist: Scalars["Boolean"];
+  /** The full name of the appearance's participant. */
   participantName: Scalars["String"];
-  result: Maybe<Result>;
+  /** The appearance's result, if publicly available. */
+  result?: Maybe<Result>;
 };
 
 export type Contest = {
   __typename?: "Contest";
+  /** The dates on which the contest is happening. */
   dates: Array<Scalars["Date"]>;
+  /** The host of the contest. */
   host: Host;
   id: Scalars["ID"];
+  /** The contest's name containing the round, year and host. */
   name: Scalars["String"];
+  /** The stages used in this contest. */
   stages: Array<Stage>;
 };
 
 export type ContestCategory = {
   __typename?: "ContestCategory";
   id: Scalars["ID"];
+  /** The contest category's name. */
   name: Scalars["String"];
+  /** The amount of performances with public results in this contest category. */
   publicResultCount: Scalars["Int"];
 };
 
 export type Host = {
   __typename?: "Host";
+  /** The country code(s) associated with the host. */
   countryCodes: Array<Scalars["String"]>;
   id: Scalars["ID"];
+  /** The name of the host. */
   name: Scalars["String"];
 };
 
 export type Performance = {
   __typename?: "Performance";
+  /** The performance's age group. */
   ageGroup: Scalars["String"];
+  /** The performance's appearances. */
   appearances: Array<Appearance>;
+  /** The name of the performance's category. */
   categoryName: Scalars["String"];
   id: Scalars["ID"];
+  /** The performance's pieces. */
   pieces: Array<Piece>;
-  predecessorHost: Maybe<Host>;
+  /** The host of the performance's predecessor contest. */
+  predecessorHost?: Maybe<Host>;
+  /** The scheduled date of the performance. */
   stageDate: Scalars["Date"];
+  /** The scheduled wall time of the performance. */
   stageTime: Scalars["Time"];
 };
 
 export type PerformanceFilter = {
-  contestCategoryId?: Maybe<Scalars["ID"]>;
-  resultsPublic?: Maybe<Scalars["Boolean"]>;
-  stageDate?: Maybe<Scalars["Date"]>;
-  stageId?: Maybe<Scalars["ID"]>;
+  /** The ID of the performances' contest category. */
+  contestCategoryId?: InputMaybe<Scalars["ID"]>;
+  /** Whether the performances' results are public. */
+  resultsPublic?: InputMaybe<Scalars["Boolean"]>;
+  /** The date on which the performances are scheduled. */
+  stageDate?: InputMaybe<Scalars["Date"]>;
+  /** The ID of the stage on which the performances happen. */
+  stageId?: InputMaybe<Scalars["ID"]>;
 };
 
 export type Piece = {
   __typename?: "Piece";
   id: Scalars["ID"];
+  /**
+   * For classical pieces, this contains the name and biographical dates of the piece's composer.
+   * For popular pieces, the artist name is returned.
+   */
   personInfo: Scalars["String"];
+  /** The title of the piece. */
   title: Scalars["String"];
 };
 
 export type Result = {
   __typename?: "Result";
+  /** Whether the participant will advance to the next round with this appearance. */
   advances: Scalars["Boolean"];
+  /** The points awarded to this appearance. */
   points: Scalars["Int"];
-  prize: Maybe<Scalars["String"]>;
+  /** The prize corresponding to the appearance's points. */
+  prize?: Maybe<Scalars["String"]>;
 };
 
 export type RootQueryType = {
   __typename?: "RootQueryType";
-  contestCategories: Maybe<Array<ContestCategory>>;
+  /** The contest categories of a public contest. */
+  contestCategories?: Maybe<Array<ContestCategory>>;
+  /** The contests with public timetables. */
   contests: Array<Contest>;
+  /** The public contests that are currently featured. */
   featuredContests: Array<Contest>;
-  performance: Maybe<Performance>;
-  performances: Maybe<Array<Performance>>;
+  /** A single performance that's scheduled in a public contest. */
+  performance?: Maybe<Performance>;
+  /** The scheduled performances of a public contest. */
+  performances?: Maybe<Array<Performance>>;
 };
 
 export type RootQueryTypeContestCategoriesArgs = {
@@ -102,140 +149,224 @@ export type RootQueryTypePerformanceArgs = {
 
 export type RootQueryTypePerformancesArgs = {
   contestId: Scalars["ID"];
-  filter: Maybe<PerformanceFilter>;
+  filter: InputMaybe<PerformanceFilter>;
 };
 
 export type Stage = {
   __typename?: "Stage";
   id: Scalars["ID"];
+  /** The public name of the stage. */
   name: Scalars["String"];
 };
 
-export type ListContestFragment = { __typename?: "Contest" } & Pick<
-  Contest,
-  "id" | "name" | "dates"
-> & {
-    host: { __typename?: "Host" } & Pick<Host, "id" | "countryCodes">;
-    stages: Array<{ __typename?: "Stage" } & Pick<Stage, "id" | "name">>;
-  };
+export type ListContestFragment = {
+  __typename?: "Contest";
+  id: string;
+  name: string;
+  dates: Array<string>;
+  host: { __typename?: "Host"; id: string; countryCodes: Array<string> };
+  stages: Array<{ __typename?: "Stage"; id: string; name: string }>;
+};
 
 export type PerformanceListAppearanceFragment = {
   __typename?: "Appearance";
-} & Pick<Appearance, "id" | "participantName" | "instrumentName">;
+  id: string;
+  participantName: string;
+  instrumentName: string;
+};
 
-export type PredecessorHostFragment = { __typename?: "Host" } & Pick<
-  Host,
-  "id" | "name" | "countryCodes"
->;
+export type PredecessorHostFragment = {
+  __typename?: "Host";
+  id: string;
+  name: string;
+  countryCodes: Array<string>;
+};
 
-export type ListPerformanceFragment = { __typename?: "Performance" } & Pick<
-  Performance,
-  "id" | "stageTime" | "categoryName" | "ageGroup"
-> & {
-    appearances: Array<
-      { __typename?: "Appearance" } & PerformanceListAppearanceFragment
-    >;
-    predecessorHost: Maybe<{ __typename?: "Host" } & PredecessorHostFragment>;
-  };
+export type ListPerformanceFragment = {
+  __typename?: "Performance";
+  id: string;
+  stageTime: string;
+  categoryName: string;
+  ageGroup: string;
+  appearances: Array<{
+    __typename?: "Appearance";
+    id: string;
+    participantName: string;
+    instrumentName: string;
+  }>;
+  predecessorHost?: {
+    __typename?: "Host";
+    id: string;
+    name: string;
+    countryCodes: Array<string>;
+  } | null;
+};
 
 export type PerformanceAppearanceFragment = {
   __typename?: "Appearance";
-} & Pick<
-  Appearance,
-  "id" | "participantName" | "instrumentName" | "isAccompanist" | "ageGroup"
->;
-
-export type PerformancePieceFragment = { __typename?: "Piece" } & Pick<
-  Piece,
-  "id" | "personInfo" | "title"
->;
-
-export type ResultListAppearanceFragment = { __typename?: "Appearance" } & Pick<
-  Appearance,
-  "id" | "participantName" | "instrumentName"
-> & {
-    result: Maybe<
-      { __typename?: "Result" } & Pick<Result, "points" | "prize" | "advances">
-    >;
-  };
-
-export type ContestPickerModalQueryVariables = {};
-
-export type ContestPickerModalQuery = { __typename?: "RootQueryType" } & {
-  contests: Array<{ __typename?: "Contest" } & ListContestFragment>;
+  id: string;
+  participantName: string;
+  instrumentName: string;
+  isAccompanist: boolean;
+  ageGroup: string;
 };
 
-export type LandingQueryVariables = {};
-
-export type LandingQuery = { __typename?: "RootQueryType" } & {
-  contests: Array<{ __typename?: "Contest" } & ListContestFragment>;
+export type PerformancePieceFragment = {
+  __typename?: "Piece";
+  id: string;
+  personInfo: string;
+  title: string;
 };
 
-export type PerformanceListQueryVariables = {
+export type ResultListAppearanceFragment = {
+  __typename?: "Appearance";
+  id: string;
+  participantName: string;
+  instrumentName: string;
+  result?: {
+    __typename?: "Result";
+    points: number;
+    prize?: string | null;
+    advances: boolean;
+  } | null;
+};
+
+export type ContestPickerModalQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ContestPickerModalQuery = {
+  __typename?: "RootQueryType";
+  contests: Array<{
+    __typename?: "Contest";
+    id: string;
+    name: string;
+    dates: Array<string>;
+    host: { __typename?: "Host"; id: string; countryCodes: Array<string> };
+    stages: Array<{ __typename?: "Stage"; id: string; name: string }>;
+  }>;
+};
+
+export type LandingQueryVariables = Exact<{ [key: string]: never }>;
+
+export type LandingQuery = {
+  __typename?: "RootQueryType";
+  contests: Array<{
+    __typename?: "Contest";
+    id: string;
+    name: string;
+    dates: Array<string>;
+    host: { __typename?: "Host"; id: string; countryCodes: Array<string> };
+    stages: Array<{ __typename?: "Stage"; id: string; name: string }>;
+  }>;
+};
+
+export type PerformanceListQueryVariables = Exact<{
   contestId: Scalars["ID"];
-  filter?: Maybe<PerformanceFilter>;
+  filter: InputMaybe<PerformanceFilter>;
+}>;
+
+export type PerformanceListQuery = {
+  __typename?: "RootQueryType";
+  performances?: Array<{
+    __typename?: "Performance";
+    id: string;
+    stageTime: string;
+    categoryName: string;
+    ageGroup: string;
+    appearances: Array<{
+      __typename?: "Appearance";
+      id: string;
+      participantName: string;
+      instrumentName: string;
+    }>;
+    predecessorHost?: {
+      __typename?: "Host";
+      id: string;
+      name: string;
+      countryCodes: Array<string>;
+    } | null;
+  }> | null;
 };
 
-export type PerformanceListQuery = { __typename?: "RootQueryType" } & {
-  performances: Maybe<
-    Array<{ __typename?: "Performance" } & ListPerformanceFragment>
-  >;
-};
-
-export type PerformanceQueryVariables = {
+export type PerformanceQueryVariables = Exact<{
   id: Scalars["ID"];
+}>;
+
+export type PerformanceQuery = {
+  __typename?: "RootQueryType";
+  performance?: {
+    __typename?: "Performance";
+    id: string;
+    stageDate: string;
+    stageTime: string;
+    categoryName: string;
+    ageGroup: string;
+    appearances: Array<{
+      __typename?: "Appearance";
+      id: string;
+      participantName: string;
+      instrumentName: string;
+      isAccompanist: boolean;
+      ageGroup: string;
+    }>;
+    predecessorHost?: {
+      __typename?: "Host";
+      id: string;
+      name: string;
+      countryCodes: Array<string>;
+    } | null;
+    pieces: Array<{
+      __typename?: "Piece";
+      id: string;
+      personInfo: string;
+      title: string;
+    }>;
+  } | null;
 };
 
-export type PerformanceQuery = { __typename?: "RootQueryType" } & {
-  performance: Maybe<
-    { __typename?: "Performance" } & Pick<
-      Performance,
-      "id" | "stageDate" | "stageTime" | "categoryName" | "ageGroup"
-    > & {
-        appearances: Array<
-          { __typename?: "Appearance" } & PerformanceAppearanceFragment
-        >;
-        predecessorHost: Maybe<
-          { __typename?: "Host" } & PredecessorHostFragment
-        >;
-        pieces: Array<{ __typename?: "Piece" } & PerformancePieceFragment>;
-      }
-  >;
-};
-
-export type ResultGroupListQueryVariables = {
+export type ResultGroupListQueryVariables = Exact<{
   contestId: Scalars["ID"];
+}>;
+
+export type ResultGroupListQuery = {
+  __typename?: "RootQueryType";
+  contestCategories?: Array<{
+    __typename?: "ContestCategory";
+    id: string;
+    name: string;
+    publicResultCount: number;
+  }> | null;
 };
 
-export type ResultGroupListQuery = { __typename?: "RootQueryType" } & {
-  contestCategories: Maybe<
-    Array<
-      { __typename?: "ContestCategory" } & Pick<
-        ContestCategory,
-        "id" | "name" | "publicResultCount"
-      >
-    >
-  >;
-};
-
-export type ResultListQueryVariables = {
+export type ResultListQueryVariables = Exact<{
   contestId: Scalars["ID"];
   contestCategoryId: Scalars["ID"];
-};
+}>;
 
-export type ResultListQuery = { __typename?: "RootQueryType" } & {
-  performances: Maybe<
-    Array<
-      { __typename?: "Performance" } & Pick<Performance, "id" | "ageGroup"> & {
-          appearances: Array<
-            { __typename?: "Appearance" } & ResultListAppearanceFragment
-          >;
-          predecessorHost: Maybe<
-            { __typename?: "Host" } & PredecessorHostFragment
-          >;
-        }
-    >
-  >;
+export type ResultListQuery = {
+  __typename?: "RootQueryType";
+  performances?: Array<{
+    __typename?: "Performance";
+    id: string;
+    ageGroup: string;
+    appearances: Array<{
+      __typename?: "Appearance";
+      id: string;
+      participantName: string;
+      instrumentName: string;
+      result?: {
+        __typename?: "Result";
+        points: number;
+        prize?: string | null;
+        advances: boolean;
+      } | null;
+    }>;
+    predecessorHost?: {
+      __typename?: "Host";
+      id: string;
+      name: string;
+      countryCodes: Array<string>;
+    } | null;
+  }> | null;
 };
 
 export const ListContestFragmentDoc = gql`
@@ -336,26 +467,28 @@ export const ContestPickerModalDocument = gql`
  * });
  */
 export function useContestPickerModalQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
+  baseOptions?: Apollo.QueryHookOptions<
     ContestPickerModalQuery,
     ContestPickerModalQueryVariables
   >
 ) {
-  return ApolloReactHooks.useQuery<
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
     ContestPickerModalQuery,
     ContestPickerModalQueryVariables
-  >(ContestPickerModalDocument, baseOptions);
+  >(ContestPickerModalDocument, options);
 }
 export function useContestPickerModalLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+  baseOptions?: Apollo.LazyQueryHookOptions<
     ContestPickerModalQuery,
     ContestPickerModalQueryVariables
   >
 ) {
-  return ApolloReactHooks.useLazyQuery<
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
     ContestPickerModalQuery,
     ContestPickerModalQueryVariables
-  >(ContestPickerModalDocument, baseOptions);
+  >(ContestPickerModalDocument, options);
 }
 export type ContestPickerModalQueryHookResult = ReturnType<
   typeof useContestPickerModalQuery
@@ -363,7 +496,7 @@ export type ContestPickerModalQueryHookResult = ReturnType<
 export type ContestPickerModalLazyQueryHookResult = ReturnType<
   typeof useContestPickerModalLazyQuery
 >;
-export type ContestPickerModalQueryResult = ApolloReactCommon.QueryResult<
+export type ContestPickerModalQueryResult = Apollo.QueryResult<
   ContestPickerModalQuery,
   ContestPickerModalQueryVariables
 >;
@@ -392,30 +525,26 @@ export const LandingDocument = gql`
  * });
  */
 export function useLandingQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    LandingQuery,
-    LandingQueryVariables
-  >
+  baseOptions?: Apollo.QueryHookOptions<LandingQuery, LandingQueryVariables>
 ) {
-  return ApolloReactHooks.useQuery<LandingQuery, LandingQueryVariables>(
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<LandingQuery, LandingQueryVariables>(
     LandingDocument,
-    baseOptions
+    options
   );
 }
 export function useLandingLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    LandingQuery,
-    LandingQueryVariables
-  >
+  baseOptions?: Apollo.LazyQueryHookOptions<LandingQuery, LandingQueryVariables>
 ) {
-  return ApolloReactHooks.useLazyQuery<LandingQuery, LandingQueryVariables>(
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<LandingQuery, LandingQueryVariables>(
     LandingDocument,
-    baseOptions
+    options
   );
 }
 export type LandingQueryHookResult = ReturnType<typeof useLandingQuery>;
 export type LandingLazyQueryHookResult = ReturnType<typeof useLandingLazyQuery>;
-export type LandingQueryResult = ApolloReactCommon.QueryResult<
+export type LandingQueryResult = Apollo.QueryResult<
   LandingQuery,
   LandingQueryVariables
 >;
@@ -446,26 +575,28 @@ export const PerformanceListDocument = gql`
  * });
  */
 export function usePerformanceListQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     PerformanceListQuery,
     PerformanceListQueryVariables
   >
 ) {
-  return ApolloReactHooks.useQuery<
-    PerformanceListQuery,
-    PerformanceListQueryVariables
-  >(PerformanceListDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<PerformanceListQuery, PerformanceListQueryVariables>(
+    PerformanceListDocument,
+    options
+  );
 }
 export function usePerformanceListLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+  baseOptions?: Apollo.LazyQueryHookOptions<
     PerformanceListQuery,
     PerformanceListQueryVariables
   >
 ) {
-  return ApolloReactHooks.useLazyQuery<
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
     PerformanceListQuery,
     PerformanceListQueryVariables
-  >(PerformanceListDocument, baseOptions);
+  >(PerformanceListDocument, options);
 }
 export type PerformanceListQueryHookResult = ReturnType<
   typeof usePerformanceListQuery
@@ -473,7 +604,7 @@ export type PerformanceListQueryHookResult = ReturnType<
 export type PerformanceListLazyQueryHookResult = ReturnType<
   typeof usePerformanceListLazyQuery
 >;
-export type PerformanceListQueryResult = ApolloReactCommon.QueryResult<
+export type PerformanceListQueryResult = Apollo.QueryResult<
   PerformanceListQuery,
   PerformanceListQueryVariables
 >;
@@ -518,32 +649,34 @@ export const PerformanceDocument = gql`
  * });
  */
 export function usePerformanceQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     PerformanceQuery,
     PerformanceQueryVariables
   >
 ) {
-  return ApolloReactHooks.useQuery<PerformanceQuery, PerformanceQueryVariables>(
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<PerformanceQuery, PerformanceQueryVariables>(
     PerformanceDocument,
-    baseOptions
+    options
   );
 }
 export function usePerformanceLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+  baseOptions?: Apollo.LazyQueryHookOptions<
     PerformanceQuery,
     PerformanceQueryVariables
   >
 ) {
-  return ApolloReactHooks.useLazyQuery<
-    PerformanceQuery,
-    PerformanceQueryVariables
-  >(PerformanceDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<PerformanceQuery, PerformanceQueryVariables>(
+    PerformanceDocument,
+    options
+  );
 }
 export type PerformanceQueryHookResult = ReturnType<typeof usePerformanceQuery>;
 export type PerformanceLazyQueryHookResult = ReturnType<
   typeof usePerformanceLazyQuery
 >;
-export type PerformanceQueryResult = ApolloReactCommon.QueryResult<
+export type PerformanceQueryResult = Apollo.QueryResult<
   PerformanceQuery,
   PerformanceQueryVariables
 >;
@@ -574,26 +707,28 @@ export const ResultGroupListDocument = gql`
  * });
  */
 export function useResultGroupListQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     ResultGroupListQuery,
     ResultGroupListQueryVariables
   >
 ) {
-  return ApolloReactHooks.useQuery<
-    ResultGroupListQuery,
-    ResultGroupListQueryVariables
-  >(ResultGroupListDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ResultGroupListQuery, ResultGroupListQueryVariables>(
+    ResultGroupListDocument,
+    options
+  );
 }
 export function useResultGroupListLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+  baseOptions?: Apollo.LazyQueryHookOptions<
     ResultGroupListQuery,
     ResultGroupListQueryVariables
   >
 ) {
-  return ApolloReactHooks.useLazyQuery<
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
     ResultGroupListQuery,
     ResultGroupListQueryVariables
-  >(ResultGroupListDocument, baseOptions);
+  >(ResultGroupListDocument, options);
 }
 export type ResultGroupListQueryHookResult = ReturnType<
   typeof useResultGroupListQuery
@@ -601,7 +736,7 @@ export type ResultGroupListQueryHookResult = ReturnType<
 export type ResultGroupListLazyQueryHookResult = ReturnType<
   typeof useResultGroupListLazyQuery
 >;
-export type ResultGroupListQueryResult = ApolloReactCommon.QueryResult<
+export type ResultGroupListQueryResult = Apollo.QueryResult<
   ResultGroupListQuery,
   ResultGroupListQueryVariables
 >;
@@ -643,32 +778,34 @@ export const ResultListDocument = gql`
  * });
  */
 export function useResultListQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     ResultListQuery,
     ResultListQueryVariables
   >
 ) {
-  return ApolloReactHooks.useQuery<ResultListQuery, ResultListQueryVariables>(
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ResultListQuery, ResultListQueryVariables>(
     ResultListDocument,
-    baseOptions
+    options
   );
 }
 export function useResultListLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+  baseOptions?: Apollo.LazyQueryHookOptions<
     ResultListQuery,
     ResultListQueryVariables
   >
 ) {
-  return ApolloReactHooks.useLazyQuery<
-    ResultListQuery,
-    ResultListQueryVariables
-  >(ResultListDocument, baseOptions);
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ResultListQuery, ResultListQueryVariables>(
+    ResultListDocument,
+    options
+  );
 }
 export type ResultListQueryHookResult = ReturnType<typeof useResultListQuery>;
 export type ResultListLazyQueryHookResult = ReturnType<
   typeof useResultListLazyQuery
 >;
-export type ResultListQueryResult = ApolloReactCommon.QueryResult<
+export type ResultListQueryResult = Apollo.QueryResult<
   ResultListQuery,
   ResultListQueryVariables
 >;

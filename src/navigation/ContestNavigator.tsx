@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState } from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Image } from "react-native";
 
 import scrollFilledIcon from "../../assets/images/icon-scroll-filled.png";
@@ -36,8 +36,8 @@ type BottomTabParamList = {
   Results: undefined;
 };
 
-const TimetableStack = createStackNavigator<TimetableStackParamList>();
-const ResultsStack = createStackNavigator<ResultsStackParamList>();
+const TimetableStack = createNativeStackNavigator<TimetableStackParamList>();
+const ResultsStack = createNativeStackNavigator<ResultsStackParamList>();
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 interface Props {
@@ -92,17 +92,18 @@ const ContestNavigator: React.FC<Props> = props => {
   return (
     <>
       <BottomTab.Navigator
-        tabBarOptions={{
-          labelStyle: { ...textStyles.extraSmall },
-          activeTintColor: colors.brand,
-          inactiveTintColor: colors.midGray,
-          style: { backgroundColor: colors.lighterGray },
+        screenOptions={{
+          tabBarLabelStyle: { ...textStyles.extraSmall },
+          tabBarActiveTintColor: colors.brand,
+          tabBarInactiveTintColor: colors.midGray,
+          tabBarStyle: { backgroundColor: colors.lighterGray },
         }}
       >
         <BottomTab.Screen
           component={Timetable}
           name="Timetable"
           options={{
+            headerShown: false,
             tabBarLabel: "Vorspiele",
             tabBarIcon: ({ focused, color }) => (
               <Image
@@ -116,6 +117,7 @@ const ContestNavigator: React.FC<Props> = props => {
           component={Results}
           name="Results"
           options={{
+            headerShown: false,
             tabBarLabel: "Ergebnisse",
             tabBarIcon: ({ focused, color }) => (
               <Image

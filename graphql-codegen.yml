@@ -15,13 +15,9 @@ generates:
       avoidOptionals:
         inputValue: false
         object: true
-      reactApolloVersion: 3
       scalars:
         Date: string
         Time: string
-      withComponent: false
-      withHOC: false
-      withHooks: true
 hooks:
   afterAllFileWrite:
     - eslint --fix

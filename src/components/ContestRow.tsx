@@ -1,5 +1,5 @@
 import { first, last } from "lodash";
-import { DateTime } from "luxon";
+import { DateTime, DateTimeFormatOptions } from "luxon";
 import React from "react";
 import {
   StyleProp,
@@ -12,11 +12,11 @@ import {
 import colors from "../constants/colors";
 import spacings from "../constants/spacings";
 import textStyles from "../constants/textStyles";
-import { ListContestFragment } from "../graphql/types/generated";
+import { ListContestFragment as Contest } from "../graphql/types/generated";
 import { flags } from "../helpers/countries";
 
 interface Props {
-  contest: ListContestFragment;
+  contest: Contest;
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
 }
@@ -38,7 +38,7 @@ const formatDateRange = (dates: string[]) => {
   const startDate = DateTime.fromISO(startDateISO);
   const endDate = DateTime.fromISO(endDateISO);
 
-  const baseFormat = { day: "numeric", month: "long" };
+  const baseFormat: DateTimeFormatOptions = { day: "numeric", month: "long" };
   const formattedEndDate = endDate.toLocaleString(baseFormat);
 
   if (startDate.equals(endDate)) {

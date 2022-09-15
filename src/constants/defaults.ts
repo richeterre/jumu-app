@@ -1,9 +1,9 @@
-import { StackNavigationOptions } from "@react-navigation/stack";
+import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 
 import colors from "./colors";
 import textStyles from "./textStyles";
 
-export const defaultStackScreenOptions: StackNavigationOptions = {
+export const defaultStackScreenOptions: NativeStackNavigationOptions = {
   headerStyle: {
     backgroundColor: colors.brand,
   },
@@ -13,7 +13,7 @@ export const defaultStackScreenOptions: StackNavigationOptions = {
     color: colors.white,
   },
   headerBackTitleVisible: false,
-  cardStyle: {
-    backgroundColor: "white",
+  contentStyle: {
+    backgroundColor: colors.white,
   },
 };
