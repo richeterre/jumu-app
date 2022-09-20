@@ -138,8 +138,8 @@ android {
         applicationId "jugendmusiziert.jumunordost"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 4194310
-        versionName "2.1.0"
+        versionCode 4194311
+        versionName "2.1.1"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
